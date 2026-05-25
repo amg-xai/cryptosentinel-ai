@@ -1,0 +1,48 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment and secrets — NEVER commit these
+.env
+*.pem
+*.key
+keys/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Data — datasets are too large for Git
+data/raw/
+data/processed/
+data/models/*.pt
+data/models/*.joblib
+data/models/*.pkl
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Benchmark outputs
+benchmark-data/*.json
+benchmark-data/*.csv
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Docker
+.docker/
+
+# OS
+.DS_Store
+Thumbs.db
