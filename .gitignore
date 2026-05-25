@@ -46,3 +46,10 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Reports generated locally (CI uploads these as artifacts)
+pip-audit-report.json
+coverage.xml
+
+# Benchmark baselines ARE committed (they are your perf history)
+# benchmark-data/*.json   <-- intentionally NOT ignored

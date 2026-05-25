@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint & type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dev tools
+        run: |
+          pip install --upgrade pip
+          pip install ruff black mypy pydantic-settings loguru
+
+      - name: Run ruff
+        run: ruff check src/ config/
+
+      - name: Run black (check only)
+        run: black --check src/ config/
+
+      - name: Run mypy
+        run: mypy config/ --ignore-missing-imports
+
+  test:
+    name: Tests & coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install \
+            pytest pytest-cov pytest-asyncio pytest-benchmark \
+            pydantic-settings loguru python-dotenv
+
+      - name: Run tests
+        run: pytest tests/ -v --cov=src --cov-report=xml --ignore=tests/benchmarks
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+  security:
+    name: Dependency vulnerability scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pip-audit
+        run: pip install pip-audit pydantic-settings loguru python-dotenv
+
+      - name: Run pip-audit
+        run: pip-audit --output json -o pip-audit-report.json || true
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit-report
+          path: pip-audit-report.json
+
+  build:
+    name: Verify imports
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pydantic-settings loguru python-dotenv
+
+      - name: Verify core imports
+        run: |
+          python -c "from config.settings import settings; print('settings OK')"
+          python -c "from config.logging_config import get_logger; print('logging OK')"
