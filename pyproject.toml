@@ -21,6 +21,11 @@ warn_unused_configs = true
 testpaths = ["tests"]
 asyncio_mode = "auto"
 addopts = "--cov=src --cov-report=term-missing --cov-report=xml"
+filterwarnings = [
+    "ignore::DeprecationWarning:torch_geometric",
+    "ignore::UserWarning:torch_geometric",
+    "ignore::FutureWarning:torch",
+]
 
 [tool.coverage.run]
 source = ["src"]
