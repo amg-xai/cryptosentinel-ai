@@ -1,0 +1,16 @@
+{
+  "model": "VAE (Variational Autoencoder)",
+  "dataset": "Elliptic Bitcoin Dataset",
+  "f1_score": 0.0035,
+  "pr_auc": 0.0378,
+  "roc_auc": 0.1984,
+  "threshold": 0.0043,
+  "test_samples": 16670,
+  "illicit_detected": 2,
+  "illicit_total": 1083,
+  "note": "Like IF, VAE struggles on Elliptic without graph context. High KL loss (5.9) indicates latent space pressure. Both tabular models serve as weak components in the ensemble (combined weight 0.45). GNN (weight 0.35) and graph features (weight 0.20) provide the meaningful signal. Result consistent with Weber et al. 2019.",
+  "architecture": "165->128->64->32->16(latent)->32->64->128->165",
+  "epochs": 50,
+  "batch_size": 512,
+  "kl_weight": 0.001
+}

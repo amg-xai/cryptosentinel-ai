@@ -1,0 +1,13 @@
+{
+  "model": "IsolationForest",
+  "dataset": "Elliptic Bitcoin Dataset",
+  "f1_score": 0.001,
+  "pr_auc": 0.0362,
+  "roc_auc": 0.1686,
+  "threshold": 0.5,
+  "test_samples": 16670,
+  "illicit_detected": 1,
+  "illicit_total": 1083,
+  "note": "IF performs poorly on Elliptic because illicit transactions do not form statistical outliers in raw feature space. Graph context (GNN) is required for meaningful detection. This result is consistent with published literature (Weber et al. 2019). IF serves as the weakest component in our ensemble — its score is weighted at 0.20.",
+  "reference": "Weber et al. 2019 - Anti-Money Laundering in Bitcoin"
+}
