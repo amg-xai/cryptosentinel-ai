@@ -14,6 +14,7 @@ black==26.5.1
 boolean.py==5.0
 CacheControl==0.14.4
 certifi==2026.5.20
+cffi==2.0.0
 cfgv==3.5.0
 charset-normalizer==3.4.7
 ckzg==2.1.7
@@ -21,6 +22,7 @@ click==8.4.1
 cloudpickle==3.1.2
 confluent-kafka==2.14.0
 coverage==7.14.0
+cryptography==48.0.0
 cuda-bindings==13.2.0
 cuda-pathfinder==1.5.4
 cuda-toolkit==13.0.2
@@ -59,6 +61,7 @@ jedi==0.20.0
 Jinja2==3.1.6
 joblib==1.5.3
 jsonpickle==4.1.1
+liboqs-python==0.15.0
 librt==0.11.0
 license-expression==30.4.4
 llvmlite==0.47.0
@@ -129,6 +132,7 @@ ptyprocess==0.7.0
 pure_eval==0.2.3
 py-cpuinfo==9.0.0
 py-serializable==2.1.0
+pycparser==3.0
 pycryptodome==3.23.0
 pydantic==2.13.4
 pydantic-settings==2.14.1

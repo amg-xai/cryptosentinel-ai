@@ -1,0 +1,37 @@
+{
+  "benchmark_date": "2026-05-26",
+  "hardware": "WSL2 Ubuntu, Intel CPU, RTX 3050 6GB",
+  "iterations": 100,
+  "results": {
+    "ECDSA-secp256k1": {
+      "keygen_ms": 0.504,
+      "sign_ms": 0.697,
+      "verify_ms": 0.713,
+      "sig_size_bytes": 71,
+      "quantum_safe": false
+    },
+    "ML-DSA-65 (Dilithium3)": {
+      "keygen_ms": 0.141,
+      "sign_ms": 0.25,
+      "verify_ms": 0.096,
+      "sig_size_bytes": 3309,
+      "quantum_safe": true,
+      "nist_standard": "FIPS 204"
+    },
+    "ML-KEM-768 (Kyber-768)": {
+      "keygen_ms": 0.03,
+      "encap_ms": 0.021,
+      "decap_ms": 0.031,
+      "ciphertext_size_bytes": 1088,
+      "shared_secret_bytes": 32,
+      "quantum_safe": true,
+      "nist_standard": "FIPS 203"
+    }
+  },
+  "key_findings": [
+    "Dilithium3 signs 2.8x FASTER than ECDSA (0.25ms vs 0.697ms)",
+    "Dilithium3 signature is 46x LARGER (3309 bytes vs 71 bytes)",
+    "Kyber-768 key exchange is extremely fast (0.03ms keygen)",
+    "Both PQC algorithms safe against Shor's algorithm"
+  ]
+}
