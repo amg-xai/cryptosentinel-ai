@@ -1,0 +1,16 @@
+.venv/
+.git/
+.env
+keys/
+data/raw/
+data/processed/
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+notebooks/
+benchmark-data/
+coverage.xml
+.coverage
+*.log
