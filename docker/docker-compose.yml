@@ -48,7 +48,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U sentinel -d cryptosentinel"]
       interval: 10s

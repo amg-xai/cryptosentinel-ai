@@ -1,0 +1,121 @@
+{
+  "title": "CryptoSentinel AI — Threat Detection",
+  "uid": "cryptosentinel-threats",
+  "timezone": "browser",
+  "refresh": "30s",
+  "time": {"from": "now-1h", "to": "now"},
+  "panels": [
+    {
+      "id": 1,
+      "title": "Contracts Scanned (Total)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+      "targets": [{
+        "expr": "sum(cryptosentinel_contracts_scanned_total)",
+        "legendFormat": "Total Scanned"
+      }],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "auto"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Vulnerable Contracts Found",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+      "targets": [{
+        "expr": "sum(cryptosentinel_contracts_scanned_total{result=\"vulnerable\"})",
+        "legendFormat": "Vulnerable"
+      }],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "fixed", "fixedColor": "red"}
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Threats Detected (Total)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
+      "targets": [{
+        "expr": "sum(cryptosentinel_threats_detected_total)",
+        "legendFormat": "Threats"
+      }],
+      "options": {"colorMode": "background"}
+    },
+    {
+      "id": 4,
+      "title": "Transactions Scanned (Total)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
+      "targets": [{
+        "expr": "sum(cryptosentinel_transactions_scanned_total)",
+        "legendFormat": "Transactions"
+      }],
+      "options": {"colorMode": "background"}
+    },
+    {
+      "id": 5,
+      "title": "Contract Scans Rate (per minute)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+      "targets": [{
+        "expr": "rate(cryptosentinel_contracts_scanned_total[5m]) * 60",
+        "legendFormat": "{{result}}"
+      }],
+      "fieldConfig": {
+        "defaults": {"color": {"mode": "palette-classic"}}
+      }
+    },
+    {
+      "id": 6,
+      "title": "Risk Score Distribution",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+      "targets": [{
+        "expr": "histogram_quantile(0.50, rate(cryptosentinel_risk_score_bucket[5m]))",
+        "legendFormat": "p50"
+      }, {
+        "expr": "histogram_quantile(0.95, rate(cryptosentinel_risk_score_bucket[5m]))",
+        "legendFormat": "p95"
+      }]
+    },
+    {
+      "id": 7,
+      "title": "GNN Inference Latency",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+      "targets": [{
+        "expr": "histogram_quantile(0.50, rate(cryptosentinel_gnn_inference_seconds_bucket[5m]))",
+        "legendFormat": "p50"
+      }, {
+        "expr": "histogram_quantile(0.99, rate(cryptosentinel_gnn_inference_seconds_bucket[5m]))",
+        "legendFormat": "p99"
+      }],
+      "fieldConfig": {
+        "defaults": {"unit": "s"}
+      }
+    },
+    {
+      "id": 8,
+      "title": "Threat Graph Size",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+      "targets": [{
+        "expr": "cryptosentinel_threat_graph_nodes_total",
+        "legendFormat": "Nodes"
+      }, {
+        "expr": "cryptosentinel_threat_graph_edges_total",
+        "legendFormat": "Edges"
+      }]
+    }
+  ],
+  "schemaVersion": 38
+}
