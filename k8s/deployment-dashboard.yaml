@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cryptosentinel-dashboard
+  namespace: cryptosentinel
+  labels:
+    app: cryptosentinel-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cryptosentinel-dashboard
+  template:
+    metadata:
+      labels:
+        app: cryptosentinel-dashboard
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+      containers:
+        - name: dashboard
+          image: ghcr.io/amg-xai/cryptosentinel-api:latest
+          command: ["python", "-m", "streamlit", "run",
+                    "src/dashboard/app.py",
+                    "--server.address=0.0.0.0",
+                    "--server.port=8501"]
+          ports:
+            - containerPort: 8501
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: cryptosentinel-config
+          volumeMounts:
+            - name: model-data
+              mountPath: /app/data
+      volumes:
+        - name: model-data
+          persistentVolumeClaim:
+            claimName: model-data-pvc

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cryptosentinel
+  labels:
+    app: cryptosentinel
+    environment: production

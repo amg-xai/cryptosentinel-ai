@@ -1,0 +1,47 @@
+# Default deny all ingress — zero trust networking
+# Services only talk to what they explicitly need
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: cryptosentinel
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+# Allow API to receive external traffic
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-ingress
+  namespace: cryptosentinel
+spec:
+  podSelector:
+    matchLabels:
+      app: cryptosentinel-api
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - port: 8000
+---
+# Allow API to reach postgres and redis
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-to-db
+  namespace: cryptosentinel
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: cryptosentinel-api
+      ports:
+        - port: 5432

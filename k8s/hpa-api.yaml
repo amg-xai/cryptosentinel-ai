@@ -1,0 +1,47 @@
+# HPA scales API pods based on CPU utilization
+# When CPU > 70% for 3 minutes: add pods (up to 10)
+# When CPU < 70% for 5 minutes: remove pods (down to 2)
+#
+# WHY HPA matters:
+# Blockchain threat detection has spiky traffic — quiet at 3am,
+# heavy during market hours. HPA handles this automatically.
+# Without HPA: either over-provision (waste money) or under-provision
+# (miss threats during peak load).
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cryptosentinel-api-hpa
+  namespace: cryptosentinel
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cryptosentinel-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 180   # Wait 3min before scaling up
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 60             # Add max 2 pods per minute
+    scaleDown:
+      stabilizationWindowSeconds: 300   # Wait 5min before scaling down
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60             # Remove max 1 pod per minute

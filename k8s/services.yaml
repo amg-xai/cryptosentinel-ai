@@ -1,0 +1,59 @@
+# API Service — ClusterIP (internal only, exposed via Ingress)
+apiVersion: v1
+kind: Service
+metadata:
+  name: cryptosentinel-api-service
+  namespace: cryptosentinel
+  labels:
+    app: cryptosentinel-api
+spec:
+  selector:
+    app: cryptosentinel-api
+  ports:
+    - port: 8000
+      targetPort: 8000
+      name: http
+  type: ClusterIP
+---
+# Dashboard Service — LoadBalancer (external access)
+apiVersion: v1
+kind: Service
+metadata:
+  name: cryptosentinel-dashboard-service
+  namespace: cryptosentinel
+spec:
+  selector:
+    app: cryptosentinel-dashboard
+  ports:
+    - port: 80
+      targetPort: 8501
+      name: http
+  type: LoadBalancer
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: cryptosentinel
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: cryptosentinel
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP

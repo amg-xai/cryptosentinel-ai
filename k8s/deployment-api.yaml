@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cryptosentinel-api
+  namespace: cryptosentinel
+  labels:
+    app: cryptosentinel-api
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cryptosentinel-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0   # Zero-downtime deployment
+  template:
+    metadata:
+      labels:
+        app: cryptosentinel-api
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+        - name: api
+          image: ghcr.io/amg-xai/cryptosentinel-api:latest
+          ports:
+            - containerPort: 8000
+              name: http
+          # Resource limits — prevents one pod from starving others
+          # requests: what scheduler guarantees
+          # limits: hard ceiling (CPU throttled, memory OOMKilled)
+          resources:
+            requests:
+              cpu: "250m"       # 0.25 cores guaranteed
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"      # 1 core max
+              memory: "2Gi"
+          envFrom:
+            - configMapRef:
+                name: cryptosentinel-config
+            - secretRef:
+                name: cryptosentinel-secrets
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cryptosentinel-secrets
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: model-data
+              mountPath: /app/data
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: model-data
+          persistentVolumeClaim:
+            claimName: model-data-pvc
+      terminationGracePeriodSeconds: 30
