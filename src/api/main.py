@@ -1,29 +1,36 @@
 """
 CryptoSentinel AI — FastAPI application.
-
-Endpoints added progressively:
-  Day 5:  GET /health, GET /metrics
-  Week 3: GET /analyze/wallet, POST /analyze/transaction
-  Week 4: GET /graph/{address}, POST /alerts/{id}/acknowledge
-  Week 6: POST /scan/contract
-  Week 7: GET /alerts, POST /auth/token
+All routes registered here. Models loaded at startup.
 """
-
 import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from starlette.responses import Response
 
 from config.logging_config import get_logger
 from config.settings import settings
 from src.monitoring.tracing import setup_tracing
+from src.api.model_registry import registry
+from src.api.routes import analysis, alerts, graph, scanner
 
 logger = get_logger(__name__)
-
-# Initialize tracing before anything else
 setup_tracing("cryptosentinel-api")
+
+_start_time = time.time()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Load models on startup, cleanup on shutdown."""
+    logger.info("api_starting")
+    model_status = registry.load_all()
+    logger.info("models_loaded", status=model_status)
+    yield
+    logger.info("api_stopping")
+
 
 app = FastAPI(
     title="CryptoSentinel AI",
@@ -31,9 +38,9 @@ app = FastAPI(
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
-# CORS — allow Streamlit dashboard to call the API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501"],
@@ -42,33 +49,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Track startup time for uptime reporting
-_start_time = time.time()
+# Register routers
+app.include_router(analysis.router)
+app.include_router(alerts.router)
+app.include_router(graph.router)
+app.include_router(scanner.router)
 
 
 @app.get("/health", tags=["System"])
 async def health_check():
-    """
-    Health check endpoint.
-    Returns system status and uptime.
-    Used by Docker health checks and K8s liveness probes.
-    """
-    uptime_seconds = int(time.time() - _start_time)
     return {
         "status": "healthy",
         "service": "cryptosentinel-api",
         "version": "0.1.0",
         "environment": settings.environment,
-        "uptime_seconds": uptime_seconds,
+        "uptime_seconds": int(time.time() - _start_time),
+        "models_loaded": {
+            "isolation_forest": registry.isolation_forest is not None,
+            "autoencoder": registry.autoencoder is not None,
+            "gnn": registry.gnn_trainer is not None,
+        },
     }
 
 
 @app.get("/metrics", tags=["System"])
 async def prometheus_metrics():
-    """
-    Prometheus metrics endpoint.
-    Scraped every 15 seconds by Prometheus.
-    """
     return Response(
         content=generate_latest(),
         media_type=CONTENT_TYPE_LATEST,
@@ -83,17 +88,3 @@ async def root():
         "health": "/health",
         "metrics": "/metrics",
     }
-
-
-@app.on_event("startup")
-async def startup_event():
-    logger.info(
-        "api_started",
-        environment=settings.environment,
-        docs_url="http://localhost:8000/docs",
-    )
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    logger.info("api_stopping")
