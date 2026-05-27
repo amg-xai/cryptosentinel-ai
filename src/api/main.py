@@ -5,7 +5,7 @@ All routes registered here. Models loaded at startup.
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from starlette.responses import Response
@@ -15,6 +15,8 @@ from config.settings import settings
 from src.monitoring.tracing import setup_tracing
 from src.api.model_registry import registry
 from src.api.routes import analysis, alerts, graph, scanner
+from src.api.routes.auth import router as auth_router
+from src.api.auth import get_current_user
 
 logger = get_logger(__name__)
 setup_tracing("cryptosentinel-api")
@@ -24,7 +26,6 @@ _start_time = time.time()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Load models on startup, cleanup on shutdown."""
     logger.info("api_starting")
     model_status = registry.load_all()
     logger.info("models_loaded", status=model_status)
@@ -34,12 +35,23 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="CryptoSentinel AI",
-    description="Quantum-resistant blockchain threat intelligence platform",
+    description=(
+        "Quantum-resistant blockchain threat intelligence platform.\n\n"
+        "## Authentication\n"
+        "Most endpoints require a Bearer JWT token.\n"
+        "Get a dev token at `GET /auth/dev-token` (development only).\n\n"
+        "Demo credentials:\n"
+        "- analyst@cryptosentinel.ai / analyst123\n"
+        "- admin@cryptosentinel.ai / admin123"
+    ),
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
 )
+
+from src.api.middleware.rate_limiter import RateLimitMiddleware
+app.add_middleware(RateLimitMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -49,7 +61,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register routers
+# Register all routers
+app.include_router(auth_router)
 app.include_router(analysis.router)
 app.include_router(alerts.router)
 app.include_router(graph.router)
@@ -87,4 +100,6 @@ async def root():
         "docs": "/docs",
         "health": "/health",
         "metrics": "/metrics",
+        "auth": "/auth/token",
+        "dev_token": "/auth/dev-token (development only)",
     }
