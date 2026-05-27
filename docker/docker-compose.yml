@@ -81,17 +81,32 @@ services:
     container_name: cryptosentinel-prometheus
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml
     ports:
       - "9090:9090"
     networks:
       - cryptosentinel-net
 
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: cryptosentinel-alertmanager
+    volumes:
+      - ./monitoring/alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+    ports:
+      - "9094:9093"
+    networks:
+      - cryptosentinel-net
+  
   grafana:
     image: grafana/grafana:latest
     container_name: cryptosentinel-grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-changeme}
       - GF_USERS_ALLOW_SIGN_UP=false
+  
+  
     volumes:
       - grafana_data:/var/lib/grafana
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning

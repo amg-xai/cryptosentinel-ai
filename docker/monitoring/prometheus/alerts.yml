@@ -1,0 +1,93 @@
+groups:
+  - name: cryptosentinel_alerts
+    interval: 30s
+    rules:
+
+      # ============================================
+      # System health alerts
+      # ============================================
+
+      - alert: APIDown
+        expr: up{job="cryptosentinel-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CryptoSentinel API is down"
+          description: "The API has been unreachable for more than 1 minute."
+
+      # ============================================
+      # Threat detection alerts
+      # ============================================
+
+      - alert: HighThreatDetectionRate
+        expr: rate(cryptosentinel_threats_detected_total[5m]) * 60 > 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High threat detection rate"
+          description: "More than 10 threats detected per minute for 2 minutes. Possible attack wave."
+
+      - alert: CriticalThreatDetected
+        expr: increase(cryptosentinel_threats_detected_total{action_tier="EMERGENCY_ESCALATE"}[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "EMERGENCY tier threat detected"
+          description: "A transaction scored above 0.85 risk threshold. Immediate investigation required."
+
+      # ============================================
+      # ML model performance alerts
+      # ============================================
+
+      - alert: GNNLatencyHigh
+        expr: histogram_quantile(0.99, rate(cryptosentinel_gnn_inference_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "GNN inference latency is high"
+          description: "p99 GNN inference latency exceeds 500ms. Model may be overloaded."
+
+      - alert: ModelScoreDrift
+        expr: |
+          abs(
+            avg_over_time(cryptosentinel_risk_score_sum[1h]) /
+            avg_over_time(cryptosentinel_risk_score_count[1h])
+            -
+            avg_over_time(cryptosentinel_risk_score_sum[1h] offset 24h) /
+            avg_over_time(cryptosentinel_risk_score_count[1h] offset 24h)
+          ) > 0.15
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Model score distribution drift detected"
+          description: >
+            Average risk score has shifted by more than 0.15 compared to
+            the same period yesterday. This may indicate concept drift
+            or an ongoing attack campaign.
+
+      # ============================================
+      # Pipeline health alerts
+      # ============================================
+
+      - alert: KafkaConsumerLag
+        expr: cryptosentinel_kafka_consumer_lag > 1000
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka consumer lag is high"
+          description: "Consumer lag exceeds 1000 messages. Processing is falling behind ingestion."
+
+      - alert: ThreatGraphGrowthAnomaly
+        expr: rate(cryptosentinel_threat_graph_nodes_total[10m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Unusual threat graph growth rate"
+          description: "Graph is growing faster than 100 nodes per minute. May indicate a coordinated attack or data issue."
