@@ -19,13 +19,12 @@ RBAC roles:
   admin:        investigator + modify watchlists, approve quarantine
   system:       internal service-to-service calls
 """
-import uuid
+
 import time
-from datetime import datetime, timedelta
-from typing import Optional
+import uuid
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from pydantic import BaseModel
 
@@ -40,21 +39,35 @@ security = HTTPBearer(auto_error=False)
 ROLES = ["analyst", "investigator", "admin", "system"]
 ROLE_PERMISSIONS = {
     "analyst": ["read:alerts", "read:graph", "read:dashboard", "scan:contract"],
-    "investigator": ["read:alerts", "read:graph", "read:dashboard",
-                     "scan:contract", "write:acknowledge", "export:graph"],
-    "admin": ["read:alerts", "read:graph", "read:dashboard",
-              "scan:contract", "write:acknowledge", "export:graph",
-              "write:watchlist", "write:quarantine", "admin:users"],
+    "investigator": [
+        "read:alerts",
+        "read:graph",
+        "read:dashboard",
+        "scan:contract",
+        "write:acknowledge",
+        "export:graph",
+    ],
+    "admin": [
+        "read:alerts",
+        "read:graph",
+        "read:dashboard",
+        "scan:contract",
+        "write:acknowledge",
+        "export:graph",
+        "write:watchlist",
+        "write:quarantine",
+        "admin:users",
+    ],
     "system": ["*"],  # all permissions
 }
 
 
 class TokenPayload(BaseModel):
-    sub: str           # user ID
-    role: str          # analyst / investigator / admin / system
-    jti: str           # JWT ID — used for revocation
-    exp: float         # expiry timestamp
-    iat: float         # issued at timestamp
+    sub: str  # user ID
+    role: str  # analyst / investigator / admin / system
+    jti: str  # JWT ID — used for revocation
+    exp: float  # expiry timestamp
+    iat: float  # issued at timestamp
     type: str = "access"  # access or refresh
 
 
@@ -66,7 +79,7 @@ class TokenPair(BaseModel):
 
 def _load_private_key() -> str:
     try:
-        with open(settings.jwt_private_key_path, "r") as f:
+        with open(settings.jwt_private_key_path) as f:
             return f.read()
     except FileNotFoundError:
         logger.warning(
@@ -78,7 +91,7 @@ def _load_private_key() -> str:
 
 def _load_public_key() -> str:
     try:
-        with open(settings.jwt_public_key_path, "r") as f:
+        with open(settings.jwt_public_key_path) as f:
             return f.read()
     except FileNotFoundError:
         logger.warning(
@@ -140,8 +153,8 @@ def create_dev_token(role: str = "admin") -> str:
 
 
 async def get_current_user(
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
-) -> Optional[TokenPayload]:
+    credentials: HTTPAuthorizationCredentials | None = Depends(security),
+) -> TokenPayload | None:
     """
     Extract and validate JWT from Authorization header.
     Returns None if no token provided (allows optional auth).
@@ -187,7 +200,7 @@ async def get_current_user(
 
 
 async def require_auth(
-    user: Optional[TokenPayload] = Depends(get_current_user),
+    user: TokenPayload | None = Depends(get_current_user),
 ) -> TokenPayload:
     """Require authentication — raises 401 if not authenticated."""
     if user is None:
@@ -204,6 +217,7 @@ def require_role(*roles: str):
     Dependency factory — require specific role(s).
     Usage: Depends(require_role("analyst", "investigator"))
     """
+
     async def dependency(
         user: TokenPayload = Depends(require_auth),
     ) -> TokenPayload:
@@ -217,7 +231,8 @@ def require_role(*roles: str):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail=f"Role '{user.role}' cannot access this endpoint. "
-                       f"Required: {roles}",
+                f"Required: {roles}",
             )
         return user
+
     return dependency

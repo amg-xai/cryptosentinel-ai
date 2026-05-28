@@ -16,11 +16,10 @@ Run with web UI:
   locust -f tests/load/locustfile.py --host http://localhost:8000
   Open http://localhost:8089
 """
-import random
-import json
-from locust import HttpUser, task, between, events
-from locust.runners import MasterRunner
 
+import random
+
+from locust import HttpUser, between, task
 
 # Sample Ethereum addresses for realistic testing
 SAMPLE_ADDRESSES = [
@@ -61,8 +60,7 @@ contract SafeVault is Ownable {
 
 def get_dev_token(client) -> str:
     """Get a development JWT token for authenticated requests."""
-    response = client.get("/auth/dev-token?role=analyst",
-                         name="/auth/dev-token")
+    response = client.get("/auth/dev-token?role=analyst", name="/auth/dev-token")
     if response.status_code == 200:
         return response.json().get("access_token", "")
     return ""
@@ -74,6 +72,7 @@ class AnalystUser(HttpUser):
     Reads alerts, checks graph stats, occasional wallet lookups.
     Wait time: 3-8 seconds between tasks (realistic human interaction).
     """
+
     wait_time = between(3, 8)
     weight = 3  # 3x more analysts than investigators
 
@@ -131,6 +130,7 @@ class InvestigatorUser(HttpUser):
     Analyzes wallets, scans transactions, acknowledges alerts.
     Wait time: 5-15 seconds (more deliberate actions).
     """
+
     wait_time = between(5, 15)
     weight = 1
 
@@ -203,6 +203,7 @@ class ScannerUser(HttpUser):
     Infrequent but expensive operations.
     Wait time: 15-30 seconds (contract analysis takes time).
     """
+
     wait_time = between(15, 30)
     weight = 1
 

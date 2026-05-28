@@ -11,8 +11,8 @@ WHY lazy loading with fallback:
   The API degrades gracefully — scores that model as 0.5 (neutral).
   This lets you start the API before all models are trained.
 """
+
 from pathlib import Path
-from typing import Optional
 
 from config.logging_config import get_logger
 
@@ -42,11 +42,10 @@ class ModelRegistry:
         # Isolation Forest
         try:
             from src.ml.tabular.isolation_forest import ThreatIsolationForest
+
             if_path = MODELS_DIR / "isolation_forest.joblib"
             if if_path.exists():
-                self.isolation_forest = ThreatIsolationForest.load(
-                    str(if_path)
-                )
+                self.isolation_forest = ThreatIsolationForest.load(str(if_path))
                 status["isolation_forest"] = True
                 logger.info("isolation_forest_loaded")
             else:
@@ -59,6 +58,7 @@ class ModelRegistry:
         # Autoencoder
         try:
             from src.ml.tabular.autoencoder import ThreatAutoencoder
+
             ae_path = MODELS_DIR / "autoencoder.pt"
             if ae_path.exists():
                 self.autoencoder = ThreatAutoencoder.load(str(ae_path))
@@ -74,18 +74,20 @@ class ModelRegistry:
         # Scaler
         try:
             import joblib
+
             scaler_path = MODELS_DIR / "scaler.joblib"
             if scaler_path.exists():
                 self.scaler = joblib.load(str(scaler_path))
                 status["scaler"] = True
             else:
                 status["scaler"] = False
-        except Exception as e:
+        except Exception:
             status["scaler"] = False
 
         # GNN
         try:
             from src.ml.gnn.trainer import GNNTrainer
+
             gnn_path = MODELS_DIR / "gnn_best.pt"
             if gnn_path.exists():
                 self.gnn_trainer = GNNTrainer()
@@ -109,6 +111,7 @@ class ModelRegistry:
         Returns dict of scores, -1.0 for unavailable models.
         """
         import numpy as np
+
         scores = {
             "isolation_forest": -1.0,
             "autoencoder": -1.0,
@@ -116,7 +119,7 @@ class ModelRegistry:
 
         if features_array.shape[0] < 165:
             padded = np.zeros(165, dtype=np.float32)
-            padded[:features_array.shape[0]] = features_array
+            padded[: features_array.shape[0]] = features_array
             features_array = padded
 
         if self.isolation_forest and self.isolation_forest._is_fitted:
@@ -131,9 +134,7 @@ class ModelRegistry:
         if self.autoencoder and self.autoencoder._is_fitted:
             try:
                 x = features_array.reshape(1, -1)
-                scores["autoencoder"] = float(
-                    self.autoencoder.predict_proba(x)[0]
-                )
+                scores["autoencoder"] = float(self.autoencoder.predict_proba(x)[0])
             except Exception as e:
                 logger.error("ae_scoring_failed", error=str(e))
 

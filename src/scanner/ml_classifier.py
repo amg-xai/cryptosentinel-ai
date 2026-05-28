@@ -18,7 +18,7 @@ Feature extraction:
   High CALL frequency → likely external calls (reentrancy risk).
   High SSTORE/SLOAD → heavy state access (storage patterns).
 """
-import re
+
 from dataclasses import dataclass
 
 import numpy as np
@@ -54,6 +54,7 @@ VULNERABILITY_OPCODES = {
 @dataclass
 class BytecodeFeatures:
     """Feature vector extracted from contract bytecode."""
+
     opcode_frequencies: np.ndarray  # 256-dim vector
     call_frequency: float
     sstore_frequency: float
@@ -65,19 +66,24 @@ class BytecodeFeatures:
 
     def to_numpy(self) -> np.ndarray:
         """Full feature vector for ML model."""
-        extra = np.array([
-            self.call_frequency,
-            self.sstore_frequency,
-            self.sload_frequency,
-            float(self.selfdestruct_present),
-            float(self.timestamp_present),
-            float(self.delegatecall_present),
-            float(self.bytecode_length) / 10000,
-        ], dtype=np.float32)
-        return np.concatenate([
-            self.opcode_frequencies.astype(np.float32),
-            extra,
-        ])
+        extra = np.array(
+            [
+                self.call_frequency,
+                self.sstore_frequency,
+                self.sload_frequency,
+                float(self.selfdestruct_present),
+                float(self.timestamp_present),
+                float(self.delegatecall_present),
+                float(self.bytecode_length) / 10000,
+            ],
+            dtype=np.float32,
+        )
+        return np.concatenate(
+            [
+                self.opcode_frequencies.astype(np.float32),
+                extra,
+            ]
+        )
 
 
 class BytecodeFeatureExtractor:

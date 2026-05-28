@@ -3,13 +3,13 @@ GNN training script.
 Run: python -m src.ml.gnn.train_gnn
 Expected: F1 > 0.4, PR-AUC > 0.3 on Elliptic test set.
 """
+
 import json
 from pathlib import Path
 
 import numpy as np
 
 from config.logging_config import get_logger
-from src.ml.gnn.model import ThreatGNN
 from src.ml.gnn.trainer import GNNTrainer, build_pyg_data
 
 logger = get_logger(__name__)
@@ -31,9 +31,12 @@ def main():
 
     # Build PyG Data object
     data = build_pyg_data(
-        X_train, X_test,
-        y_train, y_test,
-        train_mask, test_mask,
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        train_mask,
+        test_mask,
         edge_index,
     )
 

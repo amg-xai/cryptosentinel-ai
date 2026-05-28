@@ -1,12 +1,12 @@
 """Tests for post-quantum cryptography layer."""
+
 import json
-import pytest
+
 from src.crypto.pqc_handler import (
+    DILITHIUM_ALG,
     PQCAlertSigner,
     PQCKeyExchange,
     SignedAlert,
-    DILITHIUM_ALG,
-    KYBER_ALG,
 )
 
 

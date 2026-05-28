@@ -1,9 +1,9 @@
 """
 Reusable Streamlit UI components.
 """
-import streamlit as st
+
 import plotly.graph_objects as go
-import plotly.express as px
+import streamlit as st
 
 
 def render_kpi_cards(health: dict, alerts: dict, graph_stats: dict):
@@ -40,7 +40,9 @@ def render_kpi_cards(health: dict, alerts: dict, graph_stats: dict):
         st.metric(
             label="🤖 Models Active",
             value=f"{loaded}/{total}",
-            delta="All systems operational" if loaded == total else "Some models offline",
+            delta=(
+                "All systems operational" if loaded == total else "Some models offline"
+            ),
         )
 
 
@@ -86,12 +88,14 @@ def render_risk_distribution(alerts: list):
         return
 
     scores = [a.get("composite_score", 0) for a in alerts]
-    fig = go.Figure(go.Histogram(
-        x=scores,
-        nbinsx=20,
-        marker_color="#00D4AA",
-        opacity=0.8,
-    ))
+    fig = go.Figure(
+        go.Histogram(
+            x=scores,
+            nbinsx=20,
+            marker_color="#00D4AA",
+            opacity=0.8,
+        )
+    )
     fig.update_layout(
         title="Risk Score Distribution",
         xaxis_title="Risk Score",
@@ -114,12 +118,14 @@ def render_tier_breakdown(stats: dict):
     values = list(by_tier.values())
     colors = ["#ef4444", "#f97316", "#eab308", "#22c55e"]
 
-    fig = go.Figure(go.Pie(
-        labels=[l.replace("_", " ") for l in labels],
-        values=values,
-        marker_colors=colors,
-        hole=0.4,
-    ))
+    fig = go.Figure(
+        go.Pie(
+            labels=[l.replace("_", " ") for l in labels],
+            values=values,
+            marker_colors=colors,
+            hole=0.4,
+        )
+    )
     fig.update_layout(
         title="Alert Tier Breakdown",
         paper_bgcolor="#161B22",
@@ -140,11 +146,13 @@ def render_vulnerability_chart(scan_result: dict):
     values = list(counts.values())
     colors = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#6b7280"]
 
-    fig = go.Figure(go.Bar(
-        x=severities,
-        y=values,
-        marker_color=colors,
-    ))
+    fig = go.Figure(
+        go.Bar(
+            x=severities,
+            y=values,
+            marker_color=colors,
+        )
+    )
     fig.update_layout(
         title="Vulnerability Severity Breakdown",
         paper_bgcolor="#161B22",
@@ -168,9 +176,10 @@ def render_pyvis_graph(
     edges: list of {from, to, value_eth}
     """
     try:
-        from pyvis.network import Network
-        import tempfile
         import os
+        import tempfile
+
+        from pyvis.network import Network
 
         net = Network(
             height="500px",
@@ -225,13 +234,11 @@ def render_pyvis_graph(
             )
 
         # Save to temp file and read HTML
-        with tempfile.NamedTemporaryFile(
-            suffix=".html", delete=False, mode="w"
-        ) as f:
+        with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w") as f:
             net.save_graph(f.name)
             tmp_path = f.name
 
-        with open(tmp_path, "r") as f:
+        with open(tmp_path) as f:
             html = f.read()
 
         os.unlink(tmp_path)
@@ -282,20 +289,22 @@ def render_sankey(
         else:
             node_colors.append("#f97316")
 
-    fig = go.Figure(go.Sankey(
-        node=dict(
-            pad=15,
-            thickness=20,
-            label=[n[:12] + "..." for n in all_nodes],
-            color=node_colors,
-        ),
-        link=dict(
-            source=links["source"],
-            target=links["target"],
-            value=links["value"],
-            color="rgba(100,100,100,0.3)",
-        ),
-    ))
+    fig = go.Figure(
+        go.Sankey(
+            node=dict(
+                pad=15,
+                thickness=20,
+                label=[n[:12] + "..." for n in all_nodes],
+                color=node_colors,
+            ),
+            link=dict(
+                source=links["source"],
+                target=links["target"],
+                value=links["value"],
+                color="rgba(100,100,100,0.3)",
+            ),
+        )
+    )
 
     fig.update_layout(
         title=f"Fund Flow from {address[:16]}...",
@@ -321,14 +330,16 @@ def render_shap_waterfall(waterfall_data: dict) -> None:
 
     colors = ["#ef4444" if v > 0 else "#22c55e" for v in shap_values]
 
-    fig = go.Figure(go.Bar(
-        x=shap_values,
-        y=features,
-        orientation="h",
-        marker_color=colors,
-        text=[f"{v:+.3f}" for v in shap_values],
-        textposition="outside",
-    ))
+    fig = go.Figure(
+        go.Bar(
+            x=shap_values,
+            y=features,
+            orientation="h",
+            marker_color=colors,
+            text=[f"{v:+.3f}" for v in shap_values],
+            textposition="outside",
+        )
+    )
 
     fig.add_vline(
         x=base_value,

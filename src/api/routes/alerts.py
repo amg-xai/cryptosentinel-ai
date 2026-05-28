@@ -1,8 +1,10 @@
 """Alert management routes."""
+
 from fastapi import APIRouter, Depends, HTTPException
-from src.api.schemas import AlertsListResponse, AlertResponse
-from src.api.dependencies import get_alert_manager
+
 from config.logging_config import get_logger
+from src.api.dependencies import get_alert_manager
+from src.api.schemas import AlertResponse, AlertsListResponse
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/alerts", tags=["Alerts"])

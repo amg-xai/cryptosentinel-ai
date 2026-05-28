@@ -10,18 +10,21 @@ WHY pure functions:
 - Can be JIT-compiled with Numba (Week 2)
 - Easy to add/remove features without touching other code
 """
-from src.ml.tabular.vectorized_features import log_transform_values
+
 import time
 from dataclasses import dataclass
 
 import numpy as np
 
 from config.logging_config import get_logger
+from src.ml.tabular.vectorized_features import log_transform_values
 
 logger = get_logger(__name__)
 
-from src.ml.tabular.vectorized_features import log_transform_values, warmup_jit
+from src.ml.tabular.vectorized_features import warmup_jit
+
 warmup_jit()  # Compile JIT functions at module import time
+
 
 @dataclass
 class TransactionFeatures:

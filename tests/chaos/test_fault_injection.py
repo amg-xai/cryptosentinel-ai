@@ -7,22 +7,23 @@ when dependencies fail — not catastrophically.
 Key principle: a system that fails silently and continues
 is better than one that crashes entirely.
 """
-import time
-import pytest
-import numpy as np
-from unittest.mock import patch, MagicMock
 
+import time
+
+import numpy as np
+import pytest
 
 # ============================================================
 # Risk scorer resilience
 # ============================================================
+
 
 def test_risk_scorer_with_all_models_unavailable():
     """
     Risk scorer must return a valid assessment even when
     all model scores are -1.0 (models unavailable).
     """
-    from src.response.risk_scorer import CompositeRiskScorer, ModelScores, ActionTier
+    from src.response.risk_scorer import ActionTier, CompositeRiskScorer, ModelScores
 
     scorer = CompositeRiskScorer()
     scores = ModelScores(
@@ -58,7 +59,7 @@ def test_risk_scorer_with_partial_models():
 
 def test_risk_scorer_handles_extreme_scores():
     """Scores of exactly 0.0 and 1.0 must be handled."""
-    from src.response.risk_scorer import CompositeRiskScorer, ModelScores, ActionTier
+    from src.response.risk_scorer import ActionTier, CompositeRiskScorer, ModelScores
 
     scorer = CompositeRiskScorer()
 
@@ -77,11 +78,13 @@ def test_risk_scorer_handles_extreme_scores():
 # Alert manager resilience
 # ============================================================
 
+
 def test_alert_manager_handles_duplicate_addresses():
     """Duplicate alerts for same address must deduplicate."""
     from src.response.alert_manager import AlertManager
     from src.response.risk_scorer import (
-        CompositeRiskScorer, ModelScores, RiskAssessment, ActionTier
+        CompositeRiskScorer,
+        ModelScores,
     )
 
     manager = AlertManager()
@@ -90,7 +93,7 @@ def test_alert_manager_handles_duplicate_addresses():
 
     # Add same address 10 times
     for i in range(10):
-        assessment = scorer.score(f"0xAddr", f"0xTx{i}", scores)
+        assessment = scorer.score("0xAddr", f"0xTx{i}", scores)
         manager.add_or_update(assessment)
 
     stats = manager.get_stats()
@@ -119,6 +122,7 @@ def test_alert_manager_max_capacity():
 # ============================================================
 # Feature engineering resilience
 # ============================================================
+
 
 def test_feature_engineer_handles_missing_fields():
     """Feature extractor must handle incomplete transaction payloads."""
@@ -166,6 +170,7 @@ def test_feature_engineer_handles_none_values():
 # Fault injector tests
 # ============================================================
 
+
 def test_fault_injector_latency_mode():
     """Latency fault must delay execution."""
     from src.testing.fault_injector import FaultInjector, FaultMode
@@ -191,7 +196,8 @@ def test_fault_injector_error_mode():
         return "result"
 
     injector = FaultInjector(
-        normal_fn, FaultMode.ERROR,
+        normal_fn,
+        FaultMode.ERROR,
         exception_type=ValueError,
         exception_message="test error",
     )
@@ -262,8 +268,8 @@ def test_fault_injector_stats():
 
 def test_kafka_fault_context_manager():
     """Kafka fault injection must restore original function after context."""
-    from src.testing.fault_injector import inject_kafka_failure
     from src.streaming.producer import ThreatIntelProducer
+    from src.testing.fault_injector import inject_kafka_failure
 
     original = ThreatIntelProducer.produce_transaction
 
@@ -277,8 +283,8 @@ def test_kafka_fault_context_manager():
 
 def test_graph_fault_context_manager():
     """Graph fault injection must restore original function after context."""
-    from src.testing.fault_injector import inject_graph_failure
     from src.graph.threat_graph import ThreatGraph
+    from src.testing.fault_injector import inject_graph_failure
 
     original = ThreatGraph.find_laundering_paths
 
@@ -292,6 +298,7 @@ def test_graph_fault_context_manager():
 # Chaos experiment: system behavior under Kafka failure
 # ============================================================
 
+
 def test_system_continues_scoring_without_kafka():
     """
     HYPOTHESIS: When Kafka fails, risk scoring still works.
@@ -300,8 +307,8 @@ def test_system_continues_scoring_without_kafka():
 
     This verifies the decoupling between scoring and alerting.
     """
-    from src.testing.fault_injector import inject_kafka_failure
     from src.response.risk_scorer import CompositeRiskScorer, ModelScores
+    from src.testing.fault_injector import inject_kafka_failure
 
     scorer = CompositeRiskScorer()
     scores = ModelScores(gnn=0.9, autoencoder=0.8)
@@ -318,9 +325,9 @@ def test_system_scores_correctly_under_graph_failure():
     HYPOTHESIS: When graph queries fail, scoring falls back
     to model-only scores (graph_centrality = 0).
     """
-    from src.testing.fault_injector import inject_graph_failure
-    from src.response.risk_scorer import CompositeRiskScorer, ModelScores
     from src.graph.threat_graph import ThreatGraph
+    from src.response.risk_scorer import CompositeRiskScorer, ModelScores
+    from src.testing.fault_injector import inject_graph_failure
 
     scorer = CompositeRiskScorer()
     graph = ThreatGraph()

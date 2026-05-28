@@ -1,18 +1,16 @@
 """Tests for composite risk scorer and alert manager."""
-import time
-import pytest
+
+from src.response.alert_manager import AlertManager
 from src.response.risk_scorer import (
+    ActionTier,
     CompositeRiskScorer,
     ModelScores,
-    ActionTier,
     compute_action_tier,
     compute_confidence,
-    THRESHOLDS,
 )
-from src.response.alert_manager import AlertManager, Alert
-
 
 # --- Risk scorer tests ---
+
 
 def test_compute_action_tier_emergency():
     assert compute_action_tier(0.90) == ActionTier.EMERGENCY
@@ -93,6 +91,7 @@ def test_explanation_contains_required_fields():
 def test_weights_sum_to_one():
     """Ensemble weights must sum to 1.0."""
     from src.response.risk_scorer import ENSEMBLE_WEIGHTS
+
     assert abs(sum(ENSEMBLE_WEIGHTS.values()) - 1.0) < 1e-6
 
 
@@ -115,8 +114,10 @@ def test_confidence_models_disagree():
 
 # --- Alert manager tests ---
 
+
 def make_assessment(address="0xAddr", score=0.8, value_eth=1.0):
-    from src.response.risk_scorer import RiskAssessment, ModelScores
+    from src.response.risk_scorer import ModelScores, RiskAssessment
+
     scores = ModelScores(gnn=score)
     return RiskAssessment(
         address=address,
@@ -185,6 +186,12 @@ def test_to_dict_contains_required_fields():
     manager = AlertManager()
     alert = manager.add_or_update(make_assessment())
     d = alert.to_dict()
-    required = {"address", "composite_score", "severity",
-                "action", "current_priority", "acknowledged"}
+    required = {
+        "address",
+        "composite_score",
+        "severity",
+        "action",
+        "current_priority",
+        "acknowledged",
+    }
     assert required.issubset(set(d.keys()))

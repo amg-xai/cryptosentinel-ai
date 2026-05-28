@@ -1,19 +1,19 @@
 """Analysis routes — wallet and transaction risk scoring."""
+
 from fastapi import APIRouter, Depends
-import numpy as np
 
 from config.logging_config import get_logger
+from src.api.dependencies import get_alert_manager, get_risk_scorer, get_threat_graph
+from src.api.model_registry import registry
 from src.api.schemas import (
-    WalletAnalysisRequest,
-    WalletAnalysisResponse,
     ModelScoresResponse,
     TransactionScanRequest,
     TransactionScanResponse,
+    WalletAnalysisRequest,
+    WalletAnalysisResponse,
 )
-from src.api.dependencies import get_threat_graph, get_risk_scorer, get_alert_manager
-from src.api.model_registry import registry
-from src.response.risk_scorer import ModelScores
 from src.ml.tabular.feature_engineer import FeatureEngineer
+from src.response.risk_scorer import ModelScores
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/analyze", tags=["Analysis"])

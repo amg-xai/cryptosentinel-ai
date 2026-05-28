@@ -1,8 +1,8 @@
 """Tests for smart contract vulnerability scanner."""
-import pytest
-from src.scanner.rule_engine import SolidityRuleEngine, Severity
-from src.scanner.ml_classifier import BytecodeFeatureExtractor, BytecodeRiskScorer
+
 from src.scanner.contract_scanner import ContractScanner
+from src.scanner.ml_classifier import BytecodeFeatureExtractor, BytecodeRiskScorer
+from src.scanner.rule_engine import Severity, SolidityRuleEngine
 
 # --- Vulnerable contract samples ---
 
@@ -62,6 +62,7 @@ contract OverflowVuln {
 
 # --- Rule engine tests ---
 
+
 def test_reentrancy_detection():
     engine = SolidityRuleEngine()
     vulns = engine.scan(REENTRANCY_CONTRACT)
@@ -119,8 +120,14 @@ def test_vulnerability_to_dict():
     engine = SolidityRuleEngine()
     vulns = engine.scan(REENTRANCY_CONTRACT)
     d = vulns[0].to_dict()
-    required = {"vuln_type", "severity", "severity_score",
-                "description", "recommendation", "confidence"}
+    required = {
+        "vuln_type",
+        "severity",
+        "severity_score",
+        "description",
+        "recommendation",
+        "confidence",
+    }
     assert required.issubset(set(d.keys()))
 
 
@@ -171,6 +178,7 @@ def test_invalid_bytecode_returns_empty():
 
 
 # --- ContractScanner integration tests ---
+
 
 def test_scanner_scan_source():
     scanner = ContractScanner()

@@ -25,13 +25,13 @@ WHY these thresholds:
   At 0.50 cutoff: ~10% of transactions flagged (manageable for SOC).
   At 0.85 cutoff: ~1% flagged as emergency (analysts can handle this).
 """
+
 import time
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
 
 from config.logging_config import get_logger
-from src.monitoring.metrics import THREATS_DETECTED, RISK_SCORE_HISTOGRAM
+from src.monitoring.metrics import RISK_SCORE_HISTOGRAM, THREATS_DETECTED
 
 logger = get_logger(__name__)
 
@@ -67,6 +67,7 @@ class ModelScores:
     All scores in [0, 1]. Higher = higher risk.
     Use -1.0 for unavailable scores (model not yet loaded).
     """
+
     gnn: float = -1.0
     autoencoder: float = -1.0
     isolation_forest: float = -1.0
@@ -93,6 +94,7 @@ class RiskAssessment:
     Complete risk assessment for one transaction or address.
     This is what gets stored in PostgreSQL and shown in the dashboard.
     """
+
     address: str
     tx_hash: str
     composite_score: float
@@ -178,8 +180,7 @@ class CompositeRiskScorer:
 
     def __init__(self, weights: dict[str, float] | None = None):
         self.weights = weights or ENSEMBLE_WEIGHTS
-        assert abs(sum(self.weights.values()) - 1.0) < 1e-6, \
-            "Weights must sum to 1.0"
+        assert abs(sum(self.weights.values()) - 1.0) < 1e-6, "Weights must sum to 1.0"
 
     def score(
         self,
@@ -208,9 +209,7 @@ class CompositeRiskScorer:
 
         # Weighted average of available scores
         # Re-normalize weights to sum to 1 for available models only
-        total_weight = sum(
-            self.weights.get(k, 0) for k in available.keys()
-        )
+        total_weight = sum(self.weights.get(k, 0) for k in available.keys())
 
         if total_weight == 0:
             composite = sum(available.values()) / len(available)
@@ -311,9 +310,7 @@ class CompositeRiskScorer:
                 "velocity_boost: high transaction frequency detected"
             )
         if model_scores.known_bad_address:
-            explanation["adjustments"].append(
-                "known_bad_address: address in watchlist"
-            )
+            explanation["adjustments"].append("known_bad_address: address in watchlist")
 
         # Natural language summary
         if action == ActionTier.EMERGENCY:

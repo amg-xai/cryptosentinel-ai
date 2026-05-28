@@ -1,9 +1,11 @@
 """Auth routes — token issuance."""
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from src.api.auth import create_access_token, create_dev_token
-from config.settings import settings
+
 from config.logging_config import get_logger
+from config.settings import settings
+from src.api.auth import create_access_token, create_dev_token
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/auth", tags=["Auth"])

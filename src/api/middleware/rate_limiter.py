@@ -13,7 +13,9 @@ Limits by endpoint sensitivity:
   POST /scan/contract → 10/min (expensive rule engine)
   POST /auth/token → 10/min (prevent brute force)
 """
+
 import time
+
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse

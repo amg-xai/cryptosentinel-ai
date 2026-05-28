@@ -28,9 +28,10 @@ Usage:
   explanation = explainer.explain_transaction(features_array)
   waterfall = explainer.shap_waterfall(features_array)
 """
-import numpy as np
+
 from pathlib import Path
-from typing import Optional
+
+import numpy as np
 
 from config.logging_config import get_logger
 
@@ -60,9 +61,7 @@ LIVE_FEATURE_NAMES = [
 ]
 
 # Top Elliptic feature names (first 16 of 165)
-ELLIPTIC_FEATURE_NAMES = [
-    f"elliptic_feature_{i}" for i in range(165)
-]
+ELLIPTIC_FEATURE_NAMES = [f"elliptic_feature_{i}" for i in range(165)]
 
 
 class RiskExplainer:
@@ -83,10 +82,9 @@ class RiskExplainer:
     def load(self) -> bool:
         """Load models and initialize SHAP explainers."""
         try:
-            import joblib
-            from src.ml.tabular.isolation_forest import ThreatIsolationForest
-            from src.ml.tabular.autoencoder import ThreatAutoencoder
             from src.ml.gnn.trainer import GNNTrainer, build_pyg_data
+            from src.ml.tabular.autoencoder import ThreatAutoencoder
+            from src.ml.tabular.isolation_forest import ThreatIsolationForest
 
             # Load IF
             if_path = MODELS_DIR / "isolation_forest.joblib"
@@ -113,8 +111,13 @@ class RiskExplainer:
                 edge_index = np.load(PROCESSED_DIR / "edge_index.npy")
 
                 self.gnn_data = build_pyg_data(
-                    X_train, X_test, y_train, y_test,
-                    train_mask, test_mask, edge_index,
+                    X_train,
+                    X_test,
+                    y_train,
+                    y_test,
+                    train_mask,
+                    test_mask,
+                    edge_index,
                 )
 
                 # SHAP background: 100 random training samples
@@ -133,7 +136,7 @@ class RiskExplainer:
     def explain_transaction(
         self,
         features_array: np.ndarray,
-        feature_names: Optional[list] = None,
+        feature_names: list | None = None,
     ) -> dict:
         """
         Generate a complete explanation for a transaction's risk score.
@@ -145,7 +148,7 @@ class RiskExplainer:
         # Pad to 165 if needed
         if features_array.shape[0] < 165:
             padded = np.zeros(165, dtype=np.float32)
-            padded[:features_array.shape[0]] = features_array
+            padded[: features_array.shape[0]] = features_array
             features_array = padded
 
         names = feature_names or ELLIPTIC_FEATURE_NAMES
@@ -162,9 +165,7 @@ class RiskExplainer:
             explanation["gnn"] = gnn_exp
 
         # Combined top features
-        explanation["top_risk_features"] = self._get_top_features(
-            features_array, names
-        )
+        explanation["top_risk_features"] = self._get_top_features(features_array, names)
 
         return explanation
 
@@ -172,7 +173,7 @@ class RiskExplainer:
         self,
         features_array: np.ndarray,
         feature_names: list,
-    ) -> Optional[dict]:
+    ) -> dict | None:
         """SHAP explanation for Isolation Forest."""
         if self.isolation_forest is None or self._shap_background is None:
             return None
@@ -185,9 +186,7 @@ class RiskExplainer:
                 scores = []
                 for x in X:
                     try:
-                        s = self.isolation_forest.predict_proba(
-                            x.reshape(1, -1)
-                        )
+                        s = self.isolation_forest.predict_proba(x.reshape(1, -1))
                         scores.append(float(s[0]))
                     except Exception:
                         scores.append(0.5)
@@ -204,15 +203,21 @@ class RiskExplainer:
             )
 
             # Top 5 features by absolute SHAP value
-            sv = shap_values[0] if hasattr(shap_values, '__len__') else shap_values
+            sv = shap_values[0] if hasattr(shap_values, "__len__") else shap_values
             top_indices = np.argsort(np.abs(sv))[-5:][::-1]
 
             return {
                 "top_features": [
                     {
-                        "feature": feature_names[i] if i < len(feature_names) else f"feature_{i}",
+                        "feature": (
+                            feature_names[i]
+                            if i < len(feature_names)
+                            else f"feature_{i}"
+                        ),
                         "shap_value": round(float(sv[i]), 4),
-                        "direction": "increases_risk" if sv[i] > 0 else "decreases_risk",
+                        "direction": (
+                            "increases_risk" if sv[i] > 0 else "decreases_risk"
+                        ),
                     }
                     for i in top_indices
                 ],
@@ -227,7 +232,7 @@ class RiskExplainer:
         self,
         features_array: np.ndarray,
         feature_names: list,
-    ) -> Optional[dict]:
+    ) -> dict | None:
         """
         GNN explanation via nearest neighbor analysis.
         Find the most similar training node and explain which
@@ -256,7 +261,9 @@ class RiskExplainer:
 
             # Feature contribution via element-wise similarity
             nearest_features = all_features[nearest_idx]
-            contributions = query * (nearest_features / (np.linalg.norm(nearest_features) + 1e-8))
+            contributions = query * (
+                nearest_features / (np.linalg.norm(nearest_features) + 1e-8)
+            )
             top_indices = np.argsort(np.abs(contributions))[-5:][::-1]
 
             return {
@@ -265,7 +272,11 @@ class RiskExplainer:
                 "similarity": round(float(similarities[nearest_idx]), 4),
                 "top_similar_features": [
                     {
-                        "feature": feature_names[i] if i < len(feature_names) else f"feature_{i}",
+                        "feature": (
+                            feature_names[i]
+                            if i < len(feature_names)
+                            else f"feature_{i}"
+                        ),
                         "contribution": round(float(contributions[i]), 4),
                     }
                     for i in top_indices
@@ -288,7 +299,9 @@ class RiskExplainer:
         top_indices = np.argsort(np.abs(features_array))[-10:][::-1]
         return [
             {
-                "feature": feature_names[i] if i < len(feature_names) else f"feature_{i}",
+                "feature": (
+                    feature_names[i] if i < len(feature_names) else f"feature_{i}"
+                ),
                 "value": round(float(features_array[i]), 4),
                 "abs_magnitude": round(float(abs(features_array[i])), 4),
             }
@@ -299,7 +312,7 @@ class RiskExplainer:
     def get_shap_waterfall_data(
         self,
         features_array: np.ndarray,
-        feature_names: Optional[list] = None,
+        feature_names: list | None = None,
     ) -> dict:
         """
         Get data for a SHAP waterfall chart.
@@ -311,7 +324,7 @@ class RiskExplainer:
         # Pad to 165
         if features_array.shape[0] < 165:
             padded = np.zeros(165, dtype=np.float32)
-            padded[:features_array.shape[0]] = features_array
+            padded[: features_array.shape[0]] = features_array
             features_array = padded
 
         names = feature_names or ELLIPTIC_FEATURE_NAMES
@@ -339,7 +352,7 @@ class RiskExplainer:
                 silent=True,
             )
 
-            sv = shap_values[0] if hasattr(shap_values, '__len__') else shap_values
+            sv = shap_values[0] if hasattr(shap_values, "__len__") else shap_values
             top_n = 10
             top_idx = np.argsort(np.abs(sv))[-top_n:][::-1]
 

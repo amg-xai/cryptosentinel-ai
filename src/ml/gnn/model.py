@@ -27,10 +27,11 @@ WHY NeighborLoader:
   10 of those neighbors' neighbors for layer 2, etc.
   Makes training scalable to graphs of any size.
 """
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.nn import SAGEConv, GATConv, BatchNorm
+from torch_geometric.nn import BatchNorm, GATConv, SAGEConv
 
 from config.logging_config import get_logger
 

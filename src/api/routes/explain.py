@@ -1,8 +1,7 @@
 """Explainability routes — SHAP + GNN explanations."""
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional
-import numpy as np
 
 from config.logging_config import get_logger
 from src.ml.tabular.feature_engineer import FeatureEngineer
@@ -18,6 +17,7 @@ def get_explainer():
     global _explainer
     if _explainer is None:
         from src.ml.explainability.gnn_explainer import RiskExplainer
+
         _explainer = RiskExplainer()
         _explainer.load()
     return _explainer
@@ -26,7 +26,7 @@ def get_explainer():
 class ExplainRequest(BaseModel):
     tx_hash: str
     from_addr: str
-    to_addr: Optional[str] = None
+    to_addr: str | None = None
     value_eth: float = 0.0
     gas: int = 21000
     gas_price: int = 1_000_000_000

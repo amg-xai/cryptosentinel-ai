@@ -3,8 +3,9 @@ Dashboard API client — calls the FastAPI backend.
 All dashboard data goes through these functions.
 Handles connection errors gracefully — dashboard never crashes.
 """
+
 import requests
-from typing import Optional
+
 from config.logging_config import get_logger
 
 logger = get_logger(__name__)

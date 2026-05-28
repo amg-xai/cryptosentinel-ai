@@ -21,13 +21,13 @@ Usage:
                          FaultMode.ERROR):
       pipeline.run()  # producer will raise exceptions
 """
-import asyncio
+
 import random
 import time
+from collections.abc import Callable
 from contextlib import contextmanager
 from enum import Enum
-from typing import Callable, Any
-from unittest.mock import patch, MagicMock
+from typing import Any
 
 from config.logging_config import get_logger
 
@@ -93,8 +93,7 @@ class FaultInjector:
             return self.target(*args, **kwargs)
 
         elif self.mode == FaultMode.TIMEOUT:
-            logger.debug("fault_timeout_injected",
-                        seconds=self.timeout_seconds)
+            logger.debug("fault_timeout_injected", seconds=self.timeout_seconds)
             time.sleep(self.timeout_seconds)
             raise TimeoutError(f"Injected timeout after {self.timeout_seconds}s")
 
@@ -133,6 +132,7 @@ def inject_kafka_failure(error_rate: float = 1.0):
 
     try:
         from src.streaming.producer import ThreatIntelProducer
+
         original_produce = ThreatIntelProducer.produce_transaction
 
         def failing_produce(self, tx):
@@ -145,6 +145,7 @@ def inject_kafka_failure(error_rate: float = 1.0):
     finally:
         if original_produce:
             from src.streaming.producer import ThreatIntelProducer
+
             ThreatIntelProducer.produce_transaction = original_produce
         logger.warning("chaos_kafka_failure_end")
 
@@ -160,6 +161,7 @@ def inject_model_latency(latency_ms: float = 500.0):
 
     try:
         from src.ml.inference_engine import InferenceEngine
+
         original_score = InferenceEngine.score_features
 
         def slow_score(self, features_array):
@@ -171,6 +173,7 @@ def inject_model_latency(latency_ms: float = 500.0):
     finally:
         if original_score:
             from src.ml.inference_engine import InferenceEngine
+
             InferenceEngine.score_features = original_score
         logger.warning("chaos_model_latency_end")
 
@@ -186,6 +189,7 @@ def inject_graph_failure():
 
     try:
         from src.graph.threat_graph import ThreatGraph
+
         original_query = ThreatGraph.find_laundering_paths
 
         def failing_query(self, *args, **kwargs):
@@ -196,5 +200,6 @@ def inject_graph_failure():
     finally:
         if original_query:
             from src.graph.threat_graph import ThreatGraph
+
             ThreatGraph.find_laundering_paths = original_query
         logger.warning("chaos_graph_failure_end")

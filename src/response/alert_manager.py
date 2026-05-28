@@ -16,14 +16,14 @@ WHY aging:
   Priority decays by 10% per hour after the first hour.
   This surfaces fresh threats over stale ones automatically.
 """
+
 import heapq
 import math
 import time
 from dataclasses import dataclass, field
-from typing import Optional
 
 from config.logging_config import get_logger
-from src.response.risk_scorer import RiskAssessment, ActionTier
+from src.response.risk_scorer import ActionTier, RiskAssessment
 
 logger = get_logger(__name__)
 
@@ -38,12 +38,13 @@ class Alert:
     A single threat alert in the priority queue.
     Comparable by priority for heapq (higher priority = processed first).
     """
+
     assessment: RiskAssessment
     created_at: float = field(default_factory=time.time)
     updated_at: float = field(default_factory=time.time)
     update_count: int = 0
     acknowledged: bool = False
-    acknowledged_by: Optional[str] = None
+    acknowledged_by: str | None = None
 
     @property
     def raw_priority(self) -> float:
@@ -92,7 +93,7 @@ class AlertManager:
     def __init__(self, max_alerts: int = 10_000):
         self.max_alerts = max_alerts
         self._alerts: dict[str, Alert] = {}  # address -> Alert
-        self._queue: list[Alert] = []         # heapq
+        self._queue: list[Alert] = []  # heapq
         self._total_created = 0
         self._total_deduplicated = 0
 
@@ -141,18 +142,15 @@ class AlertManager:
 
     def get_top_alerts(self, n: int = 50) -> list[Alert]:
         """Get top N alerts by current priority."""
-        active = [
-            a for a in self._alerts.values()
-            if not a.acknowledged
-        ]
+        active = [a for a in self._alerts.values() if not a.acknowledged]
         return sorted(active, reverse=False)[:n]
 
     def get_critical_alerts(self) -> list[Alert]:
         """Get all EMERGENCY tier alerts."""
         return [
-            a for a in self._alerts.values()
-            if a.assessment.action == ActionTier.EMERGENCY
-            and not a.acknowledged
+            a
+            for a in self._alerts.values()
+            if a.assessment.action == ActionTier.EMERGENCY and not a.acknowledged
         ]
 
     def acknowledge(self, address: str, analyst: str) -> bool:
@@ -175,10 +173,7 @@ class AlertManager:
         active = [a for a in self._alerts.values() if not a.acknowledged]
         by_tier = {}
         for tier in ActionTier:
-            by_tier[tier.value] = sum(
-                1 for a in active
-                if a.assessment.action == tier
-            )
+            by_tier[tier.value] = sum(1 for a in active if a.assessment.action == tier)
         return {
             "total_active": len(active),
             "total_created": self._total_created,

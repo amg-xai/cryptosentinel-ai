@@ -1,6 +1,9 @@
 """Tests for ThreatGraph and graph algorithms."""
+
 import time
+
 import pytest
+
 from src.graph.threat_graph import ThreatGraph, UnionFind
 
 
@@ -109,10 +112,12 @@ def test_round_trip_detection():
 
 def test_wallet_clustering_union_find():
     g = make_graph_with_transactions()
-    g.cluster_wallets_union_find([
-        ["0xA", "0xB"],
-        ["0xC", "0xD"],
-    ])
+    g.cluster_wallets_union_find(
+        [
+            ["0xA", "0xB"],
+            ["0xC", "0xD"],
+        ]
+    )
     uf = g._union_find
     assert uf.same_cluster("0xA", "0xB")
     assert uf.same_cluster("0xC", "0xD")

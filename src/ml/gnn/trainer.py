@@ -15,15 +15,15 @@ WHY AMP (Automatic Mixed Precision):
   AMP uses FP16 for forward/backward (2x faster) and FP32 for weights.
   Gives ~50% speedup with identical numerical results.
 """
-import json
+
 from pathlib import Path
 
 import numpy as np
 import torch
 import torch.nn.functional as F
+from sklearn.metrics import average_precision_score, f1_score, roc_auc_score
 from torch_geometric.data import Data
 from torch_geometric.loader import NeighborLoader
-from sklearn.metrics import f1_score, average_precision_score, roc_auc_score
 
 from config.logging_config import get_logger
 from src.ml.gnn.model import ThreatGNN
@@ -92,9 +92,7 @@ class GNNTrainer:
         learning_rate: float = 0.001,
         weight_decay: float = 1e-4,
     ):
-        self.device = torch.device(
-            "cuda" if torch.cuda.is_available() else "cpu"
-        )
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         logger.info("gnn_trainer_init", device=str(self.device))
 
         self.hidden_channels = hidden_channels
@@ -169,9 +167,7 @@ class GNNTrainer:
         )
 
         # Class weights for imbalanced data
-        class_weights = self._compute_class_weights(
-            data.y, data.train_mask
-        )
+        class_weights = self._compute_class_weights(data.y, data.train_mask)
 
         # NeighborLoader for mini-batch training
         train_loader = NeighborLoader(
@@ -223,9 +219,7 @@ class GNNTrainer:
 
                 scaler.scale(loss).backward()
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(
-                    self.model.parameters(), max_norm=1.0
-                )
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
                 scaler.step(optimizer)
                 scaler.update()
 
@@ -299,13 +293,16 @@ class GNNTrainer:
     def save(self, path: str) -> None:
         if self.model is None:
             return
-        torch.save({
-            "model_state_dict": self.model.state_dict(),
-            "hidden_channels": self.hidden_channels,
-            "heads": self.heads,
-            "dropout": self.dropout,
-            "history": self.history,
-        }, path)
+        torch.save(
+            {
+                "model_state_dict": self.model.state_dict(),
+                "hidden_channels": self.hidden_channels,
+                "heads": self.heads,
+                "dropout": self.dropout,
+                "history": self.history,
+            },
+            path,
+        )
 
     def load(self, path: str, in_channels: int) -> None:
         checkpoint = torch.load(path, map_location=self.device)

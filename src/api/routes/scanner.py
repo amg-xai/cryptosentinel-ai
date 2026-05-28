@@ -1,8 +1,10 @@
 """Smart contract scanner routes."""
+
 from fastapi import APIRouter, Depends, HTTPException
-from src.api.schemas import ContractScanRequest, ContractScanResponse
-from src.api.dependencies import get_contract_scanner
+
 from config.logging_config import get_logger
+from src.api.dependencies import get_contract_scanner
+from src.api.schemas import ContractScanRequest, ContractScanResponse
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/scan", tags=["Scanner"])

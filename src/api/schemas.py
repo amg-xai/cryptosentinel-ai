@@ -8,9 +8,8 @@ WHY Pydantic schemas:
   Input validation is automatic — invalid requests return 422.
   Response serialization is controlled and predictable.
 """
+
 from pydantic import BaseModel, Field
-from typing import Optional
-from src.response.risk_scorer import ActionTier
 
 
 class WalletAnalysisRequest(BaseModel):
@@ -41,13 +40,13 @@ class WalletAnalysisResponse(BaseModel):
     value_at_risk_eth: float
     model_scores: ModelScoresResponse
     explanation: dict
-    graph_stats: Optional[dict] = None
+    graph_stats: dict | None = None
 
 
 class TransactionScanRequest(BaseModel):
     tx_hash: str
     from_addr: str
-    to_addr: Optional[str] = None
+    to_addr: str | None = None
     value_eth: float = 0.0
     gas: int = 21000
     gas_price: int = 1_000_000_000
@@ -68,11 +67,11 @@ class TransactionScanResponse(BaseModel):
 
 
 class ContractScanRequest(BaseModel):
-    source_code: Optional[str] = Field(
+    source_code: str | None = Field(
         default=None,
         description="Solidity source code",
     )
-    bytecode: Optional[str] = Field(
+    bytecode: str | None = Field(
         default=None,
         description="EVM bytecode hex string",
     )
@@ -111,7 +110,7 @@ class GraphQueryResponse(BaseModel):
     laundering_paths: list[list[str]]
     ancestors: list[str]
     round_trips: list[dict]
-    cluster_id: Optional[int]
+    cluster_id: int | None
 
 
 class HealthResponse(BaseModel):

@@ -1,13 +1,13 @@
 """
 Contract scanner — orchestrates rule-based + ML scanning.
 """
+
 import time
-from dataclasses import dataclass
 
 from config.logging_config import get_logger
-from src.scanner.rule_engine import SolidityRuleEngine, ScanResult, Severity
-from src.scanner.ml_classifier import BytecodeFeatureExtractor, BytecodeRiskScorer
 from src.monitoring.metrics import CONTRACTS_SCANNED
+from src.scanner.ml_classifier import BytecodeFeatureExtractor, BytecodeRiskScorer
+from src.scanner.rule_engine import ScanResult, SolidityRuleEngine
 
 logger = get_logger(__name__)
 

@@ -1,6 +1,7 @@
 """Tests for JWT authentication and RBAC."""
-import pytest
+
 from fastapi.testclient import TestClient
+
 from src.api.main import app
 
 client = TestClient(app)
@@ -19,6 +20,7 @@ def auth_header(role: str = "admin") -> dict:
 
 # --- Auth endpoint tests ---
 
+
 def test_dev_token_returns_200():
     response = client.get("/auth/dev-token")
     assert response.status_code == 200
@@ -32,10 +34,13 @@ def test_dev_token_has_access_token():
 
 
 def test_login_valid_credentials():
-    response = client.post("/auth/token", json={
-        "email": "admin@cryptosentinel.ai",
-        "password": "admin123",
-    })
+    response = client.post(
+        "/auth/token",
+        json={
+            "email": "admin@cryptosentinel.ai",
+            "password": "admin123",
+        },
+    )
     assert response.status_code == 200
     data = response.json()
     assert "access_token" in data
@@ -44,27 +49,36 @@ def test_login_valid_credentials():
 
 
 def test_login_analyst_role():
-    response = client.post("/auth/token", json={
-        "email": "analyst@cryptosentinel.ai",
-        "password": "analyst123",
-    })
+    response = client.post(
+        "/auth/token",
+        json={
+            "email": "analyst@cryptosentinel.ai",
+            "password": "analyst123",
+        },
+    )
     assert response.status_code == 200
     assert response.json()["role"] == "analyst"
 
 
 def test_login_invalid_password():
-    response = client.post("/auth/token", json={
-        "email": "admin@cryptosentinel.ai",
-        "password": "wrongpassword",
-    })
+    response = client.post(
+        "/auth/token",
+        json={
+            "email": "admin@cryptosentinel.ai",
+            "password": "wrongpassword",
+        },
+    )
     assert response.status_code == 401
 
 
 def test_login_invalid_email():
-    response = client.post("/auth/token", json={
-        "email": "notauser@cryptosentinel.ai",
-        "password": "admin123",
-    })
+    response = client.post(
+        "/auth/token",
+        json={
+            "email": "notauser@cryptosentinel.ai",
+            "password": "admin123",
+        },
+    )
     assert response.status_code == 401
 
 
@@ -76,6 +90,7 @@ def test_invalid_token_returns_401():
         json={"address": "0xTest"},
     )
     assert response.status_code in (200, 401)
+
 
 def test_token_structure():
     """JWT must have 3 parts separated by dots."""
@@ -98,6 +113,7 @@ def test_metrics_no_auth_required():
 
 # --- Rate limiter tests ---
 
+
 def test_rate_limiter_allows_normal_requests():
     """Normal request volume should pass through."""
     for _ in range(5):
@@ -108,6 +124,8 @@ def test_rate_limiter_allows_normal_requests():
 def test_rate_limit_headers_present():
     """Rate limit headers must be present on API responses."""
     response = client.get("/alerts")
-    assert "ratelimit-limit" in response.headers or \
-           "RateLimit-Limit" in response.headers or \
-           response.status_code in (200, 429)
+    assert (
+        "ratelimit-limit" in response.headers
+        or "RateLimit-Limit" in response.headers
+        or response.status_code in (200, 429)
+    )

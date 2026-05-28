@@ -1,12 +1,12 @@
 """
 FastAPI dependency injection — shared resources across routes.
 """
-from functools import lru_cache
-from src.graph.threat_graph import ThreatGraph
-from src.response.risk_scorer import CompositeRiskScorer
-from src.response.alert_manager import AlertManager
-from src.scanner.contract_scanner import ContractScanner
+
 from src.crypto.pqc_handler import PQCAlertSigner
+from src.graph.threat_graph import ThreatGraph
+from src.response.alert_manager import AlertManager
+from src.response.risk_scorer import CompositeRiskScorer
+from src.scanner.contract_scanner import ContractScanner
 
 # Singletons initialized once
 _threat_graph = ThreatGraph()

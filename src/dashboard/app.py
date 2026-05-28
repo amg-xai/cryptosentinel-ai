@@ -3,7 +3,7 @@ CryptoSentinel AI — SOC Dashboard
 Dark theme, 4 pages, real-time data from FastAPI backend.
 Run: python -m streamlit run src/dashboard/app.py
 """
-import time
+
 import streamlit as st
 
 st.set_page_config(
@@ -14,24 +14,22 @@ st.set_page_config(
 )
 
 from src.dashboard.api_client import (
-    get_health,
-    get_alerts,
-    get_critical_alerts,
-    get_graph_stats,
     analyze_wallet,
+    get_alerts,
+    get_graph_stats,
+    get_health,
     get_wallet_graph,
     scan_contract,
-    acknowledge_alert,
 )
 from src.dashboard.components import (
-    render_kpi_cards,
     render_alert_table,
-    render_risk_distribution,
-    render_tier_breakdown,
-    render_vulnerability_chart,
+    render_kpi_cards,
     render_pyvis_graph,
+    render_risk_distribution,
     render_sankey,
     render_shap_waterfall,
+    render_tier_breakdown,
+    render_vulnerability_chart,
     severity_badge,
 )
 
@@ -43,7 +41,12 @@ with st.sidebar:
 
     page = st.radio(
         "Navigation",
-        ["🏠 SOC Overview", "🕸️ Threat Graph", "📋 Contract Scanner", "📊 Model Monitor"],
+        [
+            "🏠 SOC Overview",
+            "🕸️ Threat Graph",
+            "📋 Contract Scanner",
+            "📊 Model Monitor",
+        ],
         label_visibility="collapsed",
     )
 
@@ -137,46 +140,61 @@ elif page == "🕸️ Threat Graph":
             st.divider()
 
             # Tabs for different views
-            tab1, tab2, tab3, tab4 = st.tabs([
-                "🕸️ Network Graph",
-                "🌊 Fund Flow (Sankey)",
-                "📍 Path Analysis",
-                "🧠 SHAP Explanation",
-            ])
+            tab1, tab2, tab3, tab4 = st.tabs(
+                [
+                    "🕸️ Network Graph",
+                    "🌊 Fund Flow (Sankey)",
+                    "📍 Path Analysis",
+                    "🧠 SHAP Explanation",
+                ]
+            )
 
             with tab1:
                 st.markdown("#### Interactive Wallet Network")
-                st.caption("Node color: 🔴 Critical  🟠 High  🟡 Medium  🟢 Low  🟣 Selected")
+                st.caption(
+                    "Node color: 🔴 Critical  🟠 High  🟡 Medium  🟢 Low  🟣 Selected"
+                )
 
                 # Build nodes and edges from graph data
                 wallet_stats = graph_data.get("wallet_stats", {})
                 neighbors = wallet_stats.get("neighbors", [])
 
-                nodes = [{"id": address_input,
-                         "risk_score": wallet_data.get("composite_score", 0),
-                         "tx_count": wallet_stats.get("tx_count", 0)}]
+                nodes = [
+                    {
+                        "id": address_input,
+                        "risk_score": wallet_data.get("composite_score", 0),
+                        "tx_count": wallet_stats.get("tx_count", 0),
+                    }
+                ]
                 edges = []
 
                 for neighbor in neighbors[:10]:
-                    nodes.append({
-                        "id": neighbor,
-                        "risk_score": 0.3,
-                        "tx_count": 1,
-                    })
-                    edges.append({
-                        "from": address_input,
-                        "to": neighbor,
-                        "value_eth": 1.0,
-                    })
+                    nodes.append(
+                        {
+                            "id": neighbor,
+                            "risk_score": 0.3,
+                            "tx_count": 1,
+                        }
+                    )
+                    edges.append(
+                        {
+                            "from": address_input,
+                            "to": neighbor,
+                            "value_eth": 1.0,
+                        }
+                    )
 
                 if len(nodes) > 1:
                     html = render_pyvis_graph(
-                        nodes, edges,
+                        nodes,
+                        edges,
                         highlight_address=address_input,
                     )
                     st.components.v1.html(html, height=520, scrolling=False)
                 else:
-                    st.info("No neighbor data in graph yet. Run the scoring pipeline to populate the graph.")
+                    st.info(
+                        "No neighbor data in graph yet. Run the scoring pipeline to populate the graph."
+                    )
 
             with tab2:
                 st.markdown("#### Fund Flow Analysis")
@@ -189,9 +207,9 @@ elif page == "🕸️ Threat Graph":
                 if paths:
                     st.success(f"Found {len(paths)} potential laundering paths")
                     for i, path in enumerate(paths[:5]):
-                        st.code(f"Path {i+1}: " + " → ".join(
-                            [p[:10] + "..." for p in path]
-                        ))
+                        st.code(
+                            f"Path {i+1}: " + " → ".join([p[:10] + "..." for p in path])
+                        )
                 else:
                     st.info("No laundering paths detected")
 
@@ -220,6 +238,7 @@ elif page == "🕸️ Threat Graph":
 
                 # Fetch SHAP explanation
                 import requests
+
                 try:
                     shap_resp = requests.post(
                         "http://localhost:8000/explain/shap-waterfall",
@@ -315,7 +334,9 @@ contract VulnerableBank {
                             f"(confidence: {v.get('confidence', 0):.0%})"
                         ):
                             st.markdown(f"**Description:** {v.get('description')}")
-                            st.markdown(f"**Recommendation:** {v.get('recommendation')}")
+                            st.markdown(
+                                f"**Recommendation:** {v.get('recommendation')}"
+                            )
                             if v.get("code_snippet"):
                                 st.code(v["code_snippet"], language="solidity")
                 else:
@@ -328,6 +349,7 @@ contract VulnerableBank {
 elif page == "📊 Model Monitor":
     st.markdown("# 📊 ML Model Monitoring")
     import plotly.express as px
+
     st.markdown("*Model performance, drift detection, and system health*")
 
     col1, col2 = st.columns(2)
@@ -341,44 +363,58 @@ elif page == "📊 Model Monitor":
         st.divider()
         st.markdown("### 📈 Elliptic Benchmark Results")
         import pandas as pd
-        df = pd.DataFrame({
-            "Model": ["Isolation Forest", "VAE Autoencoder", "GNN (GraphSAGE+GAT)"],
-            "F1 Score": [0.001, 0.004, 0.676],
-            "PR-AUC": [0.036, 0.038, 0.650],
-            "ROC-AUC": [0.168, 0.198, 0.899],
-        })
+
+        df = pd.DataFrame(
+            {
+                "Model": ["Isolation Forest", "VAE Autoencoder", "GNN (GraphSAGE+GAT)"],
+                "F1 Score": [0.001, 0.004, 0.676],
+                "PR-AUC": [0.036, 0.038, 0.650],
+                "ROC-AUC": [0.168, 0.198, 0.899],
+            }
+        )
         st.dataframe(df, use_container_width=True)
 
     with col2:
         st.markdown("### ⚡ PQC Benchmark")
-        df_pqc = pd.DataFrame({
-            "Algorithm": ["ECDSA-secp256k1", "ML-DSA-65 (Dilithium3)", "ML-KEM-768 (Kyber)"],
-            "Sign/Encap (ms)": [0.697, 0.250, 0.021],
-            "Size (bytes)": [71, 3309, 1088],
-            "Quantum Safe": ["❌", "✅", "✅"],
-        })
+        df_pqc = pd.DataFrame(
+            {
+                "Algorithm": [
+                    "ECDSA-secp256k1",
+                    "ML-DSA-65 (Dilithium3)",
+                    "ML-KEM-768 (Kyber)",
+                ],
+                "Sign/Encap (ms)": [0.697, 0.250, 0.021],
+                "Size (bytes)": [71, 3309, 1088],
+                "Quantum Safe": ["❌", "✅", "✅"],
+            }
+        )
         st.dataframe(df_pqc, use_container_width=True)
 
         st.divider()
         st.markdown("### 🌐 System Info")
-        st.json({
-            "service": "cryptosentinel-api",
-            "version": "0.1.0",
-            "uptime_seconds": health.get("uptime_seconds", 0),
-            "environment": health.get("environment", "development"),
-        })
+        st.json(
+            {
+                "service": "cryptosentinel-api",
+                "version": "0.1.0",
+                "uptime_seconds": health.get("uptime_seconds", 0),
+                "environment": health.get("environment", "development"),
+            }
+        )
 
     st.divider()
     st.markdown("### 📉 GNN Training History")
     import json
     from pathlib import Path
+
     history_path = Path("data/models/gnn_history.json")
     if history_path.exists():
         with open(history_path) as f:
             history = json.load(f)
         df_hist = pd.DataFrame(history)
         fig = px.line(
-            df_hist, x="epoch", y="loss",
+            df_hist,
+            x="epoch",
+            y="loss",
             title="GNN Training Loss",
             color_discrete_sequence=["#00D4AA"],
         )
@@ -393,11 +429,17 @@ elif page == "📊 Model Monitor":
 
     st.divider()
     st.markdown("### ⚡ Feature Engineering Benchmarks")
-    df_bench = pd.DataFrame({
-        "Implementation": ["Python loop", "NumPy vectorized", "Numba JIT (parallel)"],
-        "N=100 (ms)": [2.69, 0.06, 0.03],
-        "N=1000 (ms)": [100.69, 5.71, 7.83],
-        "N=5000 (ms)": ["~2500", "92.17", "9.76"],
-        "Speedup vs Python": ["1x", "43x", "83x+"],
-    })
+    df_bench = pd.DataFrame(
+        {
+            "Implementation": [
+                "Python loop",
+                "NumPy vectorized",
+                "Numba JIT (parallel)",
+            ],
+            "N=100 (ms)": [2.69, 0.06, 0.03],
+            "N=1000 (ms)": [100.69, 5.71, 7.83],
+            "N=5000 (ms)": ["~2500", "92.17", "9.76"],
+            "Speedup vs Python": ["1x", "43x", "83x+"],
+        }
+    )
     st.dataframe(df_bench, use_container_width=True)

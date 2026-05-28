@@ -17,13 +17,14 @@ Performance targets (measured on 10K samples):
   velocity_numpy:    ~2.1ms  (47x faster)
   velocity_numba:    ~0.3ms  (327x faster, after JIT warmup)
 """
-import numpy as np
-import numba
 
+import numba
+import numpy as np
 
 # ============================================================
 # Velocity features — transactions per time window
 # ============================================================
+
 
 @numba.jit(nopython=True, parallel=True, cache=True)
 def compute_velocity_numba(
@@ -59,9 +60,9 @@ def compute_velocity_numpy(
     Broadcasting approach: O(N²) memory but vectorized operations.
     Faster than Python loop, slower than Numba for large N.
     """
-    t = timestamps[:, np.newaxis]        # (N, 1)
+    t = timestamps[:, np.newaxis]  # (N, 1)
     t_other = timestamps[np.newaxis, :]  # (1, N)
-    diff = t - t_other                   # (N, N) broadcast
+    diff = t - t_other  # (N, N) broadcast
     in_window = (diff >= 0) & (diff <= window_seconds)
     return in_window.sum(axis=1).astype(np.int32)
 
@@ -70,6 +71,7 @@ def compute_velocity_numpy(
 # Value statistics — vectorized
 # ============================================================
 
+
 def compute_value_stats_numpy(values: np.ndarray) -> dict:
     """
     Compute value statistics for a batch of transactions.
@@ -77,8 +79,12 @@ def compute_value_stats_numpy(values: np.ndarray) -> dict:
     """
     if len(values) == 0:
         return {
-            "mean": 0.0, "std": 0.0, "median": 0.0,
-            "p95": 0.0, "total": 0.0, "max": 0.0,
+            "mean": 0.0,
+            "std": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "total": 0.0,
+            "max": 0.0,
         }
     return {
         "mean": float(np.mean(values)),
@@ -93,6 +99,7 @@ def compute_value_stats_numpy(values: np.ndarray) -> dict:
 # ============================================================
 # Gas price percentile — vectorized
 # ============================================================
+
 
 @numba.jit(nopython=True, cache=True)
 def compute_gas_percentile_numba(
@@ -115,6 +122,7 @@ def compute_gas_percentile_numba(
 # ============================================================
 # Burst detection — Numba JIT
 # ============================================================
+
 
 @numba.jit(nopython=True, cache=True)
 def detect_burst_numba(
@@ -144,6 +152,7 @@ def detect_burst_numba(
 # Log transform — vectorized batch processing
 # ============================================================
 
+
 def log_transform_values(values: np.ndarray) -> np.ndarray:
     """
     log(value + 1) transform for ETH values.
@@ -156,6 +165,7 @@ def log_transform_values(values: np.ndarray) -> np.ndarray:
 # ============================================================
 # Warmup — trigger JIT compilation at startup
 # ============================================================
+
 
 def warmup_jit() -> None:
     """

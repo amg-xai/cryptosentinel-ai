@@ -1,6 +1,7 @@
 """
 Scoring pipeline — consumes transactions from Kafka and scores them.
 """
+
 import asyncio
 import time
 
@@ -10,16 +11,16 @@ from config.logging_config import get_logger
 from config.settings import settings
 from src.blockchain.ingester import BlockIngester
 from src.blockchain.models import Transaction
-from src.ml.tabular.feature_engineer import FeatureEngineer
 from src.ml.inference_engine import engine
+from src.ml.tabular.feature_engineer import FeatureEngineer
 
 engine.load()
 
-from src.response.risk_scorer import CompositeRiskScorer, ModelScores
-from src.response.alert_manager import AlertManager
 from src.graph.threat_graph import ThreatGraph
-from src.streaming.producer import ThreatIntelProducer
 from src.monitoring.metrics import TRANSACTIONS_SCANNED
+from src.response.alert_manager import AlertManager
+from src.response.risk_scorer import CompositeRiskScorer, ModelScores
+from src.streaming.producer import ThreatIntelProducer
 
 logger = get_logger(__name__)
 
@@ -90,9 +91,8 @@ async def scoring_worker(
             graph_stats = _threat_graph.get_wallet_stats(tx.from_addr)
             graph_centrality = 0.0
             if graph_stats:
-                total_deg = (
-                    graph_stats.get("in_degree", 0) +
-                    graph_stats.get("out_degree", 0)
+                total_deg = graph_stats.get("in_degree", 0) + graph_stats.get(
+                    "out_degree", 0
                 )
                 graph_centrality = min(1.0, total_deg / 100)
 
@@ -152,6 +152,7 @@ async def scoring_worker(
 
         except Exception as e:
             import traceback
+
             logger.error(
                 "scoring_error",
                 error=str(e),

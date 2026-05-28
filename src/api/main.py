@@ -2,22 +2,22 @@
 CryptoSentinel AI — FastAPI application.
 All routes registered here. Models loaded at startup.
 """
+
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from starlette.responses import Response
 
 from config.logging_config import get_logger
 from config.settings import settings
-from src.monitoring.tracing import setup_tracing
 from src.api.model_registry import registry
-from src.api.routes import analysis, alerts, graph, scanner
+from src.api.routes import alerts, analysis, graph, scanner
 from src.api.routes.auth import router as auth_router
 from src.api.routes.explain import router as explain_router
-from src.api.auth import get_current_user
+from src.monitoring.tracing import setup_tracing
 
 logger = get_logger(__name__)
 setup_tracing("cryptosentinel-api")
@@ -52,6 +52,7 @@ app = FastAPI(
 )
 
 from src.api.middleware.rate_limiter import RateLimitMiddleware
+
 app.add_middleware(RateLimitMiddleware)
 
 app.add_middleware(

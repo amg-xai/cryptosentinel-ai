@@ -26,11 +26,11 @@ Hybrid signing approach (NIST recommended):
   This maintains compatibility with classical systems during transition.
   Exactly how Cloudflare and Google are deploying PQC in production.
 """
+
 import hashlib
 import json
 import time
 from dataclasses import dataclass, field
-from typing import Optional
 
 import oqs
 
@@ -40,8 +40,8 @@ from src.monitoring.metrics import PQC_SIGNING_LATENCY
 logger = get_logger(__name__)
 
 # NIST-standardized algorithm names in liboqs
-DILITHIUM_ALG = "ML-DSA-65"   # NIST FIPS 204 (formerly Dilithium3)
-KYBER_ALG = "ML-KEM-768"      # NIST FIPS 203 (formerly Kyber-768)
+DILITHIUM_ALG = "ML-DSA-65"  # NIST FIPS 204 (formerly Dilithium3)
+KYBER_ALG = "ML-KEM-768"  # NIST FIPS 203 (formerly Kyber-768)
 
 
 @dataclass
@@ -50,6 +50,7 @@ class SignedAlert:
     A threat alert with post-quantum digital signature.
     Both the payload and signature are stored for audit purposes.
     """
+
     payload: dict
     pqc_signature: bytes
     pqc_algorithm: str
@@ -75,6 +76,7 @@ class KEMResult:
     ciphertext: sent to recipient (safe to transmit publicly)
     shared_secret: used to encrypt the intelligence payload
     """
+
     ciphertext: bytes
     shared_secret: bytes
     algorithm: str = KYBER_ALG
@@ -114,9 +116,9 @@ class PQCAlertSigner:
         start = time.perf_counter()
 
         # Canonical JSON serialization — deterministic key ordering
-        payload_bytes = json.dumps(
-            alert, sort_keys=True, separators=(",", ":")
-        ).encode("utf-8")
+        payload_bytes = json.dumps(alert, sort_keys=True, separators=(",", ":")).encode(
+            "utf-8"
+        )
         payload_hash = hashlib.sha256(payload_bytes).hexdigest()
 
         # Sign the hash
@@ -205,9 +207,7 @@ class PQCKeyExchange:
         decapsulate it to recover the shared secret.
         """
         kem_sender = oqs.KeyEncapsulation(KYBER_ALG)
-        ciphertext, shared_secret = kem_sender.encap_secret(
-            recipient_public_key
-        )
+        ciphertext, shared_secret = kem_sender.encap_secret(recipient_public_key)
 
         logger.debug(
             "secret_encapsulated",
@@ -242,9 +242,10 @@ def benchmark_pqc_vs_classical() -> dict:
     Used in BENCHMARKS.md and demo video.
     """
     import time
-    from cryptography.hazmat.primitives.asymmetric import ec
-    from cryptography.hazmat.primitives import hashes
+
     from cryptography.hazmat.backends import default_backend
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.asymmetric import ec
 
     results = {}
     n_iterations = 100

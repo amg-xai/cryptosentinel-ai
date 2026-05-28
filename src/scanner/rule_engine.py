@@ -38,10 +38,10 @@ Vulnerability patterns implemented:
     Contract can be destroyed — sends all ETH to attacker.
     Pattern: selfdestruct( without access control
 """
+
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
 
 from config.logging_config import get_logger
 
@@ -68,13 +68,14 @@ SEVERITY_SCORES = {
 @dataclass
 class Vulnerability:
     """A single detected vulnerability."""
+
     vuln_type: str
     severity: Severity
-    line: Optional[int]
+    line: int | None
     description: str
     recommendation: str
     confidence: float
-    code_snippet: Optional[str] = None
+    code_snippet: str | None = None
 
     @property
     def severity_score(self) -> float:
@@ -96,6 +97,7 @@ class Vulnerability:
 @dataclass
 class ScanResult:
     """Complete scan result for one contract."""
+
     source_code: str
     vulnerabilities: list[Vulnerability]
     overall_risk_score: float
@@ -104,10 +106,7 @@ class ScanResult:
 
     @property
     def has_critical(self) -> bool:
-        return any(
-            v.severity == Severity.CRITICAL
-            for v in self.vulnerabilities
-        )
+        return any(v.severity == Severity.CRITICAL for v in self.vulnerabilities)
 
     @property
     def vulnerability_count(self) -> dict:
@@ -136,6 +135,7 @@ class SolidityRuleEngine:
     def scan(self, source_code: str) -> list[Vulnerability]:
         """Run all checks and return combined vulnerability list."""
         import time
+
         start = time.perf_counter()
         lines = source_code.split("\n")
         vulns = []
@@ -164,36 +164,40 @@ class SolidityRuleEngine:
         """
         vulns = []
         call_patterns = [
-            re.compile(r'\.call\.value\s*\('),
-            re.compile(r'\.call\{value\s*:'),
-            re.compile(r'\.call\s*\(\s*\"\"\s*\)'),
+            re.compile(r"\.call\.value\s*\("),
+            re.compile(r"\.call\{value\s*:"),
+            re.compile(r"\.call\s*\(\s*\"\"\s*\)"),
         ]
         for i, line in enumerate(lines, 1):
             for pattern in call_patterns:
                 if pattern.search(line):
                     # Check if state update comes AFTER the call
-                    context = "\n".join(lines[i:min(i+5, len(lines))])
-                    has_state_update = bool(re.search(
-                        r'(balances|balance|amount|state)\s*[\-\+]?=',
-                        context,
-                    ))
+                    context = "\n".join(lines[i : min(i + 5, len(lines))])
+                    has_state_update = bool(
+                        re.search(
+                            r"(balances|balance|amount|state)\s*[\-\+]?=",
+                            context,
+                        )
+                    )
                     confidence = 0.90 if has_state_update else 0.65
-                    vulns.append(Vulnerability(
-                        vuln_type="REENTRANCY",
-                        severity=Severity.CRITICAL,
-                        line=i,
-                        description=(
-                            "Low-level call detected before state update. "
-                            "Vulnerable to reentrancy attacks (cf. The DAO hack)."
-                        ),
-                        recommendation=(
-                            "Apply Checks-Effects-Interactions pattern: "
-                            "update state BEFORE making external calls. "
-                            "Or use ReentrancyGuard from OpenZeppelin."
-                        ),
-                        confidence=confidence,
-                        code_snippet=line.strip(),
-                    ))
+                    vulns.append(
+                        Vulnerability(
+                            vuln_type="REENTRANCY",
+                            severity=Severity.CRITICAL,
+                            line=i,
+                            description=(
+                                "Low-level call detected before state update. "
+                                "Vulnerable to reentrancy attacks (cf. The DAO hack)."
+                            ),
+                            recommendation=(
+                                "Apply Checks-Effects-Interactions pattern: "
+                                "update state BEFORE making external calls. "
+                                "Or use ReentrancyGuard from OpenZeppelin."
+                            ),
+                            confidence=confidence,
+                            code_snippet=line.strip(),
+                        )
+                    )
         return vulns
 
     def _check_timestamp_dependency(
@@ -203,29 +207,29 @@ class SolidityRuleEngine:
     ) -> list[Vulnerability]:
         """Detect block.timestamp used in critical logic."""
         vulns = []
-        pattern = re.compile(r'block\.timestamp')
-        critical_context = re.compile(
-            r'(require|if|random|seed|lottery|winner)'
-        )
+        pattern = re.compile(r"block\.timestamp")
+        critical_context = re.compile(r"(require|if|random|seed|lottery|winner)")
         for i, line in enumerate(lines, 1):
             if pattern.search(line):
                 is_critical = bool(critical_context.search(line))
-                vulns.append(Vulnerability(
-                    vuln_type="TIMESTAMP_DEPENDENCY",
-                    severity=Severity.MEDIUM if is_critical else Severity.LOW,
-                    line=i,
-                    description=(
-                        "block.timestamp can be manipulated by miners "
-                        "by approximately 15 seconds."
-                    ),
-                    recommendation=(
-                        "Do not use block.timestamp for randomness or "
-                        "as an exact timing mechanism. Use Chainlink VRF "
-                        "for randomness."
-                    ),
-                    confidence=0.80,
-                    code_snippet=line.strip(),
-                ))
+                vulns.append(
+                    Vulnerability(
+                        vuln_type="TIMESTAMP_DEPENDENCY",
+                        severity=Severity.MEDIUM if is_critical else Severity.LOW,
+                        line=i,
+                        description=(
+                            "block.timestamp can be manipulated by miners "
+                            "by approximately 15 seconds."
+                        ),
+                        recommendation=(
+                            "Do not use block.timestamp for randomness or "
+                            "as an exact timing mechanism. Use Chainlink VRF "
+                            "for randomness."
+                        ),
+                        confidence=0.80,
+                        code_snippet=line.strip(),
+                    )
+                )
         return vulns
 
     def _check_access_control(
@@ -235,21 +239,19 @@ class SolidityRuleEngine:
     ) -> list[Vulnerability]:
         """Detect public/external functions modifying state without access control."""
         vulns = []
-        func_pattern = re.compile(
-            r'function\s+(\w+)\s*\([^)]*\)\s*(public|external)'
-        )
+        func_pattern = re.compile(r"function\s+(\w+)\s*\([^)]*\)\s*(public|external)")
         protected_patterns = [
-            re.compile(r'onlyOwner'),
-            re.compile(r'onlyAdmin'),
-            re.compile(r'onlyRole'),
-            re.compile(r'require\s*\(\s*msg\.sender'),
-            re.compile(r'modifier'),
+            re.compile(r"onlyOwner"),
+            re.compile(r"onlyAdmin"),
+            re.compile(r"onlyRole"),
+            re.compile(r"require\s*\(\s*msg\.sender"),
+            re.compile(r"modifier"),
         ]
         state_change_patterns = [
-            re.compile(r'=\s*[^=]'),
-            re.compile(r'\+=|-=|\*='),
-            re.compile(r'\.push\('),
-            re.compile(r'delete\s+'),
+            re.compile(r"=\s*[^=]"),
+            re.compile(r"\+=|-=|\*="),
+            re.compile(r"\.push\("),
+            re.compile(r"delete\s+"),
         ]
 
         for i, line in enumerate(lines, 1):
@@ -261,30 +263,28 @@ class SolidityRuleEngine:
                 continue
 
             # Look ahead for access control and state changes
-            context = "\n".join(lines[i:min(i+20, len(lines))])
-            has_access_control = any(
-                p.search(context) for p in protected_patterns
-            )
-            has_state_change = any(
-                p.search(context) for p in state_change_patterns
-            )
+            context = "\n".join(lines[i : min(i + 20, len(lines))])
+            has_access_control = any(p.search(context) for p in protected_patterns)
+            has_state_change = any(p.search(context) for p in state_change_patterns)
 
             if has_state_change and not has_access_control:
-                vulns.append(Vulnerability(
-                    vuln_type="ACCESS_CONTROL",
-                    severity=Severity.HIGH,
-                    line=i,
-                    description=(
-                        f"Function '{func_name}' is public/external "
-                        f"and modifies state without access control."
-                    ),
-                    recommendation=(
-                        "Add onlyOwner modifier or require(msg.sender == owner) "
-                        "check. Consider using OpenZeppelin's Ownable."
-                    ),
-                    confidence=0.70,
-                    code_snippet=line.strip(),
-                ))
+                vulns.append(
+                    Vulnerability(
+                        vuln_type="ACCESS_CONTROL",
+                        severity=Severity.HIGH,
+                        line=i,
+                        description=(
+                            f"Function '{func_name}' is public/external "
+                            f"and modifies state without access control."
+                        ),
+                        recommendation=(
+                            "Add onlyOwner modifier or require(msg.sender == owner) "
+                            "check. Consider using OpenZeppelin's Ownable."
+                        ),
+                        confidence=0.70,
+                        code_snippet=line.strip(),
+                    )
+                )
         return vulns
 
     def _check_integer_overflow(
@@ -294,10 +294,8 @@ class SolidityRuleEngine:
     ) -> list[Vulnerability]:
         """Detect pre-0.8 Solidity without SafeMath."""
         vulns = []
-        pragma_pattern = re.compile(
-            r'pragma\s+solidity\s+[\^~]?0\.[0-7]\.'
-        )
-        arithmetic_pattern = re.compile(r'[\+\-\*\/]=|\+\+|--')
+        pragma_pattern = re.compile(r"pragma\s+solidity\s+[\^~]?0\.[0-7]\.")
+        arithmetic_pattern = re.compile(r"[\+\-\*\/]=|\+\+|--")
 
         has_old_pragma = bool(pragma_pattern.search(source))
         has_safeMath = "SafeMath" in source
@@ -305,21 +303,23 @@ class SolidityRuleEngine:
         if has_old_pragma and not has_safeMath:
             for i, line in enumerate(lines, 1):
                 if arithmetic_pattern.search(line):
-                    vulns.append(Vulnerability(
-                        vuln_type="INTEGER_OVERFLOW",
-                        severity=Severity.HIGH,
-                        line=i,
-                        description=(
-                            "Arithmetic operation in pre-0.8 Solidity "
-                            "without SafeMath. Vulnerable to integer overflow."
-                        ),
-                        recommendation=(
-                            "Upgrade to Solidity 0.8+ (overflow checks built-in) "
-                            "or use OpenZeppelin SafeMath library."
-                        ),
-                        confidence=0.85,
-                        code_snippet=line.strip(),
-                    ))
+                    vulns.append(
+                        Vulnerability(
+                            vuln_type="INTEGER_OVERFLOW",
+                            severity=Severity.HIGH,
+                            line=i,
+                            description=(
+                                "Arithmetic operation in pre-0.8 Solidity "
+                                "without SafeMath. Vulnerable to integer overflow."
+                            ),
+                            recommendation=(
+                                "Upgrade to Solidity 0.8+ (overflow checks built-in) "
+                                "or use OpenZeppelin SafeMath library."
+                            ),
+                            confidence=0.85,
+                            code_snippet=line.strip(),
+                        )
+                    )
                     break  # One representative finding per contract
         return vulns
 
@@ -330,26 +330,28 @@ class SolidityRuleEngine:
     ) -> list[Vulnerability]:
         """Detect unchecked .transfer() or .send() return values."""
         vulns = []
-        pattern = re.compile(r'\.(transfer|send)\s*\(')
+        pattern = re.compile(r"\.(transfer|send)\s*\(")
         for i, line in enumerate(lines, 1):
             if pattern.search(line):
                 has_require = "require" in line or "assert" in line
                 if not has_require:
-                    vulns.append(Vulnerability(
-                        vuln_type="UNCHECKED_RETURN",
-                        severity=Severity.MEDIUM,
-                        line=i,
-                        description=(
-                            ".transfer() reverts on failure but .send() "
-                            "returns false. Unchecked return can hide failures."
-                        ),
-                        recommendation=(
-                            "Use .transfer() which reverts automatically, "
-                            "or check .send() return value with require()."
-                        ),
-                        confidence=0.75,
-                        code_snippet=line.strip(),
-                    ))
+                    vulns.append(
+                        Vulnerability(
+                            vuln_type="UNCHECKED_RETURN",
+                            severity=Severity.MEDIUM,
+                            line=i,
+                            description=(
+                                ".transfer() reverts on failure but .send() "
+                                "returns false. Unchecked return can hide failures."
+                            ),
+                            recommendation=(
+                                "Use .transfer() which reverts automatically, "
+                                "or check .send() return value with require()."
+                            ),
+                            confidence=0.75,
+                            code_snippet=line.strip(),
+                        )
+                    )
         return vulns
 
     def _check_selfdestruct(
@@ -359,30 +361,31 @@ class SolidityRuleEngine:
     ) -> list[Vulnerability]:
         """Detect selfdestruct without access control."""
         vulns = []
-        pattern = re.compile(r'selfdestruct\s*\(')
-        protected = re.compile(r'onlyOwner|require\s*\(\s*msg\.sender')
+        pattern = re.compile(r"selfdestruct\s*\(")
+        protected = re.compile(r"onlyOwner|require\s*\(\s*msg\.sender")
 
         for i, line in enumerate(lines, 1):
             if pattern.search(line):
-                context = "\n".join(
-                    lines[max(0, i-10):i]
-                )
+                context = "\n".join(lines[max(0, i - 10) : i])
                 has_protection = bool(protected.search(context))
-                vulns.append(Vulnerability(
-                    vuln_type="SELFDESTRUCT",
-                    severity=Severity.CRITICAL if not has_protection
-                    else Severity.LOW,
-                    line=i,
-                    description=(
-                        "selfdestruct() destroys the contract and sends "
-                        "all ETH to the specified address."
-                    ),
-                    recommendation=(
-                        "Ensure selfdestruct is protected by onlyOwner "
-                        "or equivalent access control. Consider removing "
-                        "selfdestruct entirely."
-                    ),
-                    confidence=0.95,
-                    code_snippet=line.strip(),
-                ))
+                vulns.append(
+                    Vulnerability(
+                        vuln_type="SELFDESTRUCT",
+                        severity=(
+                            Severity.CRITICAL if not has_protection else Severity.LOW
+                        ),
+                        line=i,
+                        description=(
+                            "selfdestruct() destroys the contract and sends "
+                            "all ETH to the specified address."
+                        ),
+                        recommendation=(
+                            "Ensure selfdestruct is protected by onlyOwner "
+                            "or equivalent access control. Consider removing "
+                            "selfdestruct entirely."
+                        ),
+                        confidence=0.95,
+                        code_snippet=line.strip(),
+                    )
+                )
         return vulns

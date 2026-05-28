@@ -1,8 +1,10 @@
 """Threat graph query routes."""
+
 from fastapi import APIRouter, Depends
-from src.api.schemas import GraphQueryResponse
-from src.api.dependencies import get_threat_graph
+
 from config.logging_config import get_logger
+from src.api.dependencies import get_threat_graph
+from src.api.schemas import GraphQueryResponse
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/graph", tags=["Graph"])

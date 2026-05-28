@@ -2,10 +2,10 @@
 Tests for ThreatGNN model and trainer.
 Uses tiny synthetic graphs — fast CPU execution.
 """
+
 import numpy as np
-import pytest
 import torch
-from torch_geometric.data import Data
+
 from src.ml.gnn.model import ThreatGNN
 from src.ml.gnn.trainer import GNNTrainer, build_pyg_data
 
@@ -53,9 +53,12 @@ def test_build_pyg_data():
     y_train, y_test = y[:30], y[30:]
 
     data = build_pyg_data(
-        X_train, X_test,
-        y_train, y_test,
-        train_mask[:30], test_mask[30:],
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        train_mask[:30],
+        test_mask[30:],
         edge_index,
     )
 
@@ -73,9 +76,12 @@ def test_trainer_trains_without_error():
     y_train, y_test = y[:30], y[30:]
 
     data = build_pyg_data(
-        X_train, X_test,
-        y_train, y_test,
-        train_mask[:30], test_mask[30:],
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        train_mask[:30],
+        test_mask[30:],
         edge_index,
     )
 
@@ -104,9 +110,12 @@ def test_trainer_evaluate_returns_metrics():
     y_train, y_test = y[:30], y[30:]
 
     data = build_pyg_data(
-        X_train, X_test,
-        y_train, y_test,
-        train_mask[:30], test_mask[30:],
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        train_mask[:30],
+        test_mask[30:],
         edge_index,
     )
 
@@ -114,8 +123,14 @@ def test_trainer_evaluate_returns_metrics():
     trainer.train(data, epochs=2, batch_size=16, num_neighbors=[5, 3])
     metrics = trainer.evaluate(data)
 
-    required = {"f1_score", "pr_auc", "roc_auc",
-                "test_samples", "illicit_detected", "illicit_total"}
+    required = {
+        "f1_score",
+        "pr_auc",
+        "roc_auc",
+        "test_samples",
+        "illicit_detected",
+        "illicit_total",
+    }
     assert required.issubset(set(metrics.keys()))
 
 
@@ -126,9 +141,12 @@ def test_trainer_save_and_load(tmp_path):
     y_train, y_test = y[:30], y[30:]
 
     data = build_pyg_data(
-        X_train, X_test,
-        y_train, y_test,
-        train_mask[:30], test_mask[30:],
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        train_mask[:30],
+        test_mask[30:],
         edge_index,
     )
 

@@ -28,18 +28,18 @@ WHY Louvain:
   Wallets that transact heavily with each other cluster together.
   Criminal organizations show tight internal transaction patterns.
 """
+
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Optional
 
 import networkx as nx
 
 from config.logging_config import get_logger
 from src.monitoring.metrics import (
-    THREAT_GRAPH_NODES,
-    THREAT_GRAPH_EDGES,
     GRAPH_QUERY_LATENCY,
+    THREAT_GRAPH_EDGES,
+    THREAT_GRAPH_NODES,
 )
 
 logger = get_logger(__name__)
@@ -48,9 +48,10 @@ logger = get_logger(__name__)
 @dataclass
 class WalletNode:
     """Attributes stored per wallet node in the graph."""
+
     address: str
     risk_score: float = 0.0
-    cluster_id: Optional[int] = None
+    cluster_id: int | None = None
     entity_label: str = "unknown"  # exchange, mixer, contract, unknown
     first_seen: float = field(default_factory=time.time)
     last_seen: float = field(default_factory=time.time)
@@ -62,6 +63,7 @@ class WalletNode:
 @dataclass
 class TransactionEdge:
     """Attributes stored per transaction edge."""
+
     tx_hash: str
     value_eth: float
     timestamp: float
@@ -182,9 +184,7 @@ class ThreatGraph:
             # Update risk score if provided
             if risk_score > 0:
                 current = self.G.nodes[from_addr]["risk_score"]
-                self.G.nodes[from_addr]["risk_score"] = max(
-                    current, risk_score
-                )
+                self.G.nodes[from_addr]["risk_score"] = max(current, risk_score)
 
             # Add directed edge (from → to)
             # If edge exists, keep the one with higher value
@@ -251,9 +251,7 @@ class ThreatGraph:
         if not self.G.has_node(source):
             return []
 
-        with GRAPH_QUERY_LATENCY.labels(
-            query_type="laundering_path"
-        ).time():
+        with GRAPH_QUERY_LATENCY.labels(query_type="laundering_path").time():
             paths = []
             try:
                 # Get all nodes reachable from source within max_depth
@@ -288,7 +286,7 @@ class ThreatGraph:
             max_depth=max_depth,
         )
         return paths
-            
+
     def peel_back(
         self,
         address: str,
@@ -352,13 +350,15 @@ class ThreatGraph:
                 time_out = outgoing_times[src]
                 time_in = data.get("timestamp", 0)
                 if 0 < (time_in - time_out) < self._round_trip_window:
-                    round_trips.append({
-                        "intermediate": src,
-                        "time_out": time_out,
-                        "time_in": time_in,
-                        "round_trip_seconds": time_in - time_out,
-                        "value_eth": data.get("value_eth", 0),
-                    })
+                    round_trips.append(
+                        {
+                            "intermediate": src,
+                            "time_out": time_out,
+                            "time_in": time_in,
+                            "round_trip_seconds": time_in - time_out,
+                            "value_eth": data.get("value_eth", 0),
+                        }
+                    )
 
         if round_trips:
             logger.warning(
@@ -414,11 +414,10 @@ class ThreatGraph:
         if self.G.number_of_nodes() < 2:
             return {}
 
-        with GRAPH_QUERY_LATENCY.labels(
-            query_type="louvain_community"
-        ).time():
+        with GRAPH_QUERY_LATENCY.labels(query_type="louvain_community").time():
             try:
                 import community as community_louvain
+
                 # Louvain works on undirected graphs
                 G_undirected = self.G.to_undirected()
                 partition = community_louvain.best_partition(G_undirected)
@@ -452,11 +451,13 @@ class ThreatGraph:
 
         for root, members in clusters.items():
             # Find max risk in cluster
-            max_risk = max(
-                self.G.nodes[m]["risk_score"]
-                for m in members
-                if self.G.has_node(m)
-            ) if members else 0.0
+            max_risk = (
+                max(
+                    self.G.nodes[m]["risk_score"] for m in members if self.G.has_node(m)
+                )
+                if members
+                else 0.0
+            )
 
             if max_risk > 0.5:
                 # Propagate 70% of max risk to all cluster members
@@ -464,9 +465,7 @@ class ThreatGraph:
                 for member in members:
                     if self.G.has_node(member):
                         current = self.G.nodes[member]["risk_score"]
-                        self.G.nodes[member]["risk_score"] = max(
-                            current, propagated
-                        )
+                        self.G.nodes[member]["risk_score"] = max(current, propagated)
 
     def get_wallet_stats(self, address: str) -> dict:
         """Get full stats for a wallet address."""

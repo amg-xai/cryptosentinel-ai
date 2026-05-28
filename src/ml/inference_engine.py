@@ -12,12 +12,13 @@ WHY singleton pattern:
   We load once, score millions of transactions with the same model instance.
   Thread-safe reads — models are read-only after loading.
 """
-import numpy as np
+
 from pathlib import Path
-from typing import Optional
+
+import numpy as np
 
 from config.logging_config import get_logger
-from src.monitoring.metrics import GNN_INFERENCE_LATENCY, TRANSACTIONS_SCANNED
+from src.monitoring.metrics import GNN_INFERENCE_LATENCY
 
 logger = get_logger(__name__)
 
@@ -42,6 +43,7 @@ class InferenceEngine:
     def load(self) -> dict:
         """Load all trained models. Returns status dict."""
         import joblib
+
         status = {}
 
         # Scaler — needed for feature normalization
@@ -61,6 +63,7 @@ class InferenceEngine:
         # Isolation Forest
         try:
             from src.ml.tabular.isolation_forest import ThreatIsolationForest
+
             if_path = MODELS_DIR / "isolation_forest.joblib"
             if if_path.exists():
                 self.isolation_forest = ThreatIsolationForest.load(str(if_path))
@@ -75,6 +78,7 @@ class InferenceEngine:
         # Autoencoder
         try:
             from src.ml.tabular.autoencoder import ThreatAutoencoder
+
             ae_path = MODELS_DIR / "autoencoder.pt"
             if ae_path.exists():
                 self.autoencoder = ThreatAutoencoder.load(str(ae_path))
@@ -89,6 +93,7 @@ class InferenceEngine:
         # GNN — load model and full graph for inference
         try:
             from src.ml.gnn.trainer import GNNTrainer, build_pyg_data
+
             gnn_path = MODELS_DIR / "gnn_best.pt"
             if gnn_path.exists():
                 self.gnn_trainer = GNNTrainer()
@@ -104,9 +109,12 @@ class InferenceEngine:
                 edge_index = np.load(PROCESSED_DIR / "edge_index.npy")
 
                 self.gnn_data = build_pyg_data(
-                    X_train, X_test,
-                    y_train, y_test,
-                    train_mask, test_mask,
+                    X_train,
+                    X_test,
+                    y_train,
+                    y_test,
+                    train_mask,
+                    test_mask,
                     edge_index,
                 )
                 status["gnn"] = True
@@ -124,7 +132,7 @@ class InferenceEngine:
     def score_features(self, features_array: np.ndarray) -> dict:
         """
         Score a feature vector with IF and AE.
-        
+
         NOTE: IF and AE were trained on 165-feature Elliptic dataset.
         Live blockchain transactions have 16 features.
         We pad to 165 for compatibility — zeros for missing features.
@@ -139,7 +147,7 @@ class InferenceEngine:
         # Pad features to 165 if needed
         if features_array.shape[0] < 165:
             padded = np.zeros(165, dtype=np.float32)
-            padded[:features_array.shape[0]] = features_array
+            padded[: features_array.shape[0]] = features_array
             features_array = padded
 
         if self.isolation_forest and self.isolation_forest._is_fitted:
@@ -150,19 +158,17 @@ class InferenceEngine:
                 )
             except Exception as e:
                 import traceback
-                logger.error("if_score_failed", error=str(e),
-                           tb=traceback.format_exc())
+
+                logger.error("if_score_failed", error=str(e), tb=traceback.format_exc())
 
         if self.autoencoder and self.autoencoder._is_fitted:
             try:
                 x = features_array.reshape(1, -1)
-                scores["autoencoder"] = float(
-                    self.autoencoder.score_samples(x)[0]
-                )
+                scores["autoencoder"] = float(self.autoencoder.score_samples(x)[0])
             except Exception as e:
                 import traceback
-                logger.error("ae_score_failed", error=str(e),
-                           tb=traceback.format_exc())
+
+                logger.error("ae_score_failed", error=str(e), tb=traceback.format_exc())
 
         return scores
 
@@ -173,12 +179,13 @@ class InferenceEngine:
 
         try:
             import time
+
             import torch
 
             # Pad to 165 if needed
             if features_array.shape[0] < 165:
                 padded = np.zeros(165, dtype=np.float32)
-                padded[:features_array.shape[0]] = features_array
+                padded[: features_array.shape[0]] = features_array
                 features_array = padded
 
             start = time.perf_counter()
@@ -210,6 +217,7 @@ class InferenceEngine:
 
         except Exception as e:
             import traceback
+
             logger.error(
                 "gnn_score_failed",
                 error=str(e),
@@ -237,11 +245,12 @@ class InferenceEngine:
         # Pad to 165 features if needed (live transactions have 16 features)
         if features_array.shape[0] < 165:
             padded = np.zeros(165, dtype=np.float32)
-            padded[:features_array.shape[0]] = features_array
+            padded[: features_array.shape[0]] = features_array
             features_array = padded
 
         try:
             import time
+
             import torch
 
             start = time.perf_counter()
@@ -278,7 +287,9 @@ class InferenceEngine:
             return gnn_score
 
         except Exception as e:
-            import traceback; logger.error("gnn_score_failed", error=str(e), tb=traceback.format_exc())
+            import traceback
+
+            logger.error("gnn_score_failed", error=str(e), tb=traceback.format_exc())
             return -1.0
 
 
