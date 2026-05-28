@@ -16,6 +16,7 @@ from src.monitoring.tracing import setup_tracing
 from src.api.model_registry import registry
 from src.api.routes import analysis, alerts, graph, scanner
 from src.api.routes.auth import router as auth_router
+from src.api.routes.explain import router as explain_router
 from src.api.auth import get_current_user
 
 logger = get_logger(__name__)
@@ -67,6 +68,7 @@ app.include_router(analysis.router)
 app.include_router(alerts.router)
 app.include_router(graph.router)
 app.include_router(scanner.router)
+app.include_router(explain_router)
 
 
 @app.get("/health", tags=["System"])
