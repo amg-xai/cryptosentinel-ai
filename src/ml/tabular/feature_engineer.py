@@ -10,7 +10,7 @@ WHY pure functions:
 - Can be JIT-compiled with Numba (Week 2)
 - Easy to add/remove features without touching other code
 """
-
+from src.ml.tabular.vectorized_features import log_transform_values
 import time
 from dataclasses import dataclass
 
@@ -20,6 +20,8 @@ from config.logging_config import get_logger
 
 logger = get_logger(__name__)
 
+from src.ml.tabular.vectorized_features import log_transform_values, warmup_jit
+warmup_jit()  # Compile JIT functions at module import time
 
 @dataclass
 class TransactionFeatures:
@@ -138,7 +140,7 @@ class FeatureEngineer:
             from_addr=from_addr,
             chain_name=tx_payload.get("chain_name", ""),
             value_eth=value_eth,
-            log_value_eth=float(np.log1p(value_eth)),
+            log_value_eth=float(log_transform_values(np.array([value_eth]))[0]),
             is_high_value=1.0 if value_eth > 1.0 else 0.0,
             gas=float(tx_payload.get("gas", 0)),
             gas_price_gwei=gas_price_gwei,
