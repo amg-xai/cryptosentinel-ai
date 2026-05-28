@@ -1,7 +1,7 @@
 """
 CryptoSentinel AI — SOC Dashboard
 Dark theme, 4 pages, real-time data from FastAPI backend.
-Run: streamlit run src/dashboard/app.py
+Run: python -m streamlit run src/dashboard/app.py
 """
 import time
 import streamlit as st
@@ -29,6 +29,9 @@ from src.dashboard.components import (
     render_risk_distribution,
     render_tier_breakdown,
     render_vulnerability_chart,
+    render_pyvis_graph,
+    render_sankey,
+    render_shap_waterfall,
     severity_badge,
 )
 
@@ -60,7 +63,6 @@ with st.sidebar:
     st.divider()
     uptime = health.get("uptime_seconds", 0)
     st.caption(f"Uptime: {uptime}s")
-    st.caption("Auto-refresh: 30s")
 
 
 # =====================
@@ -80,7 +82,6 @@ if page == "🏠 SOC Overview":
 
     with col_left:
         st.markdown("### 🚨 Active Alert Feed")
-        st.caption("Sorted by priority score. Click address to investigate.")
         render_alert_table(alerts_data.get("alerts", []))
 
     with col_right:
@@ -92,10 +93,6 @@ if page == "🏠 SOC Overview":
     st.divider()
     if st.button("🔄 Refresh Data"):
         st.rerun()
-
-    # Auto-refresh
-    time.sleep(30)
-    st.rerun()
 
 
 # ========================
@@ -110,7 +107,6 @@ elif page == "🕸️ Threat Graph":
         address_input = st.text_input(
             "🔍 Search wallet address",
             placeholder="0x...",
-            help="Enter an Ethereum address to investigate",
         )
     with col2:
         max_depth = st.slider("Path depth", 1, 5, 3)
@@ -139,20 +135,67 @@ elif page == "🕸️ Threat Graph":
                 st.metric("Severity", wallet_data.get("severity", "N/A"))
 
             st.divider()
-            col_l, col_r = st.columns(2)
 
-            with col_l:
-                st.markdown("#### 🔗 Laundering Paths")
+            # Tabs for different views
+            tab1, tab2, tab3, tab4 = st.tabs([
+                "🕸️ Network Graph",
+                "🌊 Fund Flow (Sankey)",
+                "📍 Path Analysis",
+                "🧠 SHAP Explanation",
+            ])
+
+            with tab1:
+                st.markdown("#### Interactive Wallet Network")
+                st.caption("Node color: 🔴 Critical  🟠 High  🟡 Medium  🟢 Low  🟣 Selected")
+
+                # Build nodes and edges from graph data
+                wallet_stats = graph_data.get("wallet_stats", {})
+                neighbors = wallet_stats.get("neighbors", [])
+
+                nodes = [{"id": address_input,
+                         "risk_score": wallet_data.get("composite_score", 0),
+                         "tx_count": wallet_stats.get("tx_count", 0)}]
+                edges = []
+
+                for neighbor in neighbors[:10]:
+                    nodes.append({
+                        "id": neighbor,
+                        "risk_score": 0.3,
+                        "tx_count": 1,
+                    })
+                    edges.append({
+                        "from": address_input,
+                        "to": neighbor,
+                        "value_eth": 1.0,
+                    })
+
+                if len(nodes) > 1:
+                    html = render_pyvis_graph(
+                        nodes, edges,
+                        highlight_address=address_input,
+                    )
+                    st.components.v1.html(html, height=520, scrolling=False)
+                else:
+                    st.info("No neighbor data in graph yet. Run the scoring pipeline to populate the graph.")
+
+            with tab2:
+                st.markdown("#### Fund Flow Analysis")
+                paths = graph_data.get("laundering_paths", [])
+                render_sankey(paths, address_input)
+
+            with tab3:
+                st.markdown("#### Laundering Path Detection")
                 paths = graph_data.get("laundering_paths", [])
                 if paths:
+                    st.success(f"Found {len(paths)} potential laundering paths")
                     for i, path in enumerate(paths[:5]):
-                        st.code(" → ".join(
+                        st.code(f"Path {i+1}: " + " → ".join(
                             [p[:10] + "..." for p in path]
                         ))
                 else:
                     st.info("No laundering paths detected")
 
-                st.markdown("#### ⬅️ Fund Sources (Peel-back)")
+                st.markdown("#### Fund Sources (Peel-back)")
                 ancestors = graph_data.get("ancestors", [])
                 if ancestors:
                     for anc in ancestors[:5]:
@@ -160,8 +203,7 @@ elif page == "🕸️ Threat Graph":
                 else:
                     st.info("No ancestor wallets found")
 
-            with col_r:
-                st.markdown("#### 🔄 Round Trips Detected")
+                st.markdown("#### Round Trips")
                 round_trips = graph_data.get("round_trips", [])
                 if round_trips:
                     for rt in round_trips[:5]:
@@ -172,13 +214,36 @@ elif page == "🕸️ Threat Graph":
                 else:
                     st.success("No round trips detected")
 
-                st.markdown("#### 📋 Explanation")
-                explanation = wallet_data.get("explanation", {})
-                if explanation:
-                    st.json(explanation)
+            with tab4:
+                st.markdown("#### SHAP Feature Importance")
+                st.caption("Shows which transaction features drove the risk score")
+
+                # Fetch SHAP explanation
+                import requests
+                try:
+                    shap_resp = requests.post(
+                        "http://localhost:8000/explain/shap-waterfall",
+                        json={
+                            "tx_hash": "0xanalysis",
+                            "from_addr": address_input,
+                            "value_eth": wallet_data.get("value_at_risk_eth", 0),
+                            "gas": 21000,
+                            "gas_price": 1000000000,
+                            "block_timestamp": 1000000.0,
+                            "chain_name": "ethereum-sepolia",
+                        },
+                        timeout=30,
+                    )
+                    if shap_resp.status_code == 200:
+                        waterfall_data = shap_resp.json().get("waterfall_data", {})
+                        render_shap_waterfall(waterfall_data)
+                    else:
+                        st.info("SHAP explanation unavailable")
+                except Exception as e:
+                    st.info(f"SHAP explanation unavailable: {e}")
+
         else:
             st.error(f"Error: {wallet_data.get('error')}")
-
     else:
         st.info("Enter a wallet address above to begin investigation")
 
@@ -188,7 +253,7 @@ elif page == "🕸️ Threat Graph":
 # ==========================
 elif page == "📋 Contract Scanner":
     st.markdown("# 📋 Smart Contract Vulnerability Scanner")
-    st.markdown("*Rule-based + ML bytecode analysis for reentrancy, access control, and more*")
+    st.markdown("*Rule-based + ML bytecode analysis*")
 
     example_vuln = """pragma solidity ^0.8.0;
 contract VulnerableBank {
@@ -214,7 +279,6 @@ contract VulnerableBank {
         "Paste Solidity source code",
         value=example_vuln,
         height=300,
-        help="Paste your contract source code for vulnerability analysis",
     )
 
     if st.button("🔍 Scan Contract", type="primary"):
@@ -229,9 +293,7 @@ contract VulnerableBank {
                     color = "🔴" if risk > 0.7 else ("🟡" if risk > 0.3 else "🟢")
                     st.metric("Risk Score", f"{color} {risk:.2f}")
                 with col2:
-                    vuln_count = sum(
-                        result.get("vulnerability_count", {}).values()
-                    )
+                    vuln_count = sum(result.get("vulnerability_count", {}).values())
                     st.metric("Vulnerabilities", vuln_count)
                 with col3:
                     st.metric(
@@ -258,8 +320,6 @@ contract VulnerableBank {
                                 st.code(v["code_snippet"], language="solidity")
                 else:
                     st.success("✅ No vulnerabilities detected")
-            else:
-                st.error(f"Scan error: {result.get('error')}")
 
 
 # ==========================
@@ -267,38 +327,36 @@ contract VulnerableBank {
 # ==========================
 elif page == "📊 Model Monitor":
     st.markdown("# 📊 ML Model Monitoring")
+    import plotly.express as px
     st.markdown("*Model performance, drift detection, and system health*")
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("### 🤖 Model Status")
-        models = health.get("models_loaded", {})
         for model, loaded in models.items():
             status_icon = "🟢 Loaded" if loaded else "🔴 Not loaded"
             st.markdown(f"**{model.replace('_', ' ').title()}:** {status_icon}")
 
         st.divider()
         st.markdown("### 📈 Elliptic Benchmark Results")
-        benchmark_data = {
+        import pandas as pd
+        df = pd.DataFrame({
             "Model": ["Isolation Forest", "VAE Autoencoder", "GNN (GraphSAGE+GAT)"],
             "F1 Score": [0.001, 0.004, 0.676],
             "PR-AUC": [0.036, 0.038, 0.650],
             "ROC-AUC": [0.168, 0.198, 0.899],
-        }
-        import pandas as pd
-        df = pd.DataFrame(benchmark_data)
+        })
         st.dataframe(df, use_container_width=True)
 
     with col2:
         st.markdown("### ⚡ PQC Benchmark")
-        pqc_data = {
+        df_pqc = pd.DataFrame({
             "Algorithm": ["ECDSA-secp256k1", "ML-DSA-65 (Dilithium3)", "ML-KEM-768 (Kyber)"],
             "Sign/Encap (ms)": [0.697, 0.250, 0.021],
             "Size (bytes)": [71, 3309, 1088],
             "Quantum Safe": ["❌", "✅", "✅"],
-        }
-        df_pqc = pd.DataFrame(pqc_data)
+        })
         st.dataframe(df_pqc, use_container_width=True)
 
         st.divider()
@@ -318,8 +376,6 @@ elif page == "📊 Model Monitor":
     if history_path.exists():
         with open(history_path) as f:
             history = json.load(f)
-        import plotly.express as px
-        import pandas as pd
         df_hist = pd.DataFrame(history)
         fig = px.line(
             df_hist, x="epoch", y="loss",
@@ -334,3 +390,14 @@ elif page == "📊 Model Monitor":
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("Training history not available")
+
+    st.divider()
+    st.markdown("### ⚡ Feature Engineering Benchmarks")
+    df_bench = pd.DataFrame({
+        "Implementation": ["Python loop", "NumPy vectorized", "Numba JIT (parallel)"],
+        "N=100 (ms)": [2.69, 0.06, 0.03],
+        "N=1000 (ms)": [100.69, 5.71, 7.83],
+        "N=5000 (ms)": ["~2500", "92.17", "9.76"],
+        "Speedup vs Python": ["1x", "43x", "83x+"],
+    })
+    st.dataframe(df_bench, use_container_width=True)

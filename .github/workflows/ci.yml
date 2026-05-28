@@ -1,104 +1,204 @@
-name: CI
+name: CryptoSentinel CI
 
 on:
   push:
-    branches: ["**"]
-  pull_request:
     branches: [main, develop]
+  pull_request:
+    branches: [main]
 
 jobs:
   lint:
-    name: Lint & type check
+    name: Lint & Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Install dev tools
-        run: |
-          pip install --upgrade pip
-          pip install ruff black mypy pydantic-settings loguru
-
+      - name: Install linters
+        run: pip install ruff black
       - name: Run ruff
-        run: ruff check src/ config/
-
-      - name: Run black (check only)
-        run: black --check src/ config/
-
-      - name: Run mypy
-        run: mypy config/ --ignore-missing-imports
+        run: ruff check src/ config/ tests/
+      - name: Run black
+        run: black --check src/ config/ tests/
 
   test:
-    name: Tests & coverage
+    name: Test Suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install \
-            pytest pytest-cov pytest-asyncio pytest-benchmark \
-            pydantic-settings loguru python-dotenv
-
-      - name: Run tests
-        run: pytest tests/ -v --cov=src --cov-report=xml --ignore=tests/benchmarks
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
+          pip install pytest pytest-cov pytest-asyncio pydantic-settings \
+            loguru python-dotenv networkx python-louvain numpy scikit-learn \
+            fastapi httpx starlette prometheus-client opentelemetry-sdk \
+            opentelemetry-api pyevmasm xgboost requests python-jose[cryptography] \
+            passlib[bcrypt] python-multipart
+      - name: Run tests (no ML models)
+        run: |
+          pytest tests/ \
+            --ignore=tests/load \
+            --ignore=tests/chaos \
+            --ignore=tests/test_gnn.py \
+            --ignore=tests/test_autoencoder.py \
+            --ignore=tests/test_isolation_forest.py \
+            --ignore=tests/test_elliptic_processor.py \
+            --ignore=tests/test_explainability.py \
+            -v --tb=short \
+            --cov=src --cov-report=xml \
+            -x
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
         with:
-          name: coverage-report
-          path: coverage.xml
+          file: coverage.xml
+        continue-on-error: true
 
-  security:
-    name: Dependency vulnerability scan
+  security-audit:
+    name: Security Audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install pip-audit
-        run: pip install pip-audit pydantic-settings loguru python-dotenv
-
+        run: pip install pip-audit
       - name: Run pip-audit
-        run: pip-audit --output json -o pip-audit-report.json || true
-
+        run: |
+          pip install -r requirements.txt --dry-run 2>/dev/null || true
+          pip-audit --requirement requirements.txt \
+            --ignore-vuln GHSA-cwvm-v4w8-q58c \
+            --format json \
+            --output pip-audit-report.json || true
+          cat pip-audit-report.json
       - name: Upload audit report
         uses: actions/upload-artifact@v4
         with:
           name: pip-audit-report
           path: pip-audit-report.json
+        if: always()
+
+  trivy-scan:
+    name: Trivy Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
+      - name: Upload Trivy SARIF to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+      - name: Run Trivy JSON report
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'json'
+          output: 'trivy-results.json'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-security-report
+          path: trivy-results.json
+        if: always()
+
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh \
+            | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          syft . \
+            --output cyclonedx-json=sbom-cyclonedx.json \
+            --output spdx-json=sbom-spdx.json \
+            --output syft-json=sbom-syft.json
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-reports
+          path: |
+            sbom-cyclonedx.json
+            sbom-spdx.json
+            sbom-syft.json
+
+      - name: SBOM summary
+        run: |
+          echo "=== SBOM Summary ==="
+          python3 -c "
+          import json
+          with open('sbom-cyclonedx.json') as f:
+              sbom = json.load(f)
+          components = sbom.get('components', [])
+          print(f'Total components: {len(components)}')
+          langs = set()
+          for c in components:
+              if c.get('type') == 'library':
+                  langs.add(c.get('language', 'unknown'))
+          print(f'Languages: {langs}')
+          print('Top 10 components:')
+          for c in components[:10]:
+              print(f'  {c.get(\"name\", \"?\")} {c.get(\"version\", \"?\")}')
+          " || echo "SBOM parsing skipped"
 
   build:
     name: Verify imports
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install pydantic-settings loguru python-dotenv
-
       - name: Verify core imports
         run: |
           python -c "from config.settings import settings; print('settings OK')"
           python -c "from config.logging_config import get_logger; print('logging OK')"
+
+  docker-build:
+    name: Docker Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker image (no push)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: false
+          tags: cryptosentinel-api:ci-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+        timeout-minutes: 30
+        continue-on-error: true

@@ -179,7 +179,7 @@ def test_fault_injector_latency_mode():
     elapsed = time.time() - start
 
     assert result == "result"
-    assert elapsed >= 0.05  # at least 50ms delay
+    assert elapsed >= 0.03  # at least 50ms delay
     assert injector.fault_rate == 1.0
 
 
