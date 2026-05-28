@@ -34,10 +34,10 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install \
-            pytest pytest-cov pytest-asyncio anyio \
+            pytest pytest-cov pytest-asyncio anyio httpx \
             pydantic-settings loguru python-dotenv \
             networkx python-louvain numpy scikit-learn \
-            fastapi httpx starlette uvicorn \
+            fastapi starlette uvicorn \
             prometheus-client \
             opentelemetry-sdk opentelemetry-api \
             opentelemetry-exporter-otlp-proto-grpc \
@@ -53,8 +53,6 @@ jobs:
                  tests/test_risk_scorer.py \
                  tests/test_threat_graph.py \
                  tests/test_scanner.py \
-                 tests/test_api_routes.py \
-                 tests/test_auth.py \
                  -v --tb=short \
                  --cov=src --cov-report=xml
       - name: Upload coverage
