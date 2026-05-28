@@ -114,6 +114,11 @@ class ModelRegistry:
             "autoencoder": -1.0,
         }
 
+        if features_array.shape[0] < 165:
+            padded = np.zeros(165, dtype=np.float32)
+            padded[:features_array.shape[0]] = features_array
+            features_array = padded
+
         if self.isolation_forest and self.isolation_forest._is_fitted:
             try:
                 x = features_array.reshape(1, -1)
