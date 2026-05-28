@@ -31,8 +31,7 @@ typecheck:
 	mypy config/ src/
 
 test:
-	pytest tests/ -v --ignore=tests/benchmarks --ignore=tests/load --ignore=tests/chaos
-
+	pytest tests/ -v --ignore=tests/benchmarks --ignore=tests/load
 test-bench:
 	pytest tests/benchmarks/ -v --benchmark-sort=mean
 
