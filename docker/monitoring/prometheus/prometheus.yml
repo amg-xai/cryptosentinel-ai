@@ -15,7 +15,10 @@ scrape_configs:
     static_configs:
       - targets: ['host.docker.internal:8000']
     metrics_path: '/metrics'
-
+  - job_name: 'cryptosentinel-pipeline'
+    static_configs:
+      - targets: ['host.docker.internal:8001']
+    metrics_path: '/metrics'
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']

@@ -55,7 +55,26 @@ Tradeoff: signatures are 46x larger (3309 vs 71 bytes).
 - Graph size: 203,769 nodes, 234,355 edges
 
 ## Test Coverage
-
-- Total tests: 149 passing
+- Total tests: 230 passing (228 fast + 2 slow SHAP integration)
 - Coverage: ~59%
-- Test execution time: ~31 seconds
+- Fast suite (`make test`): ~37 seconds (slow SHAP tests gated)
+- Full suite (`make test-full`): ~2 minutes
+
+## Observability Notes
+
+### Multi-process metrics (resolved)
+The API and scoring pipeline run as separate processes with separate
+Prometheus registries. The pipeline exposes its own metrics endpoint on
+port 8001 (`start_http_server`), and Prometheus scrapes both the API
+(:8000) and the pipeline (:8001) as distinct jobs. This makes
+pipeline-only metrics — transactions scanned, PSI drift, cross-chain
+counts — visible in Prometheus and Grafana.
+
+### Drift baseline caveat
+The PSI drift baseline is built from the GNN's score distribution on the
+Elliptic Bitcoin test set. Live Ethereum/Polygon transactions are scored
+via zero-padded live features, a different distribution, so live PSI
+against this baseline reads very high by construction. A production
+deployment would build the baseline from live-feature scores collected
+during a stable window. The detector logic and Prometheus wiring are
+production-correct; only the baseline source differs.

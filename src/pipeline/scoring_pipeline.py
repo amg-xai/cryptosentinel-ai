@@ -39,6 +39,7 @@ _alert_manager = AlertManager()
 _threat_graph = ThreatGraph()
 
 QUEUE_MAX_SIZE = 10_000
+PIPELINE_METRICS_PORT = 8001
 
 
 async def scoring_worker(
@@ -193,6 +194,17 @@ async def run_scoring_pipeline() -> None:
             "gnn": engine.gnn_trainer is not None,
         },
     )
+    # Expose pipeline metrics so Prometheus can scrape this process.
+    # The API and pipeline are separate processes with separate metric
+    # registries; without this, pipeline-incremented metrics (transactions
+    # scanned, PSI drift, cross-chain) never reach Prometheus.
+    try:
+        from prometheus_client import start_http_server
+        start_http_server(PIPELINE_METRICS_PORT)
+        logger.info("pipeline_metrics_server_started",
+                    port=PIPELINE_METRICS_PORT)
+    except Exception as e:
+        logger.warning("pipeline_metrics_server_failed", error=str(e))
 
     producer = ThreatIntelProducer()
     queue: asyncio.Queue[Transaction] = asyncio.Queue(maxsize=QUEUE_MAX_SIZE)
