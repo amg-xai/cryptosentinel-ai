@@ -215,21 +215,47 @@ async def run_scoring_pipeline() -> None:
         chain_id=11155111,
         chain_name="ethereum-sepolia",
     )
-
     if not eth_ingester.test_connection():
         logger.error("pipeline_aborted", reason="connection_failed")
         return
-
     logger.info(
         "pipeline_connected",
+        chain="ethereum-sepolia",
         latest_block=eth_ingester.get_latest_block(),
     )
 
-    await asyncio.gather(
+    # Tasks that always run: Ethereum stream + 2 scoring workers
+    tasks = [
         eth_ingester.stream(queue),
         scoring_worker(queue, producer),
         scoring_worker(queue, producer),
-    )
+    ]
+
+    # Optionally add Polygon mainnet if a real RPC URL is configured.
+    # Both chains feed the SAME queue + workers, so the cross-chain
+    # analyzer sees addresses from both and can fire its detection.
+    polygon_url = settings.polygon_http_url
+    if polygon_url and "localhost" not in polygon_url:
+        polygon_ingester = BlockIngester(
+            http_url=polygon_url,
+            ws_url=settings.polygon_ws_url,
+            chain_id=137,
+            chain_name="polygon-mainnet",
+            sample_rate=0.20,  # ~2s blocks, 100+ tx each — sample 20%
+        )
+        if polygon_ingester.test_connection():
+            logger.info(
+                "pipeline_connected",
+                chain="polygon-mainnet",
+                latest_block=polygon_ingester.get_latest_block(),
+            )
+            tasks.append(polygon_ingester.stream(queue))
+        else:
+            logger.warning("polygon_connection_failed_skipping")
+    else:
+        logger.info("polygon_not_configured_single_chain")
+
+    await asyncio.gather(*tasks)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ Fallback:
   If WebSocket disconnects, falls back to HTTP polling every 12 seconds
   (Ethereum block time). Reconnects automatically.
 """
-
+import random
 import asyncio
 
 from web3 import Web3
@@ -35,11 +35,13 @@ class BlockIngester:
         ws_url: str,
         chain_id: int,
         chain_name: str,
+        sample_rate: float = 1.0,
     ):
         self.http_url = http_url
         self.ws_url = ws_url
         self.chain_id = chain_id
         self.chain_name = chain_name
+        self.sample_rate = sample_rate
         self._w3_http = self._connect_http()
         self._running = False
 
@@ -92,7 +94,7 @@ class BlockIngester:
     async def _stream_via_polling(
         self,
         queue: asyncio.Queue,
-        poll_interval: float = 12.0,
+        poll_interval: float = 4.0,
     ) -> None:
         """
         HTTP polling fallback.
@@ -105,19 +107,24 @@ class BlockIngester:
             interval=poll_interval,
         )
 
-        last_block = self._w3_http.eth.block_number
-
+        last_block = await asyncio.to_thread(
+            lambda: self._w3_http.eth.block_number
+        )
         while self._running:
             try:
-                current_block = self._w3_http.eth.block_number
-
+                current_block = await asyncio.to_thread(
+                    lambda: self._w3_http.eth.block_number
+                )
                 if current_block > last_block:
                     for block_num in range(last_block + 1, current_block + 1):
                         with tracer.start_as_current_span("poll_block") as span:
                             span.set_attribute("block.number", block_num)
                             span.set_attribute("chain.name", self.chain_name)
-
-                            block = self._w3_http.eth.get_block(
+                            # Offload the blocking RPC to a thread so this
+                            # ingester doesn't starve other chains / workers
+                            # sharing the event loop.
+                            block = await asyncio.to_thread(
+                                self._w3_http.eth.get_block,
                                 block_num,
                                 full_transactions=True,
                             )
@@ -131,7 +138,14 @@ class BlockIngester:
                                 chain=self.chain_name,
                             )
 
+                            
                             for raw_tx in block["transactions"]:
+                                # Volume control: high-throughput chains
+                                # (Polygon) sample a fraction so they don't
+                                # drown out low-volume chains in the queue.
+                                if self.sample_rate < 1.0 and \
+                                        random.random() > self.sample_rate:
+                                    continue
                                 tx = self._normalize_transaction(raw_tx, timestamp)
                                 await queue.put(tx)
 
