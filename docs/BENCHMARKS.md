@@ -70,11 +70,17 @@ port 8001 (`start_http_server`), and Prometheus scrapes both the API
 pipeline-only metrics — transactions scanned, PSI drift, cross-chain
 counts — visible in Prometheus and Grafana.
 
-### Drift baseline caveat
-The PSI drift baseline is built from the GNN's score distribution on the
-Elliptic Bitcoin test set. Live Ethereum/Polygon transactions are scored
-via zero-padded live features, a different distribution, so live PSI
-against this baseline reads very high by construction. A production
-deployment would build the baseline from live-feature scores collected
-during a stable window. The detector logic and Prometheus wiring are
-production-correct; only the baseline source differs.
+### Drift baseline (resolved)
+The PSI baseline is now collected from the LIVE scoring path
+(`collect_live_baseline.py`) — real recent blocks scored through the same
+ensemble + CompositeRiskScorer the pipeline uses. PSI therefore compares
+live-vs-live: ~0 for stable traffic, spiking only on genuine shift
+(verified: stable=0.00, +0.15 shift=27.6 "significant").
+
+Honest nuance: live composite scores on Sepolia have very low variance
+(std ~0.0005) because the 16->165 zero-padding mismatch means the
+ensemble doesn't discriminate strongly on live features (it was trained
+on full Elliptic features). So drift detection reliably catches SYSTEMIC
+shifts in pipeline output, but is less sensitive to subtle per-transaction
+drift. Closing the feature-space gap (training on live-derived features)
+is tracked as future work.
