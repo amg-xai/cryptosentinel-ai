@@ -188,6 +188,7 @@ class CompositeRiskScorer:
         tx_hash: str,
         model_scores: ModelScores,
         value_eth: float = 0.0,
+        cross_chain_boost: float = 1.0,
     ) -> RiskAssessment:
         """
         Compute composite risk score from individual model scores.
@@ -236,9 +237,18 @@ class CompositeRiskScorer:
                 address=address,
             )
 
+        # Cross-chain laundering boost (bridge / multi-chain actor).
+        # Applied BEFORE clamp + tier so the action tier reflects it.
+        if cross_chain_boost > 1.0:
+            composite *= cross_chain_boost
+            logger.debug(
+                "cross_chain_boost_applied",
+                address=address[:10],
+                boost=cross_chain_boost,
+                boosted_score=round(composite, 4),
+            )
         # Clamp to [0, 1]
         composite = max(0.0, min(1.0, composite))
-
         action = compute_action_tier(composite)
         confidence = compute_confidence(model_scores)
 

@@ -20,6 +20,7 @@ from src.db.alert_repository import save_alert
 from src.response.alert_manager import AlertManager
 from src.response.risk_scorer import CompositeRiskScorer, ModelScores
 from src.monitoring.drift_detector import DriftDetector
+from src.graph.cross_chain import CrossChainAnalyzer
 from src.streaming.producer import ThreatIntelProducer
 
 logger = get_logger(__name__)
@@ -33,6 +34,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 _feature_engineer = FeatureEngineer()
 _risk_scorer = CompositeRiskScorer()
 _drift_detector = DriftDetector(window_size=500, min_samples=100)
+_cross_chain = CrossChainAnalyzer()
 _alert_manager = AlertManager()
 _threat_graph = ThreatGraph()
 
@@ -103,6 +105,11 @@ async def scoring_worker(
 
             # 6. Velocity check
             velocity_flag = features.tx_count_1h > 20
+            # 6b. Cross-chain correlation
+            cc_flags = _cross_chain.observe(
+                tx.from_addr, tx.to_addr, tx.chain_name
+            )
+            cc_boost = _cross_chain.cross_chain_risk_boost(tx.from_addr)
 
             # 7. Build model scores
             model_scores = ModelScores(
@@ -119,6 +126,7 @@ async def scoring_worker(
                 tx_hash=tx.tx_hash,
                 model_scores=model_scores,
                 value_eth=tx.value_eth,
+                cross_chain_boost=cc_boost,
             )
 
             # 9. Prometheus

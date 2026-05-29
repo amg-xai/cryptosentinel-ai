@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 
 from config.logging_config import get_logger
-from src.api.dependencies import get_threat_graph
+from src.api.dependencies import get_threat_graph, get_cross_chain
 from src.api.schemas import GraphQueryResponse
 
 logger = get_logger(__name__)
@@ -38,4 +38,28 @@ async def get_graph_stats(threat_graph=Depends(get_threat_graph)):
     return {
         "num_nodes": threat_graph.num_nodes,
         "num_edges": threat_graph.num_edges,
+    }
+
+@router.get("/cross-chain/stats")
+async def get_cross_chain_stats(analyzer=Depends(get_cross_chain)):
+    """
+    Cross-chain correlation stats: tracked addresses, multi-chain actors,
+    bridge and bridged-asset interactions.
+
+    NOTE: the API and pipeline are separate processes, so this reflects
+    observations made within the API process plus the static registry.
+    Production would back the analyzer with shared state (Redis).
+    """
+    return analyzer.stats()
+
+
+@router.get("/cross-chain/{address}")
+async def get_address_cross_chain(address: str, analyzer=Depends(get_cross_chain)):
+    """Cross-chain profile for one address."""
+    return {
+        "address": address,
+        "chains": analyzer.chains_for(address),
+        "is_cross_chain_actor": analyzer.is_cross_chain_actor(address),
+        "bridge_interactions": analyzer.bridge_interaction_count(address),
+        "risk_boost": analyzer.cross_chain_risk_boost(address),
     }
