@@ -1,9 +1,5 @@
 services:
 
-  # ============================================
-  # Infrastructure services
-  # ============================================
-
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.0
     container_name: cryptosentinel-zookeeper
@@ -48,9 +44,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
-      - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U sentinel -d cryptosentinel"]
       interval: 10s
@@ -72,9 +66,19 @@ services:
     networks:
       - cryptosentinel-net
 
-  # ============================================
-  # Monitoring stack
-  # ============================================
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: cryptosentinel-vault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: cryptosentinel-dev-token
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+    ports:
+      - "8200:8200"
+    command: server -dev
+    networks:
+      - cryptosentinel-net
 
   prometheus:
     image: prom/prometheus:latest
@@ -98,18 +102,17 @@ services:
       - "9094:9093"
     networks:
       - cryptosentinel-net
-  
+
   grafana:
     image: grafana/grafana:latest
     container_name: cryptosentinel-grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-changeme}
       - GF_USERS_ALLOW_SIGN_UP=false
-  
-  
     volumes:
       - grafana_data:/var/lib/grafana
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     ports:
       - "3000:3000"
     depends_on:
