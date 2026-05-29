@@ -1,4 +1,4 @@
-.PHONY: help install lint format typecheck test test-bench audit clean run-api run-dashboard docker-up docker-down
+.PHONY: help install lint format typecheck test test-full test-bench audit clean run-api run-dashboard docker-up docker-down
 
 help:
 	@echo ""
@@ -31,6 +31,8 @@ typecheck:
 	mypy config/ src/
 
 test:
+	pytest tests/ -v --ignore=tests/benchmarks --ignore=tests/load -m "not slow"
+test-full:
 	pytest tests/ -v --ignore=tests/benchmarks --ignore=tests/load
 test-bench:
 	pytest tests/benchmarks/ -v --benchmark-sort=mean

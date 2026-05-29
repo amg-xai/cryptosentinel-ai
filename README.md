@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/amg-xai/cryptosentinel-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/amg-xai/cryptosentinel-ai/actions)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
-![Tests](https://img.shields.io/badge/tests-137%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-215%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## What it does
@@ -76,15 +76,15 @@ Ethereum Sepolia → BlockIngester → Kafka → Feature Extraction
 - [K8s Deployment](k8s/README.md)
 
 ## Tests
-
 ```bash
-make test    # 137 tests, ~25 seconds
+make test       # 213 fast tests, ~37s (skips slow SHAP integration tests)
+make test-full  # all 215 tests incl. SHAP explainability, ~2min
 ```
 
 ## Research Extensions
 
 - Federated learning across multiple blockchain monitoring nodes
-- Multi-chain support (Solana, Bitcoin) with cross-chain laundering detection
+- Additional chains (Solana, Bitcoin) with cross-chain laundering detection (Ethereum + Polygon already live)
 - Transformer-based smart contract vulnerability detection
 - Real-time SOAR integration (Splunk, Palo Alto XSOAR)
 - ZK-proof based privacy-preserving threat intelligence sharing

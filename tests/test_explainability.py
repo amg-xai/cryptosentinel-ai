@@ -1,6 +1,7 @@
 """Tests for GNN explainability and SHAP integration."""
 
 import numpy as np
+import pytest
 
 from src.ml.explainability.gnn_explainer import LIVE_FEATURE_NAMES, RiskExplainer
 
@@ -82,6 +83,7 @@ def test_live_feature_names_correct_count():
     assert len(LIVE_FEATURE_NAMES) == 16
 
 
+@pytest.mark.slow
 def test_explain_api_endpoint():
     from fastapi.testclient import TestClient
 
@@ -106,6 +108,7 @@ def test_explain_api_endpoint():
     assert "tx_hash" in data
 
 
+@pytest.mark.slow
 def test_explain_returns_top_risk_features():
     from fastapi.testclient import TestClient
 

@@ -20,6 +20,9 @@ warn_unused_configs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+markers = [
+    "slow: tests that are slow to run (e.g. real SHAP KernelExplainer); skipped by default, run with 'make test-full'",
+]
 addopts = "--cov=src --cov-report=term-missing --cov-report=xml"
 filterwarnings = [
     "ignore::DeprecationWarning:torch_geometric",
