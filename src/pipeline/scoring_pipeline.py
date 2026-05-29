@@ -13,24 +13,26 @@ from src.blockchain.ingester import BlockIngester
 from src.blockchain.models import Transaction
 from src.ml.inference_engine import engine
 from src.ml.tabular.feature_engineer import FeatureEngineer
-
-engine.load()
-init_db()
-
 from src.graph.threat_graph import ThreatGraph
 from src.monitoring.metrics import TRANSACTIONS_SCANNED
 from src.db.session import init_db, is_available as db_available
 from src.db.alert_repository import save_alert
 from src.response.alert_manager import AlertManager
 from src.response.risk_scorer import CompositeRiskScorer, ModelScores
+from src.monitoring.drift_detector import DriftDetector
 from src.streaming.producer import ThreatIntelProducer
 
 logger = get_logger(__name__)
+
+# Load models and initialize DB at module startup (after all imports)
+engine.load()
+init_db()
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 _feature_engineer = FeatureEngineer()
 _risk_scorer = CompositeRiskScorer()
+_drift_detector = DriftDetector(window_size=500, min_samples=100)
 _alert_manager = AlertManager()
 _threat_graph = ThreatGraph()
 
@@ -120,7 +122,12 @@ async def scoring_worker(
             )
 
             # 9. Prometheus
+            # 9. Prometheus + drift detection
             TRANSACTIONS_SCANNED.labels(chain=tx.chain_name).inc()
+            _drift_detector.observe(assessment.composite_score)
+            # Recompute PSI every 50 transactions (cheap, windowed)
+            if processed % 50 == 0:
+                _drift_detector.update_metrics()
 
             # 10. Handle threats
             if assessment.is_threat:

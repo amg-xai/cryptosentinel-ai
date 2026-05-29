@@ -80,3 +80,15 @@ CONTRACTS_SCANNED = Counter(
     "Smart contracts scanned by result",
     ["result"],
 )
+
+
+# --- Model drift detection (Day 37) ---
+MODEL_SCORE_DRIFT_PSI = Gauge(
+    "cryptosentinel_model_score_drift_psi",
+    "Population Stability Index between live risk-score window and baseline. "
+    "PSI < 0.1 stable, 0.1-0.25 moderate drift, > 0.25 significant drift.",
+)
+MODEL_SCORE_DRIFT_SAMPLES = Gauge(
+    "cryptosentinel_model_score_drift_samples",
+    "Number of live scores in the current drift-detection window.",
+)

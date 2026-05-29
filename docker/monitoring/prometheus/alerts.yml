@@ -91,3 +91,31 @@ groups:
         annotations:
           summary: "Unusual threat graph growth rate"
           description: "Graph is growing faster than 100 nodes per minute. May indicate a coordinated attack or data issue."
+
+      # ============================================
+      # PSI-based distribution drift (Day 37)
+      # ============================================
+      - alert: ModelScoreDriftPSI
+        expr: cryptosentinel_model_score_drift_psi > 0.25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Significant model score drift (PSI > 0.25)"
+          description: >
+            Population Stability Index between the live risk-score window
+            and the training baseline exceeds 0.25, indicating significant
+            distribution shift. Unlike the mean-shift rule, PSI also catches
+            shape changes (variance collapse, multimodality). Investigate
+            for concept drift or a coordinated attack; consider retraining.
+
+      - alert: ModelScoreDriftPSIModerate
+        expr: cryptosentinel_model_score_drift_psi > 0.10
+        for: 30m
+        labels:
+          severity: info
+        annotations:
+          summary: "Moderate model score drift (PSI > 0.10)"
+          description: >
+            Sustained moderate drift (PSI 0.10-0.25) for 30 minutes.
+            Early warning — monitor closely.
