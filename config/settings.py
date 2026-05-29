@@ -20,6 +20,10 @@ class Settings(BaseSettings):
         default="wss://localhost", description="Polygon WebSocket RPC"
     )
 
+    polygon_http_url: str = Field(
+        default="https://localhost", description="Polygon HTTP RPC"
+    )
+
     # Database
     database_url: str = Field(
         default="postgresql://user:pass@localhost:5432/cryptosentinel"
