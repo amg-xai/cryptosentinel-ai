@@ -97,7 +97,7 @@ class RiskExplainer:
                 self.autoencoder = ThreatAutoencoder.load(str(ae_path))
 
             # Load GNN + graph data
-            gnn_path = MODELS_DIR / "gnn_best.pt"
+            gnn_path = MODELS_DIR / "gnn_final.pt"
             if gnn_path.exists():
                 self.gnn_trainer = GNNTrainer()
                 self.gnn_trainer.load(str(gnn_path), in_channels=165)
