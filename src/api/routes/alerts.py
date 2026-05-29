@@ -1,5 +1,10 @@
 """Alert management routes."""
-
+from src.db.alert_repository import (
+    get_recent_alerts as db_get_recent,
+    get_alerts_by_address as db_get_by_address,
+    get_alert_stats as db_get_stats,
+)
+from src.db.session import is_available as db_available
 from fastapi import APIRouter, Depends, HTTPException
 
 from config.logging_config import get_logger
@@ -40,3 +45,33 @@ async def acknowledge_alert(
     if not success:
         raise HTTPException(status_code=404, detail="Alert not found")
     return {"status": "acknowledged", "address": address, "analyst": analyst}
+
+@router.get("/history")
+async def get_alert_history(
+    limit: int = 50,
+    severity: str = None,
+):
+    """Get historical alerts from PostgreSQL."""
+    if not db_available():
+        return {"alerts": [], "source": "database_unavailable"}
+    alerts = db_get_recent(limit=limit, severity=severity)
+    return {"alerts": alerts, "count": len(alerts), "source": "postgresql"}
+
+
+@router.get("/history/{address}")
+async def get_address_history(address: str):
+    """Get all historical alerts for a specific address."""
+    if not db_available():
+        return {"alerts": [], "source": "database_unavailable"}
+    alerts = db_get_by_address(address)
+    return {"address": address, "alerts": alerts, "count": len(alerts)}
+
+
+@router.get("/stats/database")
+async def get_database_stats():
+    """Get aggregate alert statistics from PostgreSQL."""
+    if not db_available():
+        return {"total": 0, "source": "database_unavailable"}
+    stats = db_get_stats()
+    stats["source"] = "postgresql"
+    return stats

@@ -30,6 +30,12 @@ async def lifespan(app: FastAPI):
     logger.info("api_starting")
     model_status = registry.load_all()
     logger.info("models_loaded", status=model_status)
+
+    # Initialize database for alert persistence
+    from src.db.session import init_db
+    db_ok = init_db()
+    logger.info("database_init", available=db_ok)
+
     yield
     logger.info("api_stopping")
 

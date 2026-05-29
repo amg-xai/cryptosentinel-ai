@@ -15,9 +15,12 @@ from src.ml.inference_engine import engine
 from src.ml.tabular.feature_engineer import FeatureEngineer
 
 engine.load()
+init_db()
 
 from src.graph.threat_graph import ThreatGraph
 from src.monitoring.metrics import TRANSACTIONS_SCANNED
+from src.db.session import init_db, is_available as db_available
+from src.db.alert_repository import save_alert
 from src.response.alert_manager import AlertManager
 from src.response.risk_scorer import CompositeRiskScorer, ModelScores
 from src.streaming.producer import ThreatIntelProducer
@@ -125,6 +128,8 @@ async def scoring_worker(
                 severity = assessment.severity.lower()
                 topic = "critical" if severity == "critical" else "high"
                 producer.produce_alert(assessment.to_dict(), severity=topic)
+                if db_available():
+                    save_alert(assessment.to_dict())
 
                 logger.warning(
                     "threat_detected",
