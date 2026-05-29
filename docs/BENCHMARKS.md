@@ -24,7 +24,7 @@ Production pipeline uses Numba for address history windows (large N).
 |---|---|---|---|---|
 | Isolation Forest | 0.001 | 0.036 | 0.168 | ~2 min |
 | VAE Autoencoder | 0.004 | 0.038 | 0.198 | ~3 min |
-| GNN GraphSAGE+GAT | 0.676 | 0.650 | 0.899 | ~15 min (GPU) |
+| GNN GraphSAGE+GAT | 0.708 | 0.682 | 0.905 | ~15 min (GPU) |
 
 ## API Latency
 

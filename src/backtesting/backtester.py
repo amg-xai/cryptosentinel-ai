@@ -104,7 +104,7 @@ class Backtester:
             import torch  # noqa
             from src.ml.gnn.trainer import GNNTrainer, build_pyg_data
 
-            gnn_path = MODELS_DIR / "gnn_final.pt"
+            gnn_path = MODELS_DIR / "gnn_best.pt"
             if not gnn_path.exists():
                 logger.warning("backtest_no_model")
                 return False

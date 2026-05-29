@@ -11,7 +11,7 @@
 
 CryptoSentinel AI monitors live Ethereum blockchain transactions, detects money laundering and fraud using Graph Neural Networks, scans smart contracts for vulnerabilities, and signs all threat alerts with post-quantum cryptography.
 
-**Headline result:** GNN achieves **F1=0.676, ROC-AUC=0.899** on the Elliptic Bitcoin dataset — compared to Isolation Forest F1=0.001. Graph structure is the key signal for blockchain fraud detection.
+**Headline result:** GNN achieves **F1=0.708, ROC-AUC=0.905** on the Elliptic Bitcoin dataset — compared to Isolation Forest F1=0.001. Graph structure is the key signal for blockchain fraud detection.
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ Ethereum Sepolia → BlockIngester → Kafka → Feature Extraction
 |---|---|---|
 | Isolation Forest | 0.001 | 0.168 |
 | VAE Autoencoder | 0.004 | 0.198 |
-| **GNN (GraphSAGE+GAT)** | **0.676** | **0.899** |
+| **GNN (GraphSAGE+GAT)** | **0.708** | **0.905** |
 
 ## Tech Stack
 

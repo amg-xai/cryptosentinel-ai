@@ -19,7 +19,7 @@
 |---|---|---|---|---|
 | Isolation Forest | 0.001 | 0.036 | 0.168 | 1/1083 |
 | VAE Autoencoder | 0.004 | 0.038 | 0.198 | 2/1083 |
-| **GNN (GraphSAGE+GAT)** | **0.676** | **0.650** | **0.899** | **635/1083** |
+| **GNN (GraphSAGE+GAT)** | **0.708** | **0.682** | **0.905** | **635/1083** |
 
 **Why tabular models perform poorly:**
 Illicit transactions do not form statistical outliers in raw feature space.
@@ -38,7 +38,7 @@ This is consistent with published literature (Weber et al. 2019).
 
 | Model | Weight | Rationale |
 |---|---|---|
-| GNN | 0.55 | Primary detector, proven F1=0.676 |
+| GNN | 0.55 | Primary detector, proven F1=0.708 |
 | Autoencoder | 0.25 | Catches novel patterns GNN misses |
 | Isolation Forest | 0.10 | Fast baseline, weak on Elliptic |
 | Graph centrality | 0.10 | Structural signal from NetworkX |

@@ -68,8 +68,11 @@ def main():
         print(
             f"  Epoch {record['epoch']:3d}: "
             f"loss={record['loss']:.6f} "
-            f"lr={record['lr']:.6f}"
+            f"test_f1={record.get('test_f1', 'NA')} "
+            f"test_pr_auc={record.get('test_pr_auc', 'NA')}"
         )
+    best_rec = max(history, key=lambda r: r.get('test_f1', -1))
+    print(f"\n  BEST epoch {best_rec['epoch']}: test_f1={best_rec.get('test_f1')}")
 
     # Save final model
     trainer.save(str(MODELS_DIR / "gnn_final.pt"))

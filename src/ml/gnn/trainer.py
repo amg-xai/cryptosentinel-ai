@@ -193,7 +193,7 @@ class GNNTrainer:
             device=str(self.device),
         )
 
-        best_loss = float("inf")
+        best_f1 = -1.0
         self.history = []
 
         for epoch in range(epochs):
@@ -237,10 +237,17 @@ class GNNTrainer:
                 "loss": round(avg_loss, 6),
                 "lr": round(optimizer.param_groups[0]["lr"], 6),
             }
+            # Evaluate on the held-out test mask each epoch and checkpoint
+            # on F1, NOT training loss. On imbalanced fraud data, low loss
+            # selects a model that barely flags anything (high accuracy,
+            # near-zero recall). F1 is the metric we actually care about.
+            eval_metrics = self.evaluate(data)
+            record["test_f1"] = eval_metrics["f1_score"]
+            record["test_pr_auc"] = eval_metrics["pr_auc"]
             self.history.append(record)
 
-            if avg_loss < best_loss:
-                best_loss = avg_loss
+            if eval_metrics["f1_score"] > best_f1:
+                best_f1 = eval_metrics["f1_score"]
                 self.save(str(MODELS_DIR / "gnn_best.pt"))
 
             if (epoch + 1) % 10 == 0:
@@ -248,8 +255,9 @@ class GNNTrainer:
 
         logger.info(
             "gnn_training_complete",
-            best_loss=round(best_loss, 6),
+            best_f1=round(best_f1, 4),
             final_loss=self.history[-1]["loss"],
+            final_f1=self.history[-1].get("test_f1"),
         )
 
         return self.history

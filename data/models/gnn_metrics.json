@@ -1,8 +1,8 @@
 {
-  "f1_score": 0.6755,
-  "pr_auc": 0.6495,
-  "roc_auc": 0.8991,
+  "f1_score": 0.6748,
+  "pr_auc": 0.6483,
+  "roc_auc": 0.8989,
   "test_samples": 16670,
-  "illicit_detected": 635,
+  "illicit_detected": 610,
   "illicit_total": 1083
 }
