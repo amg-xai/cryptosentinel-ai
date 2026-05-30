@@ -47,10 +47,18 @@ class Settings(BaseSettings):
     # Monitoring
     grafana_password: str = Field(default="changeme")
 
-    # Application
     environment: str = Field(default="development")
     log_level: str = Field(default="INFO")
     model_artifacts_path: str = Field(default="data/models")
 
+    # Whether to trust IF/AE/GNN scores on LIVE transactions. These models
+    # were trained on the Elliptic 165-feature space; live EVM transactions
+    # are scored via 16 features zero-padded to 165, which the models can't
+    # discriminate (scores collapse to a constant). Default False: the live
+    # pipeline treats them as unavailable so the composite re-normalizes onto
+    # graph-structural + heuristic signals that DO work on live data. The
+    # offline benchmark/backtester always uses the real Elliptic-feature
+    # scores regardless of this flag.
+    trust_live_model_scores: bool = Field(default=False)
 
 settings = Settings()

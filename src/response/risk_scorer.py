@@ -189,6 +189,7 @@ class CompositeRiskScorer:
         model_scores: ModelScores,
         value_eth: float = 0.0,
         cross_chain_boost: float = 1.0,
+        live_mode: bool = False,
     ) -> RiskAssessment:
         """
         Compute composite risk score from individual model scores.
@@ -210,8 +211,25 @@ class CompositeRiskScorer:
 
         # Weighted average of available scores
         # Re-normalize weights to sum to 1 for available models only
-        total_weight = sum(self.weights.get(k, 0) for k in available.keys())
+        # Live mode: the ML models are unavailable (live feature-space
+        # mismatch), so graph_centrality would otherwise re-normalize to
+        # full weight. But high centrality alone is NOT evidence of crime —
+        # exchanges, routers, and popular contracts all have huge degree.
+        # Dampen the lone structural signal so it acts as a weak prior:
+        # centrality alone tops out below the watchlist threshold, and the
+        # behavioral boosts (velocity, cross-chain, known-bad) do the real
+        # escalating.
+        if live_mode and "graph_centrality" in available:
+            ml_present = any(
+                k in available for k in ("gnn", "autoencoder", "isolation_forest")
+            )
+            if not ml_present:
+                available = dict(available)
+                available["graph_centrality"] *= 0.5
 
+        # Weighted average of available scores
+        # Re-normalize weights to sum to 1 for available models only
+        total_weight = sum(self.weights.get(k, 0) for k in available.keys())
         if total_weight == 0:
             composite = sum(available.values()) / len(available)
         else:
@@ -219,7 +237,6 @@ class CompositeRiskScorer:
                 available[k] * self.weights.get(k, 0) / total_weight
                 for k in available.keys()
             )
-
         # Velocity adjustment: many transactions in short window → boost score
         if model_scores.velocity_flag:
             composite = min(1.0, composite * 1.3)

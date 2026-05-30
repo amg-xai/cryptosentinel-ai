@@ -112,11 +112,26 @@ async def scoring_worker(
             )
             cc_boost = _cross_chain.cross_chain_risk_boost(tx.from_addr)
 
-            # 7. Build model scores
+            # 7. Build model scores.
+            # On live EVM traffic the IF/AE/GNN models score a feature space
+            # they weren't trained on (16->165 zero-pad), so their output is
+            # not trustworthy. Unless explicitly enabled, mark them
+            # unavailable (-1.0) and let the composite re-normalize onto
+            # graph-structural + heuristic signals. The offline backtester
+            # uses the real Elliptic scores and is unaffected.
+            if settings.trust_live_model_scores:
+                live_gnn = gnn_score
+                live_ae = tabular_scores.get("autoencoder", -1.0)
+                live_if = tabular_scores.get("isolation_forest", -1.0)
+            else:
+                live_gnn = -1.0
+                live_ae = -1.0
+                live_if = -1.0
+
             model_scores = ModelScores(
-                gnn=gnn_score,
-                autoencoder=tabular_scores.get("autoencoder", -1.0),
-                isolation_forest=tabular_scores.get("isolation_forest", -1.0),
+                gnn=live_gnn,
+                autoencoder=live_ae,
+                isolation_forest=live_if,
                 graph_centrality=graph_centrality,
                 velocity_flag=velocity_flag,
             )
@@ -128,8 +143,8 @@ async def scoring_worker(
                 model_scores=model_scores,
                 value_eth=tx.value_eth,
                 cross_chain_boost=cc_boost,
+                live_mode=not settings.trust_live_model_scores,
             )
-
             # 9. Prometheus
             # 9. Prometheus + drift detection
             TRANSACTIONS_SCANNED.labels(chain=tx.chain_name).inc()

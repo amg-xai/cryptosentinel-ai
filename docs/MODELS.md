@@ -42,6 +42,33 @@ This is consistent with published literature (Weber et al. 2019).
 | Autoencoder | 0.25 | Catches novel patterns GNN misses |
 | Isolation Forest | 0.10 | Fast baseline, weak on Elliptic |
 | Graph centrality | 0.10 | Structural signal from NetworkX |
+### Offline benchmark vs live scoring (important)
+
+The ensemble weights above apply to the **offline benchmark** on the
+Elliptic dataset, where all models score their native 165-feature space.
+This is where the F1=0.708 GNN result comes from, and it is fully
+legitimate.
+
+On **live EVM transactions** the picture is different and we are explicit
+about it. Live transactions yield 16 engineered features, zero-padded to
+165 to fit the models' input shape. The models were trained on the
+Elliptic feature semantics, so on padded live vectors their output
+collapses to a near-constant value (verified: live composite std ~0.0005).
+Those scores are not trustworthy, so the live pipeline sets
+`trust_live_model_scores=False` by default and marks IF/AE/GNN as
+unavailable. The composite then re-normalizes onto signals that *do* work
+on live data:
+
+- **graph centrality** — treated as a weak structural prior (dampened
+  ×0.5 when it is the only signal, so high-degree exchanges/routers are
+  NOT flagged on structure alone)
+- **velocity** — burst behavior (×1.3)
+- **cross-chain** — bridge / multi-chain actor (×1.15–1.4)
+- **known-bad address** — floors the score at 0.9
+
+Net effect: live detection is graph-structural + behavioral, not ML.
+Closing this gap — training on a consistent live-feature space with weak
+labels from public scam-address lists — is the next planned step.
 
 ## Post-Quantum Cryptography Benchmarks
 
