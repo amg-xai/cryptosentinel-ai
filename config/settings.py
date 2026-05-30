@@ -20,6 +20,10 @@ class Settings(BaseSettings):
         default="wss://localhost", description="Polygon WebSocket RPC"
     )
 
+    eth_mainnet_http_url: str = Field(
+        default="", description="Ethereum mainnet HTTP RPC (training data only)"
+    )
+
     polygon_http_url: str = Field(
         default="https://localhost", description="Polygon HTTP RPC"
     )

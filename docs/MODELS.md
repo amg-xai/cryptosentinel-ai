@@ -66,9 +66,29 @@ on live data:
 - **cross-chain** — bridge / multi-chain actor (×1.15–1.4)
 - **known-bad address** — floors the score at 0.9
 
-Net effect: live detection is graph-structural + behavioral, not ML.
-Closing this gap — training on a consistent live-feature space with weak
-labels from public scam-address lists — is the next planned step.
+### Live-native model (resolved)
+
+The feature-space gap is now closed. A live-native classifier is trained
+directly on the 16-feature space the pipeline computes, using weak labels
+from public threat intel: positives from OFAC sanctioned addresses + the
+MyEtherWallet community darklist, negatives from activity-matched recent
+mainnet senders. Both classes are built through an identical pipeline
+(getAssetTransfers -> eth_getTransactionByHash -> real fields -> replay
+through FeatureEngineer), so there are no source artifacts.
+
+Result (5-fold CV, 120 pos / 120 neg):
+  - CV F1: 0.866 ± 0.034
+  - Test F1: 0.877, Precision 0.926, Recall 0.833, ROC-AUC 0.984
+
+This model fills the "gnn" slot in the live composite, so live detection
+is now driven by genuine ML on the correct feature space — with graph
+centrality restored to its normal secondary weight. The Elliptic-trained
+IF/AE/GNN remain disabled on live traffic (feature mismatch); they power
+the offline benchmark only.
+
+Honest caveats: labels are weak (incomplete lists; negatives assumed
+legit), and gas_price is the dominant feature (sanctioned/scam senders
+tend to pay elevated gas) — real signal, but the model leans on it.
 
 ## Post-Quantum Cryptography Benchmarks
 

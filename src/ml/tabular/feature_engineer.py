@@ -65,6 +65,14 @@ class TransactionFeatures:
     address_out_degree: float = 0.0
     cluster_risk_score: float = 0.0
 
+    FEATURE_NAMES = [
+        "value_eth", "log_value_eth", "is_high_value", "gas",
+        "gas_price_gwei", "gas_price_percentile", "is_contract_call",
+        "is_contract_creation", "input_data_length", "tx_count_1h",
+        "tx_count_24h", "value_sum_1h", "time_since_last_tx",
+        "address_in_degree", "address_out_degree", "cluster_risk_score",
+    ]
+
     def to_numpy(self) -> np.ndarray:
         """Convert to numpy array for ML model input."""
         return np.array(

@@ -119,12 +119,20 @@ async def scoring_worker(
             # unavailable (-1.0) and let the composite re-normalize onto
             # graph-structural + heuristic signals. The offline backtester
             # uses the real Elliptic scores and is unaffected.
+            # Live-native model trained on the real 16-feature space is the
+            # trustworthy ML signal on live EVM traffic. It occupies the
+            # "gnn" slot in the composite (the primary-detector weight). The
+            # Elliptic-trained IF/AE/GNN stay disabled on live data unless
+            # explicitly trusted (feature-space mismatch).
+            live_ml_score = await loop.run_in_executor(
+                None, engine.score_live, features_array
+            )
             if settings.trust_live_model_scores:
                 live_gnn = gnn_score
                 live_ae = tabular_scores.get("autoencoder", -1.0)
                 live_if = tabular_scores.get("isolation_forest", -1.0)
             else:
-                live_gnn = -1.0
+                live_gnn = live_ml_score  # live-native model in the GNN slot
                 live_ae = -1.0
                 live_if = -1.0
 

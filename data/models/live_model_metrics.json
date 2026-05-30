@@ -1,0 +1,59 @@
+{
+  "cv_f1_mean": 0.8659,
+  "cv_f1_std": 0.0336,
+  "f1": 0.8772,
+  "precision": 0.9259,
+  "recall": 0.8333,
+  "roc_auc": 0.9844,
+  "n_pos": 120,
+  "n_neg": 120,
+  "features_used": [
+    "value_eth",
+    "log_value_eth",
+    "is_high_value",
+    "gas",
+    "gas_price_gwei",
+    "gas_price_percentile",
+    "is_contract_call",
+    "is_contract_creation",
+    "input_data_length",
+    "tx_count_1h",
+    "tx_count_24h",
+    "value_sum_1h",
+    "time_since_last_tx"
+  ],
+  "top_features": [
+    {
+      "feature": "gas_price_gwei",
+      "coef": 3.6328
+    },
+    {
+      "feature": "is_contract_call",
+      "coef": -0.8398
+    },
+    {
+      "feature": "is_high_value",
+      "coef": 0.7123
+    },
+    {
+      "feature": "tx_count_1h",
+      "coef": -0.5837
+    },
+    {
+      "feature": "tx_count_24h",
+      "coef": -0.5837
+    },
+    {
+      "feature": "log_value_eth",
+      "coef": 0.4157
+    },
+    {
+      "feature": "time_since_last_tx",
+      "coef": -0.3248
+    },
+    {
+      "feature": "input_data_length",
+      "coef": 0.1489
+    }
+  ]
+}

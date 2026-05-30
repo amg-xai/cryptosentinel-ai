@@ -38,6 +38,9 @@ class InferenceEngine:
         self.gnn_trainer = None
         self.gnn_data = None
         self.scaler = None
+        self.live_model = None
+        self.live_scaler = None
+        self.live_keep_indices = None
         self._loaded = False
 
     def load(self) -> dict:
@@ -125,6 +128,28 @@ class InferenceEngine:
             status["gnn"] = False
             logger.error("gnn_load_failed", error=str(e))
 
+        # Live-native model: trained on the real 16-feature space with weak
+        # labels (OFAC + MEW darklist). Unlike IF/AE/GNN, this one actually
+        # discriminates on live EVM transactions.
+        try:
+            import json
+            lm_path = MODELS_DIR / "live_model.joblib"
+            ls_path = MODELS_DIR / "live_scaler.joblib"
+            lf_path = MODELS_DIR / "live_model_features.json"
+            if lm_path.exists() and ls_path.exists():
+                self.live_model = joblib.load(str(lm_path))
+                self.live_scaler = joblib.load(str(ls_path))
+                if lf_path.exists():
+                    self.live_keep_indices = json.load(
+                        open(lf_path))["keep_indices"]
+                status["live_model"] = True
+                logger.info("live_model_loaded")
+            else:
+                status["live_model"] = False
+        except Exception as e:
+            status["live_model"] = False
+            logger.error("live_model_load_failed", error=str(e))
+
         self._loaded = True
         logger.info("inference_engine_ready", status=status)
         return status
@@ -171,6 +196,31 @@ class InferenceEngine:
                 logger.error("ae_score_failed", error=str(e), tb=traceback.format_exc())
 
         return scores
+    
+    def score_live(self, features_array: np.ndarray) -> float:
+        """
+        Score a live transaction with the live-native model.
+        Returns illicit probability in [0, 1], or -1.0 if unavailable.
+        Operates on the 16-feature live vector (drops dead graph slots
+        to match training).
+        """
+        if self.live_model is None or self.live_scaler is None:
+            return -1.0
+        try:
+            x = np.nan_to_num(
+                features_array.reshape(1, -1),
+                nan=0.0, posinf=0.0, neginf=0.0,
+            )
+            if self.live_keep_indices is not None:
+                x = x[:, self.live_keep_indices]
+            x_scaled = self.live_scaler.transform(x)
+            proba = self.live_model.predict_proba(x_scaled)[0, 1]
+            return float(proba)
+        except Exception as e:
+            logger.error("score_live_failed", error=str(e))
+            return -1.0
+
+    
 
     def score_with_gnn(self, features_array: np.ndarray) -> float:
         """Score using GNN on CPU (thread-safe)."""
