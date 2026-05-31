@@ -1,0 +1,41 @@
+# Traefik dynamic configuration — routes to the host-run FastAPI service
+# and applies a circuit breaker + retry + rate-limit middleware chain.
+http:
+  routers:
+    api-router:
+      rule: "PathPrefix(`/`)"
+      entryPoints:
+        - web
+      service: cryptosentinel-api
+      middlewares:
+        - api-circuit-breaker
+        - api-retry
+
+  services:
+    cryptosentinel-api:
+      loadBalancer:
+        servers:
+          # Host-run uvicorn API (Traefik reaches the host from the container)
+          - url: "http://host.docker.internal:8000"
+        # Active health check: Traefik polls /health and pulls the
+        # backend out of rotation if it goes unhealthy.
+        healthCheck:
+          path: /health
+          interval: "10s"
+          timeout: "3s"
+
+  middlewares:
+    # Circuit breaker: trip OPEN when the backend is failing, so we fail
+    # fast instead of piling requests onto a struggling service.
+    # Expression trips if >30% of recent responses are 5xx, OR network
+    # error ratio >25%, OR p50 latency exceeds 3s.
+    api-circuit-breaker:
+      circuitBreaker:
+        expression: "ResponseCodeRatio(500, 600, 0, 600) > 0.30 || NetworkErrorRatio() > 0.25 || LatencyAtQuantileMS(50.0) > 3000"
+
+    # Bounded retry on idempotent failures (Traefik only retries on
+    # network-level errors, not on 5xx bodies).
+    api-retry:
+      retry:
+        attempts: 3
+        initialInterval: "100ms"

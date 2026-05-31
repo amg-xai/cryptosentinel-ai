@@ -120,6 +120,23 @@ services:
     networks:
       - cryptosentinel-net
 
+
+  traefik:
+    image: traefik:v3.1
+    container_name: cryptosentinel-traefik
+    command:
+      - "--configFile=/etc/traefik/traefik.yml"
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - cryptosentinel-net
+
 volumes:
   postgres_data:
   grafana_data:

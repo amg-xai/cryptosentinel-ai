@@ -117,3 +117,33 @@ Combined weight: IF(0.10) + AE(0.25) + GNN(0.55) + graph_centrality(0.10)
 | Dashboard | Streamlit | Rapid SOC UI development |
 | Observability | Prometheus + Grafana | Industry standard metrics stack |
 | Container | Docker + Kubernetes | Production deployment standard |
+| API gateway | Traefik v3 | Reverse proxy, circuit breaker, active health checks |
+
+
+## API Gateway & Resilience
+
+Traefik v3 sits in front of the FastAPI service as the single entry point
+(`:8080`), providing production-grade resilience patterns:
+
+- **Circuit breaker** — trips OPEN when the backend shows >30% 5xx
+  responses, >25% network errors, or p50 latency >3s. While open, the
+  gateway fails fast (503) instead of piling requests onto a struggling
+  backend, then transitions through a half-open *recovering* state to probe
+  for recovery before closing.
+- **Active health checks** — Traefik polls `/health` every 10s and pulls an
+  unhealthy backend out of rotation automatically.
+- **Bounded retry** — up to 3 retries on transient network errors.
+- **Observable** — Traefik exposes its own Prometheus metrics, so gateway
+  behavior (request rates, circuit-breaker state) is visible alongside
+  application metrics.
+
+Verified behavior: with the backend killed, the gateway returns fast 503s
+and the breaker trips; on backend restart, the breaker auto-recovers and
+routing resumes — demonstrated against real process failures, not mocks.
+
+**Dev vs production note:** in development the gateway routes to a
+host-run API via `host.docker.internal` and the Traefik dashboard is
+exposed insecurely on `:8090`. In production the API runs as a
+containerized service behind Traefik with the dashboard secured/disabled,
+and routing uses Kubernetes service discovery rather than a static host
+address.

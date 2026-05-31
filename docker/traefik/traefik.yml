@@ -1,0 +1,24 @@
+# Traefik static configuration
+entryPoints:
+  web:
+    address: ":8080"
+  traefik:
+    address: ":8090"
+
+api:
+  dashboard: true
+  insecure: true  # dev only — exposes the Traefik dashboard on :8090
+
+providers:
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+
+log:
+  level: INFO
+
+# Expose Traefik's own Prometheus metrics so the gateway is observable too
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addServicesLabels: true
