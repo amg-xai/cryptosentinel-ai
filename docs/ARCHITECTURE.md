@@ -115,7 +115,7 @@ Combined weight: IF(0.10) + AE(0.25) + GNN(0.55) + graph_centrality(0.10)
 | PQC | liboqs (NIST reference) | Official NIST PQC implementation |
 | API | FastAPI | Async, auto-docs, Pydantic validation |
 | Dashboard | Streamlit | Rapid SOC UI development |
-| Observability | Prometheus + Grafana | Industry standard metrics stack |
+| Observability | Prometheus + Grafana + Jaeger | Metrics (Prometheus) + distributed tracing (Jaeger via OTLP) |
 | Container | Docker + Kubernetes | Production deployment standard |
 | API gateway | Traefik v3 | Reverse proxy, circuit breaker, active health checks |
 

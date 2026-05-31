@@ -57,8 +57,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-from src.api.middleware.rate_limiter import RateLimitMiddleware
+# Auto-instrument FastAPI so every HTTP request produces an OTel trace
+# (request span -> downstream spans), exported to Jaeger. Excludes the
+# noisy health/metrics scrape paths so traces stay meaningful.
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+FastAPIInstrumentor.instrument_app(
+    app,
+    excluded_urls="health,metrics",
+)
 
+from src.api.middleware.rate_limiter import RateLimitMiddleware
 app.add_middleware(RateLimitMiddleware)
 
 app.add_middleware(

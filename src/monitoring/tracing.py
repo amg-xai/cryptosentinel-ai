@@ -28,9 +28,13 @@ def setup_tracing(service_name: str = "cryptosentinel") -> trace.Tracer:
     resource = Resource.create({"service.name": service_name})
     provider = TracerProvider(resource=resource)
 
+    import os
+    otlp_endpoint = os.getenv(
+        "OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4317"
+    )
     try:
         exporter = OTLPSpanExporter(
-            endpoint="http://localhost:4317",
+            endpoint=otlp_endpoint,
             insecure=True,
         )
         processor = BatchSpanProcessor(exporter)
