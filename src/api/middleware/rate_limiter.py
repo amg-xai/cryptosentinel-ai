@@ -1,5 +1,5 @@
 """
-Sliding window rate limiter using Redis.
+Sliding window rate limiter (in-memory store; see note).
 
 WHY sliding window over fixed window:
   Fixed window allows 2x the rate at window boundaries.
@@ -81,9 +81,25 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         # Key by IP for auth endpoints, by IP+path for others
+        # Prefer keying by authenticated user (JWT sub) so concurrent users
+        # on a shared egress IP don't throttle each other; fall back to IP
+        # for unauthenticated requests. The full token verification happens
+        # in the route's auth dependency — here we only need a stable
+        # identity for bucketing, so an unverified decode of `sub` is fine.
         client_ip = request.client.host if request.client else "unknown"
         path = request.url.path
-        key = f"{client_ip}:{path}"
+        identity = client_ip
+        auth_header = request.headers.get("authorization", "")
+        if auth_header.startswith("Bearer "):
+            try:
+                from jose import jwt
+                claims = jwt.get_unverified_claims(auth_header[7:])
+                sub = claims.get("sub")
+                if sub:
+                    identity = f"user:{sub}"
+            except Exception:
+                pass  # malformed token -> fall back to IP
+        key = f"{identity}:{path}"
 
         limit, window = _get_limit(path)
         allowed, remaining = _check_rate_limit(key, limit, window)

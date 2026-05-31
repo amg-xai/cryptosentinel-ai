@@ -1,145 +1,1404 @@
 liboqs-python faulthandler is disabled
-{"timestamp": "2026-05-31T11:43:19.271+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.crypto.pqc_handler", "function": "__init__", "line": 100, "event": "pqc_signer_initialized", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:22.513+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.token_store", "function": "_connect", "line": 40, "event": "token_store_redis_connected", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:22.745+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.monitoring.tracing", "function": "setup_tracing", "line": 42, "event": "otel_tracing_initialized", "trace_id": "-"}
-INFO:     Started server process [73222]
+{"timestamp": "2026-05-31T12:50:34.788+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.crypto.pqc_handler", "function": "__init__", "line": 100, "event": "pqc_signer_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:38.024+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.token_store", "function": "_connect", "line": 40, "event": "token_store_redis_connected", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:38.319+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.monitoring.tracing", "function": "setup_tracing", "line": 42, "event": "otel_tracing_initialized", "trace_id": "-"}
+INFO:     Started server process [75828]
 INFO:     Waiting for application startup.
-{"timestamp": "2026-05-31T11:43:22.952+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 30, "event": "api_starting", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:28.619+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.isolation_forest", "function": "load", "line": 282, "event": "model_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:28.619+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 50, "event": "isolation_forest_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:36.642+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "__init__", "line": 174, "event": "device_selected", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:40.520+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "load", "line": 423, "event": "autoencoder_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:40.521+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 66, "event": "autoencoder_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:41.778+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "__init__", "line": 96, "event": "gnn_trainer_init", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:41.968+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "load", "line": 325, "event": "gnn_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 96, "event": "gnn_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 105, "event": "model_registry_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 32, "event": "models_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:42.209+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.db.session", "function": "init_db", "line": 39, "event": "database_initialized", "trace_id": "-"}
-{"timestamp": "2026-05-31T11:43:42.209+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 37, "event": "database_init", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:38.616+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 30, "event": "api_starting", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:43.951+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.isolation_forest", "function": "load", "line": 282, "event": "model_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:43.951+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 50, "event": "isolation_forest_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:50.295+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "__init__", "line": 174, "event": "device_selected", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:53.198+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "load", "line": 423, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:53.198+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 66, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.322+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "__init__", "line": 96, "event": "gnn_trainer_init", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.524+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "load", "line": 325, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.525+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 96, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.526+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 105, "event": "model_registry_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.526+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 32, "event": "models_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.717+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.db.session", "function": "init_db", "line": 39, "event": "database_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T12:50:54.718+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 37, "event": "database_init", "trace_id": "-"}
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:41452 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41456 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53702 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:34016 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:34020 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41432 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41440 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41456 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45428 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43400 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43416 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53066 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53076 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57322 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49920 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49926 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49630 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49632 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49634 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49650 - "POST /analyze/wallet HTTP/1.1" 401 Unauthorized
-{"timestamp": "2026-05-31T11:45:27.640+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
-{"timestamp": "2026-05-31T11:45:27.702+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
-{"timestamp": "2026-05-31T11:45:27.702+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
-INFO:     127.0.0.1:49664 - "POST /auth/token HTTP/1.1" 200 OK
-{"timestamp": "2026-05-31T11:45:27.749+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "d28dd8cb7b93b69ee60e1d62376251e2"}
-INFO:     127.0.0.1:49678 - "POST /analyze/wallet HTTP/1.1" 200 OK
-{"timestamp": "2026-05-31T11:45:27.816+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.token_store", "function": "revoke", "line": 52, "event": "token_revoked", "trace_id": "531a4600c0a575eea16a6bba741ec23c"}
-{"timestamp": "2026-05-31T11:45:27.816+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "logout", "line": 105, "event": "user_logged_out", "trace_id": "531a4600c0a575eea16a6bba741ec23c"}
-INFO:     127.0.0.1:49690 - "POST /auth/logout HTTP/1.1" 200 OK
-{"timestamp": "2026-05-31T11:45:27.861+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.auth", "function": "get_current_user", "line": 219, "event": "revoked_token_rejected", "trace_id": "5cf74fe2b40d169ae85aa3c07b4142c0"}
-INFO:     127.0.0.1:49694 - "POST /analyze/wallet HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:47564 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:50:55.286+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "0b97d2658ee141d2ed0626627d12de3c"}
+{"timestamp": "2026-05-31T12:50:55.353+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "0b97d2658ee141d2ed0626627d12de3c"}
+{"timestamp": "2026-05-31T12:50:55.353+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "0b97d2658ee141d2ed0626627d12de3c"}
+INFO:     127.0.0.1:47570 - "POST /auth/token HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:50:55.447+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "aec91334ead024dd3be71294ac1f0a1b"}
+{"timestamp": "2026-05-31T12:50:55.497+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "aec91334ead024dd3be71294ac1f0a1b"}
+{"timestamp": "2026-05-31T12:50:55.497+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "aec91334ead024dd3be71294ac1f0a1b"}
+INFO:     127.0.0.1:47586 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47596 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47612 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34024 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40694 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40710 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38672 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38684 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35424 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40146 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40152 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33504 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33516 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37464 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43372 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43378 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54584 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54590 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45992 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45994 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60150 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60158 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40022 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50034 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50044 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36230 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36238 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49624 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49628 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37058 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37060 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43150 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55698 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55712 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.286+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "0b229c40eb8ca7fd70ad6c2a70ea6e04"}
+{"timestamp": "2026-05-31T12:54:12.339+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "aa7581b569bd39b6f19344da819e1b94"}
+INFO:     127.0.0.1:55736 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.409+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "df824c30d6ac928601189d0dc095cb29"}
+INFO:     127.0.0.1:55722 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.478+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "98884c68b226247a5bb129bd0ef338ec"}
+INFO:     127.0.0.1:55746 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.536+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "a9ba11ceced8aba70a402438fa28ba43"}
+INFO:     127.0.0.1:55758 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55762 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.593+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "3303227a511d8bc6c70b1ff9bac31160"}
+{"timestamp": "2026-05-31T12:54:12.645+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "3303227a511d8bc6c70b1ff9bac31160"}
+{"timestamp": "2026-05-31T12:54:12.646+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "3303227a511d8bc6c70b1ff9bac31160"}
+INFO:     127.0.0.1:55736 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55722 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55746 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55762 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.674+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "24f275803acc7b95c1df92a7faf246cd"}
+{"timestamp": "2026-05-31T12:54:12.675+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "24f275803acc7b95c1df92a7faf246cd"}
+INFO:     127.0.0.1:55758 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:12.678+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "ca2ecbd6ddfb877f28a682c1c89a2b43"}
+INFO:     127.0.0.1:55736 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:13.283+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "14686256b35d939fd81b6658947e0c46"}
+{"timestamp": "2026-05-31T12:54:13.362+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "b0e6cbf635ec830cd0691f33523909ec"}
+INFO:     127.0.0.1:55788 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:13.431+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "7495e63ebcde38a0643443e348e5471d"}
+INFO:     127.0.0.1:55774 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:13.490+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "8352b1fddeb29f29a138079f96fd47a6"}
+INFO:     127.0.0.1:55798 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:13.561+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "70db4ac88e925b8e9ff12d6285c504f6"}
+INFO:     127.0.0.1:55800 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55814 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55798 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55788 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:13.700+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "9a3cf078159eb73a078be90bc1a49fcf"}
+{"timestamp": "2026-05-31T12:54:13.765+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "9a3cf078159eb73a078be90bc1a49fcf"}
+{"timestamp": "2026-05-31T12:54:13.766+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "9a3cf078159eb73a078be90bc1a49fcf"}
+INFO:     127.0.0.1:55774 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55800 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55814 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55800 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:14.308+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "7660b2a1bf19742afbd1795dbf49a6f8"}
+INFO:     127.0.0.1:55828 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:14.402+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "45959399f04db7766152864929ea667a"}
+{"timestamp": "2026-05-31T12:54:14.486+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "b6026d6a8d8dc4bb6e2c034063261785"}
+{"timestamp": "2026-05-31T12:54:14.549+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "8c0b1fe7cada9eb0aeb3a2b82ef5a6c6"}
+INFO:     127.0.0.1:55834 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55840 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:14.614+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "9cd790e40c8925bb2f92b6530043a079"}
+INFO:     127.0.0.1:55848 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55852 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55828 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:14.693+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "5bacfdf1ba9adb90df53c33c01a3beb7"}
+{"timestamp": "2026-05-31T12:54:14.753+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "5bacfdf1ba9adb90df53c33c01a3beb7"}
+{"timestamp": "2026-05-31T12:54:14.754+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "5bacfdf1ba9adb90df53c33c01a3beb7"}
+INFO:     127.0.0.1:55848 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55840 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:14.756+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "c414a0cb98382f362d0586a8992e289d"}
+{"timestamp": "2026-05-31T12:54:14.756+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "c414a0cb98382f362d0586a8992e289d"}
+INFO:     127.0.0.1:55852 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55834 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55852 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.291+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "4ca6ee6802c8bd74b20ff6664b023219"}
+INFO:     127.0.0.1:55862 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.373+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "63633e9237821a935cf577b55701a6c6"}
+{"timestamp": "2026-05-31T12:54:15.458+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "988a43d94a630d1a519010f15e7abc03"}
+INFO:     127.0.0.1:55872 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.534+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "8159da4148a0ef1308141afbe5a07d61"}
+INFO:     127.0.0.1:55878 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.593+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "906e7ac079de68a14f3a4d1a08ca78ff"}
+INFO:     127.0.0.1:55888 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55900 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55862 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.672+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "b470da6640aadc12b36806402ed3253c"}
+{"timestamp": "2026-05-31T12:54:15.749+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "b470da6640aadc12b36806402ed3253c"}
+{"timestamp": "2026-05-31T12:54:15.750+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "b470da6640aadc12b36806402ed3253c"}
+INFO:     127.0.0.1:55878 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "0c12da77f6e68f2ff9969ae158d7e174"}
+{"timestamp": "2026-05-31T12:54:15.753+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "0c12da77f6e68f2ff9969ae158d7e174"}
+INFO:     127.0.0.1:55888 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55900 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55872 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:15.767+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "2fa2d2dc998457c4540ac0842cb28a0c"}
+INFO:     127.0.0.1:55888 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55746 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55762 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.293+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "3258838042eff96097dee2a3c4ab9c5a"}
+INFO:     127.0.0.1:55906 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.371+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "763b335c13efbd71ff183bce985c9ffb"}
+{"timestamp": "2026-05-31T12:54:16.434+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "cbd0d06a278fe0027f1cdde40d857504"}
+INFO:     127.0.0.1:55922 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.511+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "f401ddf56e5c18374ec201bdb6e6d07b"}
+INFO:     127.0.0.1:55924 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.574+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "f234f31db32999eda949a420f862e708"}
+INFO:     127.0.0.1:55936 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55946 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55906 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.666+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "62024decdfbf47804b0950fa96b6a384"}
+{"timestamp": "2026-05-31T12:54:16.742+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "62024decdfbf47804b0950fa96b6a384"}
+{"timestamp": "2026-05-31T12:54:16.742+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "62024decdfbf47804b0950fa96b6a384"}
+INFO:     127.0.0.1:55924 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:16.745+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "8435e0022c073e1dbfb5912a0870bbf0"}
+{"timestamp": "2026-05-31T12:54:16.745+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "8435e0022c073e1dbfb5912a0870bbf0"}
+INFO:     127.0.0.1:55946 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55922 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55936 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55946 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.294+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "b9f61e33ffba1407ddb8078ff40f9aa1"}
+{"timestamp": "2026-05-31T12:54:17.345+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "7bbe53d6c6c03b9d3ea5f3efbdf7ab7a"}
+INFO:     127.0.0.1:55970 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.405+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "fc27516fbea74cc42ede59319b2fb1bf"}
+INFO:     127.0.0.1:55962 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.485+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "367cf8dcee8055614ecda936c8fe668c"}
+INFO:     127.0.0.1:55984 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.569+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "75b89fc33ffb2168c75bb0f3470ab5d3"}
+INFO:     127.0.0.1:55992 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56000 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55970 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.672+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "4f57b040a1da539b76dc1c1c74d278d3"}
+{"timestamp": "2026-05-31T12:54:17.766+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "4f57b040a1da539b76dc1c1c74d278d3"}
+{"timestamp": "2026-05-31T12:54:17.766+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "4f57b040a1da539b76dc1c1c74d278d3"}
+INFO:     127.0.0.1:56000 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55984 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55962 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:17.773+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "959680f7a16cde29a30428d23a3ced59"}
+{"timestamp": "2026-05-31T12:54:17.773+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "959680f7a16cde29a30428d23a3ced59"}
+INFO:     127.0.0.1:55992 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56000 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.303+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "d5357dd4e1e0a2c059cd868a19e3a4ff"}
+INFO:     127.0.0.1:56422 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.392+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "7b3a39ef381a1510eba823364247128e"}
+{"timestamp": "2026-05-31T12:54:18.461+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "c95f0b0dfcb2ed4928a4c953f1c5f8d5"}
+INFO:     127.0.0.1:56426 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.517+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "0dd26cc81ccc207a037a90a636a879bb"}
+INFO:     127.0.0.1:56428 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.576+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "993915935d7f130054585cfa604f6b7c"}
+INFO:     127.0.0.1:56436 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56442 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56422 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56426 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.691+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "a974785e543deb6621dfcac639c4fc86"}
+{"timestamp": "2026-05-31T12:54:18.768+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "a974785e543deb6621dfcac639c4fc86"}
+{"timestamp": "2026-05-31T12:54:18.768+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "a974785e543deb6621dfcac639c4fc86"}
+INFO:     127.0.0.1:56436 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:18.771+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "8cb7422b08897e54b357c71caf9eaee6"}
+{"timestamp": "2026-05-31T12:54:18.771+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "8cb7422b08897e54b357c71caf9eaee6"}
+INFO:     127.0.0.1:56442 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56428 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56442 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55828 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56450 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.328+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "e53f3a12b9d8edb5241485c7746b64e0"}
+{"timestamp": "2026-05-31T12:54:19.402+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "3cc903edc18cfbc28807e47e5c673ea9"}
+{"timestamp": "2026-05-31T12:54:19.468+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "74ef86be32d3ef2dc4ae49026fbbb409"}
+INFO:     127.0.0.1:56474 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.547+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "57ad7de768d51a77a2d6e0db5c7e7daf"}
+INFO:     127.0.0.1:56470 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56466 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.625+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "7a7662e1add871714b35ea8619b25dfe"}
+INFO:     127.0.0.1:56484 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.723+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "8048df91cd4406aacf63f7671d3c50ec"}
+{"timestamp": "2026-05-31T12:54:19.801+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "8048df91cd4406aacf63f7671d3c50ec"}
+{"timestamp": "2026-05-31T12:54:19.801+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "8048df91cd4406aacf63f7671d3c50ec"}
+INFO:     127.0.0.1:56470 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56466 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56484 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.807+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "38d1820d8ae9a25e015d05afb60c4ab7"}
+{"timestamp": "2026-05-31T12:54:19.807+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "38d1820d8ae9a25e015d05afb60c4ab7"}
+INFO:     127.0.0.1:56474 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:19.868+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "d73021931a3caf79f9fc4b31e69427ef"}
+{"timestamp": "2026-05-31T12:54:19.869+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "d73021931a3caf79f9fc4b31e69427ef"}
+INFO:     127.0.0.1:56470 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55936 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56502 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.315+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "ed822bcb4bec865421a14baaf6aff297"}
+{"timestamp": "2026-05-31T12:54:20.383+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "4ecdde619de9b40f03473477467dacd5"}
+INFO:     127.0.0.1:56504 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.455+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "25d39c1e88387af8974c839fbb79b5d0"}
+INFO:     127.0.0.1:56506 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.513+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "b15f2c11e190557cd20bdd1ef5baee8b"}
+INFO:     127.0.0.1:56512 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.579+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "c8047a44d22b8cd72cc6ed8ed409c921"}
+INFO:     127.0.0.1:56522 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56524 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55924 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56534 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56512 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55746 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56528 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56504 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56524 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.714+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "c3cd566f2453548ae48a127df9c6c6c7"}
+{"timestamp": "2026-05-31T12:54:20.785+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "c3cd566f2453548ae48a127df9c6c6c7"}
+{"timestamp": "2026-05-31T12:54:20.785+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "c3cd566f2453548ae48a127df9c6c6c7"}
+INFO:     127.0.0.1:56506 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56522 - "POST /auth/token HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:20.829+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "0b788f7275b1f66a8636408b204436a7"}
+{"timestamp": "2026-05-31T12:54:20.830+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "0b788f7275b1f66a8636408b204436a7"}
+INFO:     127.0.0.1:56522 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56550 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55762 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.331+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "e31a4f791232617a5273fca8e7dcba77"}
+INFO:     127.0.0.1:56558 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.411+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "a58053df0f5a68d172f95ea8499c151f"}
+{"timestamp": "2026-05-31T12:54:21.495+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "738c155a715aadd516fcf87414792904"}
+INFO:     127.0.0.1:56570 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.574+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "2adf88251971acbb9f8fe863835430ec"}
+INFO:     127.0.0.1:56582 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.657+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "78670bc6aa7417500819b15768900622"}
+INFO:     127.0.0.1:56590 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56604 - "GET /auth/dev-token?role=analyst HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56570 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55962 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56558 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "765e698a616e996bcdb4178b2ebc1b7d"}
+{"timestamp": "2026-05-31T12:54:21.815+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "765e698a616e996bcdb4178b2ebc1b7d"}
+{"timestamp": "2026-05-31T12:54:21.815+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "765e698a616e996bcdb4178b2ebc1b7d"}
+INFO:     127.0.0.1:56604 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56582 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.820+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "1cc954232e43748681fbf0df26fcf06e"}
+{"timestamp": "2026-05-31T12:54:21.821+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "1cc954232e43748681fbf0df26fcf06e"}
+INFO:     127.0.0.1:56590 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.829+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "bfb5b46adaedcc848af165ba733f3e72"}
+INFO:     127.0.0.1:56618 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:21.833+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "2233026e65d587436b81c5b512fec354"}
+INFO:     127.0.0.1:56604 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55970 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56634 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56422 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56644 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56426 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56648 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56650 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56652 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56502 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56658 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55746 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55924 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56524 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55936 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55962 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56682 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56696 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56702 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56534 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56714 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56730 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56582 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56744 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56758 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56634 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56760 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56772 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56784 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56652 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56796 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:27.826+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "79a28a85eb3ca80b2902f8e23b2a21b8"}
+INFO:     127.0.0.1:56812 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60816 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55962 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60838 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:28.955+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "cf559191e73b899d045fde5eec570396"}
+INFO:     127.0.0.1:60846 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60852 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56730 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60862 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60870 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60882 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60898 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60900 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60914 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60922 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:30.137+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "8bfd9d7571bd26ba2b5c612c2fb8acb2"}
+{"timestamp": "2026-05-31T12:54:30.138+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "8bfd9d7571bd26ba2b5c612c2fb8acb2"}
+INFO:     127.0.0.1:60932 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56758 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56696 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60946 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60962 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56652 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56582 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:30.874+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "e5b505f71c9c36557aa472b691834ef4"}
+{"timestamp": "2026-05-31T12:54:30.874+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "e5b505f71c9c36557aa472b691834ef4"}
+INFO:     127.0.0.1:60974 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60972 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60976 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60986 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60996 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60816 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:31.768+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "4d460cdda8db41d6bbd5ef2a14ea8ae9"}
+{"timestamp": "2026-05-31T12:54:31.769+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "4d460cdda8db41d6bbd5ef2a14ea8ae9"}
+INFO:     127.0.0.1:32786 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32780 - "POST /analyze/transaction HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:32.165+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "98c9479757619d000ceaf931fd6a67de"}
+{"timestamp": "2026-05-31T12:54:32.166+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "98c9479757619d000ceaf931fd6a67de"}
+INFO:     127.0.0.1:32788 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32796 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32808 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32822 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:32.505+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "790ce304484a2cddc9fe4a81d2912fc7"}
+INFO:     127.0.0.1:32826 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32830 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60862 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60838 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32844 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32858 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60870 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32870 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32878 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:34.081+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "08763ce0be3e7ec4ccfc525211f4c034"}
+INFO:     127.0.0.1:32892 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32904 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32912 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60976 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60974 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32928 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:34.886+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "290a989d62097be3176dfc66bf8836b5"}
+INFO:     127.0.0.1:32940 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:56758 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32950 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32822 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:35.588+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "6672ddcf6ecee49b71624450dc549964"}
+INFO:     127.0.0.1:32960 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:32966 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32786 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:35.968+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "2bf7e672f331df13352619557f559a28"}
+{"timestamp": "2026-05-31T12:54:35.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "2bf7e672f331df13352619557f559a28"}
+INFO:     127.0.0.1:32980 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32992 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60862 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32996 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33006 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33016 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33028 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33030 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:36.767+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "e3fb26727a692abc6a1eabe9e86a8320"}
+INFO:     127.0.0.1:33032 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:33040 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33056 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33062 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55368 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32912 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55380 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55388 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55390 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32950 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55394 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32992 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55406 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55414 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55428 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55436 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55444 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55456 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32786 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55474 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55480 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33062 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55488 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55492 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55502 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55518 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55530 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55538 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55542 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55550 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55380 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55388 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:42.615+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "7c3de8ad06e02ca610773d4de4ecd763"}
+{"timestamp": "2026-05-31T12:54:42.616+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "7c3de8ad06e02ca610773d4de4ecd763"}
+INFO:     127.0.0.1:55568 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55584 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:42.782+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "7cce9dabad1c794ae47997b3c6e61f62"}
+INFO:     127.0.0.1:55598 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:54:42.820+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "effdcf0f101fad9a4356a712be341531"}
+INFO:     127.0.0.1:55614 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55628 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55636 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55652 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:43.716+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "9a2325ba2f1a5d27e7b9b75567804f24"}
+INFO:     127.0.0.1:55654 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55444 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55670 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:43.933+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "cada0f4d080ccda7d9a1e83d6e2baea3"}
+{"timestamp": "2026-05-31T12:54:43.933+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "cada0f4d080ccda7d9a1e83d6e2baea3"}
+INFO:     127.0.0.1:55674 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32786 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55542 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55680 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55690 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55492 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55584 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55698 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55706 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55488 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55718 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55724 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55736 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55744 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55758 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55652 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:47.310+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "327b411a610617352173a8247285d6c3"}
+{"timestamp": "2026-05-31T12:54:47.311+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "327b411a610617352173a8247285d6c3"}
+INFO:     127.0.0.1:55776 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55792 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55670 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44196 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:47.900+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "a42d4fe6d6d685a3aaa5cdeaf7eac770"}
+{"timestamp": "2026-05-31T12:54:47.901+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "a42d4fe6d6d685a3aaa5cdeaf7eac770"}
+INFO:     127.0.0.1:44206 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44212 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44222 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44236 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44238 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44244 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44256 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44258 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44260 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44272 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:49.177+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "6e1495c7d6fcbcb31f1202804d5aff0c"}
+INFO:     127.0.0.1:44278 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:44290 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:49.474+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "a993a7fa13d413d9ade90506f1ca0067"}
+INFO:     127.0.0.1:44292 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:54:49.825+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "f62bb5c98fca020ec74f173413367891"}
+INFO:     127.0.0.1:44302 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44312 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44328 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:50.098+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "86c594c6eb17abfcb1f5e6c7d2af1015"}
+INFO:     127.0.0.1:44340 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55736 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44356 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55492 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44364 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44370 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:50.887+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "9ffd6de68272034f1d78e0c713760985"}
+INFO:     127.0.0.1:44380 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55744 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44394 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44410 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55758 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:51.872+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "8449e8df1d903a8605fa7e02d086d314"}
+INFO:     127.0.0.1:44414 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44422 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44212 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44436 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44196 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44444 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44450 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44456 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44236 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44472 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44486 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55492 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:53.802+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "518b87cf6637461679f8220579431ae0"}
+{"timestamp": "2026-05-31T12:54:53.803+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "518b87cf6637461679f8220579431ae0"}
+INFO:     127.0.0.1:44490 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44494 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44500 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44512 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44528 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:54.811+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "01995cec2fffbecf1d52d1a63680d1cb"}
+{"timestamp": "2026-05-31T12:54:54.812+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "01995cec2fffbecf1d52d1a63680d1cb"}
+INFO:     127.0.0.1:44534 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44540 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44422 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55758 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44556 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44558 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:56.038+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "4cab0c950538e3a56717f0336930c28a"}
+INFO:     127.0.0.1:44568 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:44444 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44472 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44570 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44450 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44578 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44580 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:56.806+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "f663bd361a399bb08b46d46799068056"}
+{"timestamp": "2026-05-31T12:54:56.806+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "f663bd361a399bb08b46d46799068056"}
+INFO:     127.0.0.1:44594 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44596 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44456 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55492 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44608 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44620 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44628 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44624 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44632 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41318 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:58.048+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "dec5dfb3f45a51aad69519287eb6ae91"}
+{"timestamp": "2026-05-31T12:54:58.049+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "dec5dfb3f45a51aad69519287eb6ae91"}
+{"timestamp": "2026-05-31T12:54:58.074+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "b1028813cf3831ea190411a23194233c"}
+{"timestamp": "2026-05-31T12:54:58.075+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "b1028813cf3831ea190411a23194233c"}
+INFO:     127.0.0.1:41326 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41332 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33094 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41348 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41354 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44540 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41358 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41370 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41384 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41388 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:54:59.191+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "a2b19201e5fe279b6783b699c657f97a"}
+INFO:     127.0.0.1:41390 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41402 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:00.258+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "72969dc038fb069cfdc308fe2a71584f"}
+INFO:     127.0.0.1:41410 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41422 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41428 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:00.943+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "b42e2e27c0d1d9ee58b756d4f11b73f2"}
+INFO:     127.0.0.1:41444 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41458 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44624 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44456 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41462 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:01.542+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "92d34f3991e00fb0387142141ed81d9e"}
+{"timestamp": "2026-05-31T12:55:01.543+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "92d34f3991e00fb0387142141ed81d9e"}
+INFO:     127.0.0.1:41464 - "POST /analyze/transaction HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:01.635+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "16eed7d6c99c9026691509c3d3ade76f"}
+INFO:     127.0.0.1:41480 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41468 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41496 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41504 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41370 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44540 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41518 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41524 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41388 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41536 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41540 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:03.386+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "45aff1d6fbb8a347d0ec773ee3b48ca7"}
+INFO:     127.0.0.1:41554 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41560 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41566 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41576 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41578 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41586 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41594 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41608 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41612 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:03.903+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "cd8218e86edc492a11b45349cae84189"}
+{"timestamp": "2026-05-31T12:55:03.904+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "cd8218e86edc492a11b45349cae84189"}
+INFO:     127.0.0.1:41628 - "POST /analyze/transaction HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:03.908+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "863944176433ca1a6f1cf0ea4c64cf03"}
+INFO:     127.0.0.1:41632 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41458 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41648 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:04.609+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "1e11910cea4ad3c064e185ec7913649b"}
+INFO:     127.0.0.1:41650 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41656 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41668 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41428 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41468 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:05.749+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "af46eb27a520572583aedb124d521498"}
+{"timestamp": "2026-05-31T12:55:05.750+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "af46eb27a520572583aedb124d521498"}
+INFO:     127.0.0.1:41670 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41672 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41676 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:05.825+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "a2778dd08eded5cf0740d0e55a78f6a6"}
+INFO:     127.0.0.1:41682 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41524 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:06.295+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "5c4ded4b8f8a297b13c0d011a7100b2f"}
+INFO:     127.0.0.1:41684 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41696 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41710 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41718 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41726 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41576 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41740 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41744 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41756 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41760 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41776 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41608 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45126 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:08.399+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "a6c8cc0a09955f2eacaa5fb67792afea"}
+INFO:     127.0.0.1:45134 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45140 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45148 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:09.042+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "1ee6e899311cf529d619d1f042636579"}
+{"timestamp": "2026-05-31T12:55:09.043+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "1ee6e899311cf529d619d1f042636579"}
+INFO:     127.0.0.1:45164 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41458 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45172 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45190 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:09.071+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "996e79467ce3eb3316aea224c78e54d6"}
+INFO:     127.0.0.1:45186 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41656 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:09.517+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "fbe14332f73db99ff95d6ef184c5183f"}
+INFO:     127.0.0.1:45200 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:09.539+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "07aab154c40b4a338d6d6e580e49a798"}
+INFO:     127.0.0.1:45204 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45208 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45218 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45230 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45244 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41726 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41468 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45252 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:10.702+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "8b64bc9dbb2c5240d0e5613ae20363dd"}
+INFO:     127.0.0.1:41506 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45266 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41756 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45278 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:11.003+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "d8588682d5c94bceccc5f4a9c0e0b9ba"}
+INFO:     127.0.0.1:45282 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41576 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:11.221+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "0cb39adff0f2621604b2b4a60b05dde0"}
+INFO:     127.0.0.1:45284 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45300 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:11.700+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "e184dcf500b4eadfbac1b3dad4a25b32"}
+INFO:     127.0.0.1:45314 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45324 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:12.561+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "a927d885a4eb3acaa0b5701dd8f27146"}
+INFO:     127.0.0.1:45338 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41656 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45208 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:12.974+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "248a96435d6d8fa8ccf48d1f2cdba56e"}
+INFO:     127.0.0.1:45354 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45370 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:13.222+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "17f0445dfa42c1eb9ca8544ec44b47c0"}
+INFO:     127.0.0.1:45382 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:13.230+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "70cd21d638ca8dfafd4f891e5ff79990"}
+INFO:     127.0.0.1:41458 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:13.298+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "afc91021f284a5206eb34cd7f3cda4c5"}
+{"timestamp": "2026-05-31T12:55:13.298+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "afc91021f284a5206eb34cd7f3cda4c5"}
+INFO:     127.0.0.1:45396 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:13.554+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "938cd75e47e8d1106daed3062791602b"}
+INFO:     127.0.0.1:45406 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45414 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45204 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45426 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45200 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45434 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:13.930+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "71209e594fe564105b987f98ec8936c0"}
+INFO:     127.0.0.1:41726 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:14.038+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "678b7a5f4e8bd3ecd76f64ec77821308"}
+{"timestamp": "2026-05-31T12:55:14.038+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "678b7a5f4e8bd3ecd76f64ec77821308"}
+INFO:     127.0.0.1:45450 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45244 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:14.150+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "7918c17d95ffbfb098f479b0ae64fc49"}
+INFO:     127.0.0.1:45278 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:14.306+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "86bd92d0562f43edba76eecc0d83921d"}
+INFO:     127.0.0.1:45456 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:41506 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45252 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45284 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:14.884+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "00780ad14c90cbc4d160f3e222eb1fa3"}
+INFO:     127.0.0.1:45472 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45482 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45484 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45490 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45266 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:15.386+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "22e485f345bf84c8c72d924641f4854b"}
+INFO:     127.0.0.1:45502 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45518 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:15.532+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "650378e9a9de0b73f56123892ffc9d1d"}
+INFO:     127.0.0.1:41756 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45520 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45530 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:16.141+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "5ba00c23fbbb179fca599c3f014a67eb"}
+INFO:     127.0.0.1:45544 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:16.160+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "fd495b005548e8b46f57cbca8b12ffd5"}
+INFO:     127.0.0.1:45338 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:16.610+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "3c447c2bff49a305670e4c28053e7d7a"}
+INFO:     127.0.0.1:45548 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:16.698+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "7a2cd562d34f820b4af5bc8a859648b0"}
+INFO:     127.0.0.1:45552 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:45566 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:17.455+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "06abe6b6f3afea9bc006bd599873c5ae"}
+INFO:     127.0.0.1:45370 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:17.788+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "2d484a36f4c390cf13fe1cba33060035"}
+{"timestamp": "2026-05-31T12:55:17.789+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "2d484a36f4c390cf13fe1cba33060035"}
+INFO:     127.0.0.1:45574 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60204 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:18.165+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "2f9ea9f3f496be5c1b46ebe3f1179d5f"}
+INFO:     127.0.0.1:45200 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:18.184+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "f1151133e02b2b82ac9ce5d222fdb5f5"}
+INFO:     127.0.0.1:45278 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:18.319+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "eb87fc13135e5d95c33f2ce88da3adcb"}
+INFO:     127.0.0.1:45204 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:18.364+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "aaefd4cf3e8a05e333bbcfe8acd70a5e"}
+INFO:     127.0.0.1:41506 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:18.451+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "ecf4c0a2c269b34c2661d0e154dbe834"}
+INFO:     127.0.0.1:45406 - "GET /graph/stats/summary HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:60210 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45434 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45244 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45456 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60232 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60238 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45530 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60252 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60262 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45266 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60270 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60286 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:20.257+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "cf53f0b75b97cd6514c65a7f9713d57b"}
+INFO:     127.0.0.1:60296 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60306 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60312 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45548 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60322 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60334 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60348 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:20.995+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "cbfdb1c04f486a7a95be93eb56e3b675"}
+INFO:     127.0.0.1:60354 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:21.045+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "55f075f04e3bc30e18bba4542a404b92"}
+INFO:     127.0.0.1:60370 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60384 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45338 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:21.430+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "21a652fd34f8036a247ff01c7729b7e5"}
+{"timestamp": "2026-05-31T12:55:21.431+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "21a652fd34f8036a247ff01c7729b7e5"}
+INFO:     127.0.0.1:60394 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60400 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60204 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45370 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60412 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45456 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45266 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60252 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60286 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:23.503+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "051974f4713a15f8129e15ac84580c39"}
+INFO:     127.0.0.1:60422 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:60432 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45244 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60238 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60312 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60440 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60334 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45548 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60452 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:24.679+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "6a8ca0cab4a292cac684bb3d6b662fbe"}
+{"timestamp": "2026-05-31T12:55:24.680+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "6a8ca0cab4a292cac684bb3d6b662fbe"}
+INFO:     127.0.0.1:60458 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:24.883+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "190016fded7e04f10dd9b76698d699da"}
+{"timestamp": "2026-05-31T12:55:24.883+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "190016fded7e04f10dd9b76698d699da"}
+INFO:     127.0.0.1:60468 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60472 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60482 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:25.061+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "80cedf4d895c9050cc0886f1ea02ad4b"}
+INFO:     127.0.0.1:60498 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60534 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60384 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60538 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60552 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60566 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:26.641+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "73369d400826263038b003becb897134"}
+INFO:     127.0.0.1:60570 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60586 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:26.828+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "cfccdb80ad30dd471ea2af3191e0f135"}
+{"timestamp": "2026-05-31T12:55:26.829+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "cfccdb80ad30dd471ea2af3191e0f135"}
+INFO:     127.0.0.1:60602 - "POST /scan/contract HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:26.858+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "d37b6db0fffb9b5c74dce21db8d32882"}
+{"timestamp": "2026-05-31T12:55:26.859+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "d37b6db0fffb9b5c74dce21db8d32882"}
+INFO:     127.0.0.1:60604 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60616 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:26.934+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "ffb588fa7fdd1deab8ffbe4a079edb96"}
+{"timestamp": "2026-05-31T12:55:26.934+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "ffb588fa7fdd1deab8ffbe4a079edb96"}
+INFO:     127.0.0.1:60632 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60636 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60644 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58846 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58852 - "GET /alerts HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:27.919+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "6a7d16bbdd06dd5208cf60ef87473c9a"}
+{"timestamp": "2026-05-31T12:55:27.919+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "6a7d16bbdd06dd5208cf60ef87473c9a"}
+INFO:     127.0.0.1:58868 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58874 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58880 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58888 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60312 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60482 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58908 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58916 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58930 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60472 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58932 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:29.663+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "539330bcf7a9b4d7c0389698dd118270"}
+{"timestamp": "2026-05-31T12:55:29.663+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "539330bcf7a9b4d7c0389698dd118270"}
+INFO:     127.0.0.1:58940 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58944 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58960 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58970 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58978 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58992 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:30.344+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "5a17945822b21dc0973a2b4dc413b088"}
+INFO:     127.0.0.1:60552 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:60616 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58996 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59008 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59022 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59032 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60586 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:31.384+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "636b258be7ccc34a6aeb1b7fc71de7d5"}
+INFO:     127.0.0.1:58880 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:60636 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59040 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60312 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:32.228+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "b97fc3dcf3290f3504c2c4234016cd2f"}
+{"timestamp": "2026-05-31T12:55:32.229+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "b97fc3dcf3290f3504c2c4234016cd2f"}
+INFO:     127.0.0.1:59046 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59052 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59058 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:33.412+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "b62d928700599c436386a2137705f1b8"}
+INFO:     127.0.0.1:59072 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59080 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59086 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59102 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58996 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59110 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:34.297+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "c7b7c5859c3e75361f92b3b5cfd1faee"}
+INFO:     127.0.0.1:58960 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59116 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58880 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:34.641+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "9551e6b0280841a43f295f86a7adb476"}
+{"timestamp": "2026-05-31T12:55:34.641+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "9551e6b0280841a43f295f86a7adb476"}
+INFO:     127.0.0.1:59126 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59136 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59032 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60552 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59142 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59040 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59158 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:35.369+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "de497012159b9ae05db3187be951df02"}
+{"timestamp": "2026-05-31T12:55:35.369+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "de497012159b9ae05db3187be951df02"}
+INFO:     127.0.0.1:59160 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59008 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59166 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:35.664+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "ba8675660fd5623290fdf6208b73eced"}
+{"timestamp": "2026-05-31T12:55:35.664+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "ba8675660fd5623290fdf6208b73eced"}
+INFO:     127.0.0.1:59176 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59180 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59184 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:35.986+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "564b77fae91f14e9b1fee77e1dc440d8"}
+INFO:     127.0.0.1:59196 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60636 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60312 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59206 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59214 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59216 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59226 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59240 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:37.162+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "52f39d32fa3f7fb34772d0dfb7edb932"}
+INFO:     127.0.0.1:59252 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59268 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59058 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59116 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:37.628+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "4646a5d56628816caa7080e3a26ab945"}
+INFO:     127.0.0.1:59272 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:37.870+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "7e7d1eb6e8ecccbe5b88c825e46fca3f"}
+INFO:     127.0.0.1:54370 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58880 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59110 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59102 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59032 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54396 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59158 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54400 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60552 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58960 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54402 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:39.767+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "c51986d13f026b1164c378540854416d"}
+{"timestamp": "2026-05-31T12:55:39.767+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "c51986d13f026b1164c378540854416d"}
+INFO:     127.0.0.1:54408 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59008 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59216 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54414 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59214 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59110 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54442 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59102 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54444 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54450 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54448 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54454 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54458 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54468 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54478 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54486 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54488 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54494 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:43.026+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "6ef24f5b703dd5bae98199e1e23ddbbd"}
+{"timestamp": "2026-05-31T12:55:43.027+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "6ef24f5b703dd5bae98199e1e23ddbbd"}
+INFO:     127.0.0.1:54498 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60552 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54514 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59158 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54540 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54546 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54548 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59032 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54554 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54568 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:44.289+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "91cdbdbf108318533e8a404bffd94402"}
+INFO:     127.0.0.1:54570 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:44.344+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "e1c53b43bced8fa51864b1c20293365a"}
+INFO:     127.0.0.1:54578 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54582 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:44.599+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.rule_engine", "function": "scan", "line": 149, "event": "rule_scan_complete", "trace_id": "f05046143aba22de039026b11a4ea4b4"}
+{"timestamp": "2026-05-31T12:55:44.599+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.scanner.contract_scanner", "function": "scan_source", "line": 42, "event": "contract_scan_complete", "trace_id": "f05046143aba22de039026b11a4ea4b4"}
+INFO:     127.0.0.1:54584 - "POST /scan/contract HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54598 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:45.209+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "ae9b5468b57d29254051692e5815beb9"}
+{"timestamp": "2026-05-31T12:55:45.211+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "ae9b5468b57d29254051692e5815beb9"}
+INFO:     127.0.0.1:54602 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54448 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54626 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54468 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:46.043+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "a4b7aa3eb218faf6b67a3c7655f43a01"}
+INFO:     127.0.0.1:54630 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:54632 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54638 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54494 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:46.661+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "7f9a8d30305db2d7733a4ced89b4758e"}
+INFO:     127.0.0.1:54654 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54656 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54662 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54674 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54582 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53818 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53834 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53846 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53848 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53850 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54546 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:48.608+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "ebc19fd149b21ab8c6bec96f7a72d9bc"}
+{"timestamp": "2026-05-31T12:55:48.609+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "ebc19fd149b21ab8c6bec96f7a72d9bc"}
+INFO:     127.0.0.1:53862 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53866 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53868 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53874 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53884 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53888 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54448 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53912 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53916 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54468 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53926 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54608 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53928 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53942 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53956 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54662 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53962 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54546 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53970 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53972 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:52.214+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "1b4933e1be83e3a895be42a981e325a8"}
+INFO:     127.0.0.1:53980 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53984 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53988 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54004 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54448 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53912 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53916 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54008 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54010 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54024 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54040 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54056 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54068 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54608 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54070 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54098 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53926 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:54.573+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "69f952b50c489de7319adb9f5adb60ff"}
+INFO:     127.0.0.1:54106 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:54.609+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "c8088159eeac63d8e22b224537d4d3f5"}
+INFO:     127.0.0.1:54120 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:54136 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54152 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54168 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54176 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54186 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54202 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54206 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:55.880+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "968c086d8824cb121bdf884efabc3e90"}
+INFO:     127.0.0.1:54218 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:55.917+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "f26dd16c63986b3e174a16ac825f2d8e"}
+INFO:     127.0.0.1:54220 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:53956 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53984 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54224 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54230 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54234 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54248 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:56.776+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "df594c1fc5697c7918f202659bb05c31"}
+{"timestamp": "2026-05-31T12:55:56.777+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "df594c1fc5697c7918f202659bb05c31"}
+INFO:     127.0.0.1:54262 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53972 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54272 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54056 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54024 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54448 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54168 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59006 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:58.042+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "5c657b1ee06666f4d342a96a55846dbf"}
+INFO:     127.0.0.1:59022 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:55:58.194+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "296cc23f7c7597ed9cc2fdd02631844c"}
+INFO:     127.0.0.1:59026 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59042 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53926 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:55:58.459+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "4cda369e7f9756035beb01d8197235bb"}
+{"timestamp": "2026-05-31T12:55:58.460+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "4cda369e7f9756035beb01d8197235bb"}
+{"timestamp": "2026-05-31T12:55:58.464+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "049980d13323ce300f51fb32e838daa7"}
+INFO:     127.0.0.1:54608 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59046 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54202 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59050 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59064 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59080 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59094 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54176 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59110 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54224 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59116 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59122 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54234 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:00.474+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "1db54cc203092af843dc5ae154bd5d6d"}
+INFO:     127.0.0.1:59130 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59136 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54206 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54056 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59146 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54272 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:01.090+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "86920a7f9b3a74c9a365a46bf5e5ad62"}
+INFO:     127.0.0.1:54024 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59152 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54168 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59164 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54248 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59174 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54608 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59064 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59176 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59184 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54202 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59194 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59202 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54224 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59208 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59214 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54206 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59218 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59234 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59136 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59242 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59246 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59250 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59256 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54272 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59272 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:05.264+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "34f1b12258811e9fb1cf678e783e75d7"}
+INFO:     127.0.0.1:59282 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59064 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59284 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59290 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:05.679+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "5343748a088df26cf74724d1b9148993"}
+INFO:     127.0.0.1:54024 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59174 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59176 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59300 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:06.306+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "c97e64938d223a7112df9585427883bc"}
+INFO:     127.0.0.1:59316 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:54168 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:06.519+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "519977edb0d3179a8cf192bef2e40de1"}
+INFO:     127.0.0.1:59324 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:59326 - "GET /alerts/critical HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:06.998+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "92d1fef68e33320ce9e826c9b192664b"}
+INFO:     127.0.0.1:59338 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54202 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:07.326+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "ee002ac440f2da48cbe62de6db4c1c0e"}
+{"timestamp": "2026-05-31T12:56:07.327+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "ee002ac440f2da48cbe62de6db4c1c0e"}
+INFO:     127.0.0.1:59346 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59354 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59364 - "GET /alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59366 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39934 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59208 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39942 - "GET /graph/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39952 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:08.391+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "509d1690a03ba42b6e3c8abe2c9863d3"}
+INFO:     127.0.0.1:59272 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:54206 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59136 - "GET /graph/0x742d35Cc6634C0532925a3b8D4C9C5B9A4e3F52A HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:08.546+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "40f979a31c6726d64500c6d3ed8c5f06"}
+INFO:     127.0.0.1:59064 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:56:08.936+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "21a9508383253d0107cac9bf90c59380"}
+INFO:     127.0.0.1:59218 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+{"timestamp": "2026-05-31T12:56:08.944+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "8f6ab5e8d5b1d5feaa9a59ff2de76307"}
+INFO:     127.0.0.1:39968 - "POST /analyze/wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39988 - "GET /health HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:09.014+00:00", "level": "ERROR", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "score_tabular", "line": 139, "event": "ae_scoring_failed", "trace_id": "44a1f05515a5ab09100914d78984e089"}
+{"timestamp": "2026-05-31T12:56:09.015+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "44a1f05515a5ab09100914d78984e089"}
+INFO:     127.0.0.1:39984 - "POST /analyze/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39992 - "GET /graph/stats/summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40000 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40016 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59316 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59290 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40020 - "GET /alerts?limit=20 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:10.113+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "28a86a2a2533b05919a10b9c815b3810"}
+INFO:     127.0.0.1:40022 - "GET /alerts?limit=20 HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:40032 - "GET /graph/0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40044 - "GET /graph/0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326 HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T12:56:10.447+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.middleware.rate_limiter", "function": "dispatch", "line": 108, "event": "rate_limit_exceeded", "trace_id": "116b05c1626b0d8d33ee39353443a36f"}
+INFO:     127.0.0.1:40056 - "POST /scan/contract HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:40068 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40070 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40084 - "GET /alerts/critical HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40092 - "GET /graph/0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34496 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34508 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48044 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58066 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58070 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51494 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51504 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34638 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58510 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58524 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55088 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55104 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56722 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43706 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43716 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59902 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59918 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44120 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54628 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54632 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47616 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47622 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53412 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53418 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58882 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44088 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42548 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42550 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34352 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34364 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50528 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38360 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38362 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43232 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43242 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44260 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43848 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43850 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50642 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50646 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38566 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53866 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53874 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37136 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37142 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48154 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60890 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60904 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50344 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50356 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38536 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60516 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60518 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55794 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55808 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59294 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53340 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53344 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57176 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57178 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38004 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59356 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59360 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53606 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53618 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48256 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55250 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55256 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44360 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44370 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56136 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60192 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60204 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38062 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38074 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51436 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33086 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33088 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40486 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40500 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58852 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58002 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58006 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57572 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48010 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56766 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41890 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41894 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56190 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53522 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53532 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33208 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33216 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53596 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55256 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55262 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53754 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53764 - "GET /metrics HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58980 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56124 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41842 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41848 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47440 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57326 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57334 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57110 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57124 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46912 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51048 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51058 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56128 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56142 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44632 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38678 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38692 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39500 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39508 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60804 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53056 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53058 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53854 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53862 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58400 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:40320 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:40336 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36274 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36276 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47636 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52668 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52682 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46170 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46180 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50064 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42116 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42126 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56992 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57004 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42346 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56578 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56594 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47532 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47544 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60934 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60832 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60834 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51742 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51748 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33470 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39738 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39746 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60430 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60442 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54920 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38320 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38332 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37296 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37306 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:32944 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39966 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39980 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49678 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49694 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38986 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52518 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52530 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44264 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44274 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39106 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45638 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45650 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55470 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55484 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43066 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33128 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33138 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49902 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49908 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:34976 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45564 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45570 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46248 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46260 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39746 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58022 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58026 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50264 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50270 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52654 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48904 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48912 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46306 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46310 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33486 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33494 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54652 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44172 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44178 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51346 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41008 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43674 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43680 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51476 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51482 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54466 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53174 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53182 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36346 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36358 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34706 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40864 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40880 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42960 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42968 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54836 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34774 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34782 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39984 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39988 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56538 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39152 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39158 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34456 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34470 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56292 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60428 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60438 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59524 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49244 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37732 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37748 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60794 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60800 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36158 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59040 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59052 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33744 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33746 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48796 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45920 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45924 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57704 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57718 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59182 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33680 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33684 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51934 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51944 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35732 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59554 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59568 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43352 - "GET /metrics HTTP/1.1" 200 OK

@@ -96,3 +96,28 @@ Dilithium3 signs 2.8x faster than ECDSA; signatures are 46x larger.
 2. Live-native model labels are weak and gas_price-dominant.
 3. CI runs a test subset (no 200MB Elliptic dataset in repo).
 4. Polygon is sampled at 20%; the 16-vector has 3 dead graph slots offline.
+
+---
+
+## 5. Load test (Locust, 50 users, 2 min, authenticated)
+
+Three simulated user classes (analyst / investigator / scanner) with
+weighted realistic task mixes, all authenticated via JWT.
+
+| Metric | Value |
+|---|---|
+| Aggregate p50 latency | 11 ms |
+| Aggregate p95 latency | 300 ms |
+| Aggregate p99 latency | 390 ms |
+| Throughput | ~7.5 req/s sustained |
+| Fast reads (/alerts, /graph) p50 | 10-12 ms |
+| ML scoring (/analyze/transaction) p50 | 61 ms |
+| Total requests | ~870 |
+
+**Rate-limiter finding:** the first run showed 86 `/alerts` 429s because
+the limiter keyed purely by IP, so all 50 users (same localhost IP) shared
+one 100/min budget. Fixed by keying on the authenticated user (JWT `sub`)
+when present, falling back to IP — `/alerts` false-throttling dropped to 28
+(~67% reduction). Remaining 429s are a test-harness artifact (shared
+dev-token identity across analyst users) plus correct protection on the
+deliberately low-limit `/scan/contract` endpoint.
