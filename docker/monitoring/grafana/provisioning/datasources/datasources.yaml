@@ -1,0 +1,30 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    editable: false
+    jsonData:
+      # Derived field: when a log line has a trace_id, render it as a
+      # clickable link that opens the matching trace in Jaeger.
+      derivedFields:
+        - name: TraceID
+          matcherRegex: '"trace_id":\s*"([^"]+)"'
+          url: '$${__value.raw}'
+          datasourceUid: jaeger_uid
+
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    uid: jaeger_uid
+    editable: false

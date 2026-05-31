@@ -150,6 +150,30 @@ services:
     networks:
       - cryptosentinel-net
 
+
+  loki:
+    image: grafana/loki:3.1.1
+    container_name: cryptosentinel-loki
+    command: -config.file=/etc/loki/loki-config.yml
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+    networks:
+      - cryptosentinel-net
+
+  promtail:
+    image: grafana/promtail:3.1.1
+    container_name: cryptosentinel-promtail
+    command: -config.file=/etc/promtail/promtail-config.yml
+    volumes:
+      - ./loki/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+      - ../logs:/var/log/cryptosentinel:ro
+    depends_on:
+      - loki
+    networks:
+      - cryptosentinel-net
+
 volumes:
   postgres_data:
   grafana_data:

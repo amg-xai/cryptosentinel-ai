@@ -1,0 +1,77 @@
+liboqs-python faulthandler is disabled
+{"timestamp": "2026-05-31T07:03:08.889+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.crypto.pqc_handler", "function": "__init__", "line": 100, "event": "pqc_signer_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:10.709+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.monitoring.tracing", "function": "setup_tracing", "line": 42, "event": "otel_tracing_initialized", "trace_id": "-"}
+INFO:     Started server process [70569]
+INFO:     Waiting for application startup.
+{"timestamp": "2026-05-31T07:03:10.835+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 30, "event": "api_starting", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:14.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.isolation_forest", "function": "load", "line": 282, "event": "model_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:14.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 50, "event": "isolation_forest_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:18.773+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "__init__", "line": 174, "event": "device_selected", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:20.841+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "load", "line": 423, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:20.842+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 66, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.051+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "__init__", "line": 96, "event": "gnn_trainer_init", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "load", "line": 325, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 96, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 105, "event": "model_registry_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 32, "event": "models_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.401+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.db.session", "function": "init_db", "line": 39, "event": "database_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T07:03:22.401+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 37, "event": "database_init", "trace_id": "-"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:39142 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54098 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37194 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37208 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44586 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44602 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39492 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39336 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39350 - "GET /metrics HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T07:04:14.779+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 133, "event": "token_created", "trace_id": "1c496bf98086105ca9bbd37253633d15"}
+INFO:     127.0.0.1:39356 - "GET /auth/dev-token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39364 - "GET /analyze/0x8589427373D6D84E98730D7795D8f6f8731FDA16 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53858 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53870 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52556 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35716 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35726 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42736 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33014 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33024 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54562 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54564 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55156 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57916 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57932 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58882 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55222 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55238 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41886 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41900 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55158 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54768 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54770 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52482 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52494 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54848 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48694 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48710 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45270 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45282 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53052 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33382 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33388 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46442 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46454 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41990 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48142 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48144 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43392 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43398 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38688 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39038 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39042 - "GET /metrics HTTP/1.1" 200 OK

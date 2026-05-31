@@ -1,0 +1,30 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: cryptosentinel-host-services
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: cryptosentinel
+          __path__: /var/log/cryptosentinel/*.log
+    pipeline_stages:
+      # Our logs are JSON lines — parse them and lift fields into labels
+      - json:
+          expressions:
+            level: level
+            module: module
+            trace_id: trace_id
+            event: event
+      - labels:
+          level:
+          module:
+          trace_id:
