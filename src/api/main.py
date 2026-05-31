@@ -78,12 +78,19 @@ app.add_middleware(
 )
 
 # Register all routers
+from fastapi import Depends
+from src.api.auth import require_auth
+
+# auth_router stays open (login/refresh/dev-token must be reachable without
+# a token). All other routers require authentication on every endpoint —
+# this is the enforcement layer; individual routes can add stricter role
+# checks on top.
 app.include_router(auth_router)
-app.include_router(analysis.router)
-app.include_router(alerts.router)
-app.include_router(graph.router)
-app.include_router(scanner.router)
-app.include_router(explain_router)
+app.include_router(analysis.router, dependencies=[Depends(require_auth)])
+app.include_router(alerts.router, dependencies=[Depends(require_auth)])
+app.include_router(graph.router, dependencies=[Depends(require_auth)])
+app.include_router(scanner.router, dependencies=[Depends(require_auth)])
+app.include_router(explain_router, dependencies=[Depends(require_auth)])
 
 
 @app.get("/health", tags=["System"])

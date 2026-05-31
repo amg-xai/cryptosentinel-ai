@@ -113,7 +113,7 @@ Combined weight: IF(0.10) + AE(0.25) + GNN(0.55) + graph_centrality(0.10)
 | GNN | PyTorch Geometric | State-of-the-art GNN library |
 | Graph | NetworkX | Flexible, well-documented graph algorithms |
 | PQC | liboqs (NIST reference) | Official NIST PQC implementation |
-| API | FastAPI | Async, auto-docs, Pydantic validation |
+| API | FastAPI | Async, auto-docs, Pydantic validation; RS256 JWT auth + RBAC enforced on all routes, refresh flow, Redis JTI revocation |
 | Dashboard | Streamlit | Rapid SOC UI development |
 | Observability | Prometheus + Grafana + Jaeger + Loki | Metrics + traces + logs, correlated by trace_id in one Grafana pane |
 | Container | Docker + Kubernetes | Production deployment standard |

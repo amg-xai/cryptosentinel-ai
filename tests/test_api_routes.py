@@ -1,10 +1,15 @@
 """Tests for FastAPI routes."""
 
+"""Tests for FastAPI routes."""
 from fastapi.testclient import TestClient
-
 from src.api.main import app
+from src.api.auth import create_access_token
 
 client = TestClient(app)
+# Authenticate all requests from this client (routes now require auth).
+# Public routes (/health, /, /metrics, /auth/*) ignore the header harmlessly.
+_token = create_access_token(user_id="test@cryptosentinel.ai", role="admin")
+client.headers.update({"Authorization": f"Bearer {_token}"})
 
 
 def test_health_returns_200():

@@ -1,77 +1,145 @@
 liboqs-python faulthandler is disabled
-{"timestamp": "2026-05-31T07:03:08.889+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.crypto.pqc_handler", "function": "__init__", "line": 100, "event": "pqc_signer_initialized", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:10.709+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.monitoring.tracing", "function": "setup_tracing", "line": 42, "event": "otel_tracing_initialized", "trace_id": "-"}
-INFO:     Started server process [70569]
+{"timestamp": "2026-05-31T11:43:19.271+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.crypto.pqc_handler", "function": "__init__", "line": 100, "event": "pqc_signer_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:22.513+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.token_store", "function": "_connect", "line": 40, "event": "token_store_redis_connected", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:22.745+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.monitoring.tracing", "function": "setup_tracing", "line": 42, "event": "otel_tracing_initialized", "trace_id": "-"}
+INFO:     Started server process [73222]
 INFO:     Waiting for application startup.
-{"timestamp": "2026-05-31T07:03:10.835+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 30, "event": "api_starting", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:14.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.isolation_forest", "function": "load", "line": 282, "event": "model_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:14.752+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 50, "event": "isolation_forest_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:18.773+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "__init__", "line": 174, "event": "device_selected", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:20.841+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "load", "line": 423, "event": "autoencoder_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:20.842+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 66, "event": "autoencoder_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.051+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "__init__", "line": 96, "event": "gnn_trainer_init", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "load", "line": 325, "event": "gnn_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 96, "event": "gnn_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 105, "event": "model_registry_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.265+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 32, "event": "models_loaded", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.401+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.db.session", "function": "init_db", "line": 39, "event": "database_initialized", "trace_id": "-"}
-{"timestamp": "2026-05-31T07:03:22.401+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 37, "event": "database_init", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:22.952+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 30, "event": "api_starting", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:28.619+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.isolation_forest", "function": "load", "line": 282, "event": "model_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:28.619+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 50, "event": "isolation_forest_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:36.642+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "__init__", "line": 174, "event": "device_selected", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:40.520+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.tabular.autoencoder", "function": "load", "line": 423, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:40.521+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 66, "event": "autoencoder_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:41.778+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "__init__", "line": 96, "event": "gnn_trainer_init", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:41.968+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.ml.gnn.trainer", "function": "load", "line": 325, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 96, "event": "gnn_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.model_registry", "function": "load_all", "line": 105, "event": "model_registry_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:41.969+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 32, "event": "models_loaded", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:42.209+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.db.session", "function": "init_db", "line": 39, "event": "database_initialized", "trace_id": "-"}
+{"timestamp": "2026-05-31T11:43:42.209+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.main", "function": "lifespan", "line": 37, "event": "database_init", "trace_id": "-"}
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:39142 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54098 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37194 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37208 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44586 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44602 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39492 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39336 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39350 - "GET /metrics HTTP/1.1" 200 OK
-{"timestamp": "2026-05-31T07:04:14.779+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 133, "event": "token_created", "trace_id": "1c496bf98086105ca9bbd37253633d15"}
-INFO:     127.0.0.1:39356 - "GET /auth/dev-token HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39364 - "GET /analyze/0x8589427373D6D84E98730D7795D8f6f8731FDA16 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53858 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53870 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52556 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55904 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55914 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:35716 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:35726 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33014 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33024 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54562 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54564 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51636 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55144 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55156 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57916 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57932 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58882 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55222 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55238 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41886 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41900 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55158 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54768 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54770 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52482 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52494 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54848 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48694 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48710 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45270 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45282 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53052 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33382 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33388 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46442 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46454 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41990 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48142 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48144 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43392 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43398 - "GET /metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38688 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39038 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39042 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41452 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41456 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53702 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34016 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34020 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41432 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41440 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41456 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43400 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43416 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53066 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53076 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57322 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49920 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49926 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49630 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49632 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49634 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49650 - "POST /analyze/wallet HTTP/1.1" 401 Unauthorized
+{"timestamp": "2026-05-31T11:45:27.640+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_access_token", "line": 134, "event": "token_created", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
+{"timestamp": "2026-05-31T11:45:27.702+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.auth", "function": "create_refresh_token", "line": 162, "event": "refresh_token_created", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
+{"timestamp": "2026-05-31T11:45:27.702+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "login", "line": 53, "event": "user_logged_in", "trace_id": "33fabf38a69ad64a47ffe6dc60f820dd"}
+INFO:     127.0.0.1:49664 - "POST /auth/token HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T11:45:27.749+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.response.risk_scorer", "function": "score", "line": 293, "event": "risk_assessment_complete", "trace_id": "d28dd8cb7b93b69ee60e1d62376251e2"}
+INFO:     127.0.0.1:49678 - "POST /analyze/wallet HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T11:45:27.816+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.token_store", "function": "revoke", "line": 52, "event": "token_revoked", "trace_id": "531a4600c0a575eea16a6bba741ec23c"}
+{"timestamp": "2026-05-31T11:45:27.816+00:00", "level": "INFO", "service": "cryptosentinel", "module": "src.api.routes.auth", "function": "logout", "line": 105, "event": "user_logged_out", "trace_id": "531a4600c0a575eea16a6bba741ec23c"}
+INFO:     127.0.0.1:49690 - "POST /auth/logout HTTP/1.1" 200 OK
+{"timestamp": "2026-05-31T11:45:27.861+00:00", "level": "WARNING", "service": "cryptosentinel", "module": "src.api.auth", "function": "get_current_user", "line": 219, "event": "revoked_token_rejected", "trace_id": "5cf74fe2b40d169ae85aa3c07b4142c0"}
+INFO:     127.0.0.1:49694 - "POST /analyze/wallet HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58980 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56116 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56124 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41842 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41848 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47440 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57326 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57334 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57110 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57124 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46912 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56128 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56142 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44632 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38678 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38692 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60804 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53056 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53058 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53854 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53862 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58400 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40320 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40336 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36274 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36276 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52668 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52682 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46170 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46180 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50064 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42116 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42126 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56992 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57004 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42346 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56578 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56594 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47532 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47544 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60934 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60832 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60834 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51742 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51748 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33470 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39738 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39746 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60430 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60442 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54920 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38320 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38332 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37296 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32944 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39966 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39980 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49678 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49694 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38986 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52518 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52530 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44264 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44274 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39106 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45638 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45650 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55470 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55484 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43066 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33128 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33138 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49902 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34976 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45564 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45570 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46248 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46260 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39746 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58022 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58026 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50264 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50270 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52654 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48912 - "GET /metrics HTTP/1.1" 200 OK

@@ -73,6 +73,7 @@ class TokenPayload(BaseModel):
 
 class TokenPair(BaseModel):
     access_token: str
+    refresh_token: str = ""
     token_type: str = "bearer"
     expires_in: int = 900  # 15 minutes in seconds
 
@@ -139,6 +140,29 @@ def create_access_token(
     return token
 
 
+def create_refresh_token(
+    user_id: str,
+    role: str = "analyst",
+    expires_days: int = 7,
+) -> str:
+    """Create a long-lived RS256 refresh token (type=refresh)."""
+    private_key = _load_private_key()
+    if not private_key:
+        raise HTTPException(status_code=500, detail="Auth service not configured")
+    now = time.time()
+    payload = {
+        "sub": user_id,
+        "role": role,
+        "jti": str(uuid.uuid4()),
+        "exp": now + (expires_days * 86400),
+        "iat": now,
+        "type": "refresh",
+    }
+    token = jwt.encode(payload, private_key, algorithm="RS256")
+    logger.info("refresh_token_created", user_id=user_id, role=role)
+    return token
+
+
 def create_dev_token(role: str = "admin") -> str:
     """
     Create a development token without expiry check.
@@ -188,7 +212,17 @@ async def get_current_user(
             algorithms=["RS256"],
             options={"verify_exp": True},
         )
-        return TokenPayload(**payload)
+        token_data = TokenPayload(**payload)
+        # Reject revoked tokens (logout / compromise) even before expiry
+        from src.api.token_store import token_store
+        if token_store.is_revoked(token_data.jti):
+            logger.warning("revoked_token_rejected", jti=token_data.jti[:8])
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token has been revoked",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        return token_data
 
     except JWTError as e:
         logger.warning("token_validation_failed", error=str(e))
