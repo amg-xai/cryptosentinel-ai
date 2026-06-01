@@ -290,7 +290,11 @@ class CompositeRiskScorer:
             ),
         )
 
-        logger.info(
+        # Demoted to debug: this fires on EVERY scored transaction and
+        # profiling showed per-request logging dominates hot-path time.
+        # Threats are still surfaced via alerts + the known-bad warning log;
+        # routine scoring no longer logs at INFO on the hot path.
+        logger.debug(
             "risk_assessment_complete",
             address=address[:12] + "...",
             score=round(composite, 4),

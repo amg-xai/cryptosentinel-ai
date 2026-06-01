@@ -65,4 +65,10 @@ class Settings(BaseSettings):
     # scores regardless of this flag.
     trust_live_model_scores: bool = Field(default=False)
 
+    # Fraction of traces to sample (1.0 = trace everything). Profiling
+    # showed 100% tracing dominates hot-path request time, so production
+    # should sample (e.g., 0.1). Default stays 1.0 so dev/demo sees every
+    # trace in Jaeger; set OTEL_TRACES_SAMPLE_RATIO=0.1 in production.
+    otel_traces_sample_ratio: float = Field(default=1.0)
+
 settings = Settings()

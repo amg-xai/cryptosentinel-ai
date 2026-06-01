@@ -10,8 +10,11 @@ from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-
+from opentelemetry.sdk.trace.sampling import (
+    ParentBased, TraceIdRatioBased, ALWAYS_ON,
+)
 from config.logging_config import get_logger
+from config.settings import settings
 
 logger = get_logger(__name__)
 
@@ -24,9 +27,17 @@ def setup_tracing(service_name: str = "cryptosentinel") -> trace.Tracer:
     before anything else runs.
     """
     global _tracer
-
     resource = Resource.create({"service.name": service_name})
-    provider = TracerProvider(resource=resource)
+
+    # Sample a configurable fraction of traces. ParentBased keeps a trace
+    # intact end-to-end (if the root is sampled, children are too), avoiding
+    # broken partial traces. ratio=1.0 traces everything (dev default).
+    ratio = settings.otel_traces_sample_ratio
+    if ratio >= 1.0:
+        sampler = ALWAYS_ON
+    else:
+        sampler = ParentBased(root=TraceIdRatioBased(ratio))
+    provider = TracerProvider(resource=resource, sampler=sampler)
 
     import os
     otlp_endpoint = os.getenv(
