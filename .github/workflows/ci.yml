@@ -164,3 +164,26 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  benchmarks:
+    name: Performance Benchmarks (report)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest pytest-benchmark numpy numba scikit-learn pydantic pydantic-settings loguru python-jose
+      - name: Run hot-path benchmarks (report only, non-blocking)
+        run: |
+          pytest tests/benchmarks/test_hotpath_benchmarks.py --benchmark-only \
+            --benchmark-json=benchmark-results.json \
+            --benchmark-columns=min,median,mean || true
+      - name: Upload benchmark report
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: benchmark-results.json

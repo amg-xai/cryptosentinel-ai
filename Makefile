@@ -37,6 +37,16 @@ test-full:
 test-bench:
 	pytest tests/benchmarks/ -v --benchmark-sort=mean
 
+bench-save:
+	pytest tests/benchmarks/test_hotpath_benchmarks.py --benchmark-only \
+		--benchmark-save=hotpath_baseline --benchmark-min-rounds=20
+
+bench-check:
+	pytest tests/benchmarks/test_hotpath_benchmarks.py --benchmark-only \
+		--benchmark-compare=0001_hotpath_baseline \
+		--benchmark-compare-fail=min:50% \
+		--benchmark-columns=min,median
+
 audit:
 	pip-audit --output json -o pip-audit-report.json
 	@echo "Audit complete. See pip-audit-report.json"
