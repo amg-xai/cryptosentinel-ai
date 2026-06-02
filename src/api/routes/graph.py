@@ -16,11 +16,25 @@ async def get_wallet_graph(
     max_depth: int = 3,
     threat_graph=Depends(get_threat_graph),
 ):
-    """Get threat graph intelligence for a wallet address."""
+    """Get threat graph intelligence for a wallet address.
+
+    Graph analysis (laundering paths, peel-back, round-trips) degrades
+    gracefully: if the graph layer fails, we still return wallet stats with
+    empty analysis and degraded=True, rather than a 500. A single graph
+    hiccup must not take down the endpoint.
+    """
     stats = threat_graph.get_wallet_stats(address)
-    paths = threat_graph.find_laundering_paths(address, max_depth=max_depth)
-    ancestors = list(threat_graph.peel_back(address, max_depth=max_depth))
-    round_trips = threat_graph.detect_round_trips(address)
+    paths: list = []
+    ancestors: list = []
+    round_trips: list = []
+    degraded = False
+    try:
+        paths = threat_graph.find_laundering_paths(address, max_depth=max_depth)
+        ancestors = list(threat_graph.peel_back(address, max_depth=max_depth))
+        round_trips = threat_graph.detect_round_trips(address)
+    except Exception as e:
+        degraded = True
+        logger.warning("graph_analysis_degraded", address=address[:12], error=str(e))
 
     return GraphQueryResponse(
         address=address,
@@ -29,6 +43,7 @@ async def get_wallet_graph(
         ancestors=ancestors,
         round_trips=round_trips,
         cluster_id=stats.get("cluster_id") if stats else None,
+        degraded=degraded,
     )
 
 

@@ -111,6 +111,7 @@ class GraphQueryResponse(BaseModel):
     ancestors: list[str]
     round_trips: list[dict]
     cluster_id: int | None
+    degraded: bool = False  # True if graph analysis partially failed
 
 
 class HealthResponse(BaseModel):
