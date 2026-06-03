@@ -9,18 +9,18 @@ import streamlit as st
 def render_kpi_cards(health: dict, alerts: dict, graph_stats: dict):
     """Top row KPI metrics."""
     col1, col2, col3, col4 = st.columns(4)
-
     stats = alerts.get("stats", {})
-    by_tier = stats.get("by_tier", {})
-
+    # DB-backed stats shape: {total, by_severity:{MEDIUM,HIGH,CRITICAL}, last_24h}
+    by_sev = stats.get("by_severity", {})
+    total_alerts = stats.get("total", alerts.get("total_active", 0))
     with col1:
         st.metric(
             label="🔍 Active Alerts",
-            value=stats.get("total_active", 0),
-            delta=f"+{stats.get('total_created', 0)} total created",
+            value=total_alerts,
+            delta=f"+{stats.get('last_24h', 0)} in last 24h",
         )
     with col2:
-        critical = by_tier.get("EMERGENCY_ESCALATE", 0)
+        critical = by_sev.get("CRITICAL", 0)
         st.metric(
             label="🚨 Critical Threats",
             value=critical,

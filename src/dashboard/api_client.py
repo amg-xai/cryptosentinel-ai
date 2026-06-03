@@ -13,6 +13,20 @@ logger = get_logger(__name__)
 API_BASE = "http://localhost:8000"
 TIMEOUT = 5
 
+# Dashboard authenticates with a dev token (dashboard is an internal SOC
+# tool). Cached after first fetch. Protected routes require this post-auth.
+_token_cache = {"token": None}
+
+
+def _auth_headers() -> dict:
+    if _token_cache["token"] is None:
+        try:
+            r = requests.get(f"{API_BASE}/auth/dev-token?role=admin", timeout=TIMEOUT)
+            _token_cache["token"] = r.json().get("access_token", "")
+        except Exception:
+            _token_cache["token"] = ""
+    return {"Authorization": f"Bearer {_token_cache['token']}"}
+
 
 def get_health() -> dict:
     try:
@@ -23,10 +37,24 @@ def get_health() -> dict:
 
 
 def get_alerts(limit: int = 50) -> dict:
+    """Pull alerts from the PostgreSQL-backed history (shared across
+    processes), not the API's in-memory list which is empty when the
+    pipeline runs as a separate process."""
     try:
-        r = requests.get(f"{API_BASE}/alerts?limit={limit}", timeout=TIMEOUT)
-        return r.json()
-    except Exception:
+        h = _auth_headers()
+        # DB-backed recent alerts + DB stats (the real, persisted data)
+        hist = requests.get(f"{API_BASE}/alerts/history?limit={limit}",
+                            headers=h, timeout=TIMEOUT).json()
+        stats = requests.get(f"{API_BASE}/alerts/stats/database",
+                             headers=h, timeout=TIMEOUT).json()
+        alerts = hist.get("alerts", hist if isinstance(hist, list) else [])
+        return {
+            "total_active": stats.get("total", 0),
+            "alerts": alerts,
+            "stats": stats,
+        }
+    except Exception as e:
+        logger.warning("dashboard_get_alerts_failed", error=str(e))
         return {"total_active": 0, "alerts": [], "stats": {}}
 
 
