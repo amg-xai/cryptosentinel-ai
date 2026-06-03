@@ -54,3 +54,7 @@ coverage.xml
 # Benchmark baselines ARE committed (they are your perf history)
 # benchmark-data/*.json   <-- intentionally NOT ignored
 .coverage
+
+# Runtime logs (never commit)
+logs/
+*.log

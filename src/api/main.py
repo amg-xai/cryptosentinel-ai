@@ -51,7 +51,7 @@ app = FastAPI(
         "- analyst@cryptosentinel.ai / analyst123\n"
         "- admin@cryptosentinel.ai / admin123"
     ),
-    version="0.1.0",
+    version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
