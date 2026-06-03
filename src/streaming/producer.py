@@ -34,9 +34,17 @@ def _delivery_callback(err, msg) -> None:
 
 
 class ThreatIntelProducer:
+    # Bounded local buffer for messages that fail to produce (Kafka outage).
+    # maxlen caps memory: under a sustained outage we keep the most recent
+    # N messages and evict the oldest, rather than growing unbounded / OOM.
+    _BUFFER_MAXLEN = 10000
+
     def __init__(self, bootstrap_servers: str | None = None):
+        from collections import deque
         self.bootstrap_servers = bootstrap_servers or settings.kafka_bootstrap_servers
         self._producer = self._create_producer()
+        # Dead-letter buffer: list of (topic, key, value) tuples
+        self._buffer = deque(maxlen=self._BUFFER_MAXLEN)
 
     def _create_producer(self) -> Producer:
         config = {
@@ -75,21 +83,51 @@ class ThreatIntelProducer:
             "produced_at": int(time.time()),
         }
 
+        value = json.dumps(payload).encode()
+        key = tx.from_addr.encode()
         try:
+            # Opportunistically drain any buffered messages first
+            self._drain_buffer()
             self._producer.produce(
                 topic=topic,
-                key=tx.from_addr.encode(),
-                value=json.dumps(payload).encode(),
+                key=key,
+                value=value,
                 on_delivery=_delivery_callback,
             )
             self._producer.poll(0)
-        except KafkaException as e:
+        except Exception as e:
+            # Buffer the message so a Kafka outage delays alerts rather than
+            # losing them. Catches broad Exception (not just KafkaException)
+            # so injected/unexpected failures also degrade gracefully.
+            self._buffer.append((topic, key, value))
             logger.error(
-                "kafka_produce_failed",
+                "kafka_produce_failed_buffered",
                 error=str(e),
                 topic=topic,
                 tx_hash=tx.tx_hash,
+                buffer_size=len(self._buffer),
             )
+
+    def _drain_buffer(self) -> int:
+        """Attempt to re-produce buffered messages. Returns count drained.
+        On failure, the message stays buffered for the next attempt."""
+        drained = 0
+        while self._buffer:
+            topic, key, value = self._buffer[0]
+            try:
+                self._producer.produce(topic=topic, key=key, value=value,
+                                       on_delivery=_delivery_callback)
+                self._producer.poll(0)
+                self._buffer.popleft()
+                drained += 1
+            except Exception:
+                break  # still failing — keep remaining buffered, try later
+        if drained:
+            logger.info("kafka_buffer_drained", count=drained,
+                        remaining=len(self._buffer))
+        return drained
+
+    
 
     def produce_alert(self, alert: dict, severity: str = "high") -> None:
         topic = f"alerts.{severity}"
