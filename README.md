@@ -1,90 +1,95 @@
 # 🛡️ CryptoSentinel AI
 
-> Quantum-resistant blockchain threat intelligence platform with GNN-based money laundering detection
+**Quantum-resistant blockchain threat intelligence platform** — detects money laundering and fraud on live multi-chain transactions using Graph Neural Networks, scans smart contracts for vulnerabilities, and signs threat alerts with post-quantum cryptography.
 
-[![CI](https://github.com/amg-xai/cryptosentinel-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/amg-xai/cryptosentinel-ai/actions)
-![Python](https://img.shields.io/badge/python-3.11-blue)
-![Tests](https://img.shields.io/badge/tests-215%20passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-green)
+> All performance numbers below are **audited** — re-verified by re-running evaluation against the served model artifacts (see docs/BENCHMARKS.md), not copied from training logs.
 
 ## What it does
 
-CryptoSentinel AI monitors live Ethereum blockchain transactions, detects money laundering and fraud using Graph Neural Networks, scans smart contracts for vulnerabilities, and signs all threat alerts with post-quantum cryptography.
+Monitors live **Ethereum (Sepolia)** and **Polygon (mainnet)** transactions concurrently, scores each for fraud/laundering risk through an ensemble + graph pipeline, escalates threats by action tier, and exposes everything through an authenticated API, a SOC dashboard, and a full metrics/traces/logs observability stack.
 
-**Headline result:** GNN achieves **F1=0.708, ROC-AUC=0.905** on the Elliptic Bitcoin dataset — compared to Isolation Forest F1=0.001. Graph structure is the key signal for blockchain fraud detection.
+**Headline results (audited):**
+- **GNN: F1 = 0.700, ROC-AUC = 0.902** on the Elliptic Bitcoin dataset — vs. Isolation Forest F1 ~ 0.001. Graph structure is the signal.
+- **Live-native model: 5-fold CV F1 = 0.866** on the real 16-feature live space, trained with weak labels from OFAC sanctions + community darklists.
+- **Post-quantum:** ML-DSA-65 signs 2.8x faster than ECDSA.
+
+## Screenshots
+
+![Grafana dashboard](docs/images/grafana-dashboard.png)
+
+![Jaeger trace](docs/images/jaeger-trace.png)
 
 ## Quick Start
 
-```bash
-# Start infrastructure
-cd docker && docker compose up -d && cd ..
+Infrastructure, then API, pipeline, dashboard:
 
-# Start API
-uvicorn src.api.main:app --host 0.0.0.0 --port 8000 &
+    cd docker && docker compose up -d && cd ..
+    uvicorn src.api.main:app --host 0.0.0.0 --port 8000 &
+    python -m src.pipeline.scoring_pipeline &
+    python -m streamlit run src/dashboard/app.py
 
-# Start dashboard
-python -m streamlit run src/dashboard/app.py
-```
+API: localhost:8000/docs - Dashboard: localhost:8501 - Grafana: localhost:3000 - Jaeger: localhost:16686
 
-Open `http://localhost:8501`
+See docs/RUNBOOK.md for full operations. Allow 15-30s for the API to load models and become healthy.
 
 ## Architecture
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for full system diagram.
+    Ethereum Sepolia + Polygon mainnet
+        -> BlockIngester (async, sampled) -> Kafka -> Feature Extraction
+        -> Ensemble (IF + VAE + GNN + live-native model)
+        -> ThreatGraph (NetworkX) -> Risk Scorer (composite, tiered)
+        -> PQC-signed Alerts -> FastAPI (JWT/RBAC) behind Traefik gateway
+        -> SOC Dashboard
+    Observability: Prometheus (metrics) + Jaeger (traces) + Loki (logs),
+    correlated by trace_id.
 
-**Data flow:**
-Ethereum Sepolia → BlockIngester → Kafka → Feature Extraction
-→ Ensemble ML (IF + VAE + GNN) → ThreatGraph → Risk Scorer
-→ PQC-signed Alerts → FastAPI → Streamlit SOC Dashboard
-## ML Results (Elliptic Bitcoin Dataset)
+Full diagram: docs/ARCHITECTURE.md
 
-| Model | F1 | ROC-AUC |
-|---|---|---|
-| Isolation Forest | 0.001 | 0.168 |
-| VAE Autoencoder | 0.004 | 0.198 |
-| **GNN (GraphSAGE+GAT)** | **0.708** | **0.905** |
+## ML Results (audited - Elliptic Bitcoin dataset)
 
-## Tech Stack
+- Isolation Forest: F1 ~ 0.001 (weak baseline)
+- VAE Autoencoder: F1 ~ 0.004 (weak baseline)
+- GNN (GraphSAGE+GAT): F1 = 0.700, ROC-AUC = 0.902 (served checkpoint, re-verified)
 
-| Layer | Technology |
-|---|---|
-| Blockchain | Web3.py, Alchemy, Ethereum Sepolia |
-| Streaming | Apache Kafka (confluent-kafka) |
-| ML | PyTorch, PyTorch Geometric, scikit-learn |
-| GNN | GraphSAGE + GAT, NeighborLoader |
-| Graph | NetworkX, Union-Find, Louvain |
-| PQC | liboqs (ML-DSA-65, ML-KEM-768) |
-| API | FastAPI, Pydantic, Prometheus |
-| Dashboard | Streamlit (dark SOC theme) |
-| Infrastructure | Docker, Kubernetes, GitHub Actions |
+Live-native model (16-feature live space): 5-fold CV F1 = 0.866 +/- 0.034, Test F1 = 0.877, ROC-AUC = 0.984.
+
+Why two models? The Elliptic-trained GNN cannot score live EVM features (different feature space), so a live-native classifier handles live detection. See docs/MODELS.md.
 
 ## Key Features
 
-- **Live blockchain ingestion** — real Ethereum Sepolia transactions via WebSocket
-- **3-tier ML detection** — Isolation Forest + VAE Autoencoder + GNN ensemble
-- **Threat graph engine** — laundering path detection, wallet clustering, peel-back tracing
-- **Smart contract scanner** — reentrancy, access control, selfdestruct detection
-- **Post-quantum cryptography** — NIST FIPS 203/204 (ML-DSA-65 + ML-KEM-768)
-- **SOC dashboard** — 4-page dark theme UI with real-time alerts
-- **Production infrastructure** — Docker, Kubernetes with HPA, Prometheus + Grafana
+- Multi-chain concurrent ingestion (async, per-chain sampling)
+- Ensemble + GNN fraud detection; ThreatGraph laundering-path analysis
+- Cross-chain bridge / multi-chain actor correlation
+- Live-native ML trained on real on-chain behavior (weak supervision)
+- PSI drift detection (baseline from the live scoring path)
+- Post-quantum crypto (ML-DSA-65 / ML-KEM-768, NIST FIPS 203/204)
+- Smart-contract scanner (rule + ML)
+- Auth: RS256 JWT + RBAC on all routes, refresh + Redis JTI revocation
+- API gateway (Traefik) with circuit breaker + graceful degradation
+- Full observability: Prometheus + Jaeger + Loki, trace-log correlated
+- Resilience: Kafka dead-letter buffer, fault-injection-verified degradation
+
+## Tech Stack
+
+Python 3.11, FastAPI, Web3.py, Kafka, PyTorch + PyTorch Geometric, NetworkX, scikit-learn, liboqs, Streamlit, Docker, Kubernetes, Prometheus, Grafana, Jaeger, Loki, Traefik, HashiCorp Vault, PostgreSQL.
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [Models & Benchmarks](docs/MODELS.md)
-- [Performance](docs/BENCHMARKS.md)
-- [K8s Deployment](k8s/README.md)
+- docs/ARCHITECTURE.md - system design
+- docs/BENCHMARKS.md - audited metrics (single source of truth)
+- docs/MODELS.md - model details + honest caveats
+- docs/PERFORMANCE.md - profiling + optimization
+- docs/RUNBOOK.md - operations
+- SECURITY.md - security posture + accepted risks
 
 ## Tests
-```bash
-make test       # 213 fast tests, ~37s (skips slow SHAP integration tests)
-make test-full  # all 215 tests incl. SHAP explainability, ~2min
-```
 
-## Research Extensions
+    make test         # fast suite (~40s)
+    make test-full    # incl. slow SHAP tests
+    make bench-check  # performance regression gate (local)
 
-- Federated learning across multiple blockchain monitoring nodes
-- Additional chains (Solana, Bitcoin) with cross-chain laundering detection (Ethereum + Polygon already live)
-- Transformer-based smart contract vulnerability detection
-- Real-time SOAR integration (Splunk, Palo Alto XSOAR)
-- ZK-proof based privacy-preserving threat intelligence sharing
+285 tests passing.
+
+## Honest limitations
+
+Tracked transparently (full list in BENCHMARKS.md / SECURITY.md): live-native model uses weak labels; CI runs a test subset (no 200MB dataset in repo); Polygon sampled at 20%; Elliptic models do not transfer to live features (which is why the live-native model exists). The benchmark gate is enforced locally and reported non-blocking in CI due to cross-machine noise.
