@@ -1,0 +1,24 @@
+# ServiceMonitor — tells the Prometheus Operator to scrape the API's
+# /metrics endpoint in-cluster. The Deployment already exposes Prometheus
+# annotations; this is the Operator-native equivalent for clusters running
+# kube-prometheus-stack.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cryptosentinel-api
+  namespace: cryptosentinel
+  labels:
+    app: cryptosentinel-api
+    release: prometheus  # match your kube-prometheus-stack release label
+spec:
+  selector:
+    matchLabels:
+      app: cryptosentinel-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s
+  namespaceSelector:
+    matchNames:
+      - cryptosentinel
