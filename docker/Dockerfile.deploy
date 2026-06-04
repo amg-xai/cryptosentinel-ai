@@ -28,7 +28,8 @@ RUN pip install --no-cache-dir \
     numba pandas shap \
     "python-jose[cryptography]" "passlib[bcrypt]" python-multipart \
     web3 redis xgboost plotly polars python-dotenv \
-    sqlalchemy psycopg2-binary
+    sqlalchemy psycopg2-binary \
+    streamlit
 
 COPY --chown=sentinel:sentinel src/ ./src/
 COPY --chown=sentinel:sentinel config/ ./config/

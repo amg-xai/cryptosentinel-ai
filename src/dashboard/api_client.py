@@ -10,7 +10,8 @@ from config.logging_config import get_logger
 
 logger = get_logger(__name__)
 
-API_BASE = "http://localhost:8000"
+import os
+API_BASE = os.getenv("API_BASE", "http://localhost:8000")
 TIMEOUT = 5
 
 # Dashboard authenticates with a dev token (dashboard is an internal SOC

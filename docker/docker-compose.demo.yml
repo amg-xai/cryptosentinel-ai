@@ -1,0 +1,39 @@
+# One-command local demo: API + dashboard + Postgres.
+# No Kafka/Vault/monitoring — scoring is on-demand via the API.
+# Run from repo root:  docker compose -f docker/docker-compose.demo.yml up
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sentinel
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: cryptosentinel
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sentinel"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.deploy
+    image: cryptosentinel-deploy:latest
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql://sentinel:demo@postgres:5432/cryptosentinel"
+      ENVIRONMENT: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  dashboard:
+    image: cryptosentinel-deploy:latest
+    command: ["python", "-m", "streamlit", "run", "src/dashboard/app.py", "--server.address=0.0.0.0", "--server.port=8501"]
+    ports:
+      - "8501:8501"
+    environment:
+      API_BASE: "http://api:8000"
+    depends_on:
+      - api
