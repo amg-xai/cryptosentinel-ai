@@ -28,6 +28,10 @@ _start_time = time.time()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("api_starting")
+    # Ensure JWT keys exist (generates ephemeral keypair in deploy/demo if
+    # no committed keys are present — see generate_keys_if_missing).
+    from src.api.auth import generate_keys_if_missing
+    generate_keys_if_missing()
     model_status = registry.load_all()
     logger.info("models_loaded", status=model_status)
 

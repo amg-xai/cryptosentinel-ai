@@ -78,6 +78,37 @@ class TokenPair(BaseModel):
     expires_in: int = 900  # 15 minutes in seconds
 
 
+def generate_keys_if_missing() -> None:
+    """Generate an ephemeral RS256 keypair at the configured paths if none
+    exist. Used in deploy/demo environments where committed keys aren't
+    present. Keys are per-container (not persisted across restarts) — fine
+    for a demo; production should mount real keys via a secret."""
+    import os
+    priv_path = settings.jwt_private_key_path
+    pub_path = settings.jwt_public_key_path
+    if os.path.exists(priv_path) and os.path.exists(pub_path):
+        return
+    try:
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        from cryptography.hazmat.primitives import serialization
+        os.makedirs(os.path.dirname(priv_path) or ".", exist_ok=True)
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        with open(priv_path, "wb") as f:
+            f.write(key.private_bytes(
+                encoding=serialization.Encoding.PEM,
+                format=serialization.PrivateFormat.PKCS8,
+                encryption_algorithm=serialization.NoEncryption(),
+            ))
+        with open(pub_path, "wb") as f:
+            f.write(key.public_key().public_bytes(
+                encoding=serialization.Encoding.PEM,
+                format=serialization.PublicFormat.SubjectPublicKeyInfo,
+            ))
+        logger.warning("jwt_keys_generated_ephemeral", path=priv_path)
+    except Exception as e:
+        logger.error("jwt_key_generation_failed", error=str(e))
+
+
 def _load_private_key() -> str:
     try:
         with open(settings.jwt_private_key_path) as f:

@@ -12,12 +12,20 @@ WORKDIR /app
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir torch==2.12.0 \
     --index-url https://download.pytorch.org/whl/cpu
+RUN pip install --no-cache-dir torch-geometric
 
 # Core deps only — NO confluent-kafka, NO liboqs (not needed for slimmed demo)
+# Core deps. Excludes confluent-kafka, liboqs, hvac (not imported on the API
+# startup path — verified). Includes numba, torch-geometric, pandas, shap,
+# opentelemetry (all ARE on the startup/scoring path).
 RUN pip install --no-cache-dir \
     fastapi==0.115.12 "uvicorn[standard]" pydantic-settings loguru \
     prometheus-client prometheus-fastapi-instrumentator \
+    opentelemetry-sdk opentelemetry-api \
+    opentelemetry-exporter-otlp-proto-grpc \
+    opentelemetry-instrumentation-fastapi \
     requests networkx python-louvain numpy scikit-learn joblib \
+    numba pandas shap \
     "python-jose[cryptography]" "passlib[bcrypt]" python-multipart \
     web3 redis xgboost plotly polars python-dotenv \
     sqlalchemy psycopg2-binary
