@@ -112,3 +112,17 @@ Python 3.11, FastAPI, Web3.py, Kafka, PyTorch + PyTorch Geometric, NetworkX, sci
 ## Honest limitations
 
 Tracked transparently (full list in BENCHMARKS.md / SECURITY.md): live-native model uses weak labels; CI runs a test subset (no 200MB dataset in repo); Polygon sampled at 20%; Elliptic models do not transfer to live features (which is why the live-native model exists). The benchmark gate is enforced locally and reported non-blocking in CI due to cross-machine noise.
+
+## Run the demo locally
+
+The full detection system — API + SOC dashboard + database — runs with one command (no Kafka/Vault/monitoring needed; scoring is on-demand):
+
+    docker compose -f docker/docker-compose.demo.yml up
+
+Then open:
+- SOC dashboard: http://localhost:8501
+- API docs (Swagger): http://localhost:8000/docs
+
+Models are baked into the image; the database initializes automatically. First build takes a few minutes (PyTorch + dependencies). To stop and reset: `docker compose -f docker/docker-compose.demo.yml down -v`.
+
+Note: post-quantum signing (liboqs) is omitted from the slimmed demo image for fast startup; the full PQC stack runs via the main `docker/docker-compose.yml`.
