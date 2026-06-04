@@ -15,10 +15,29 @@ Monitors live **Ethereum (Sepolia)** and **Polygon (mainnet)** transactions conc
 
 ## Screenshots
 
+### Grafana Dashboard
+
 ![Grafana dashboard](docs/images/grafana-dashboard.png)
+
+### Jaeger Distributed Trace
 
 ![Jaeger trace](docs/images/jaeger-trace.png)
 
+### Performance Profiling
+
+![Flamegraph](docs/images/flamegraph.png)
+
+### SOC Dashboard
+
+![SOC Dashboard](docs/images/soc-dashboard.png)
+
+### Prometheus Metrics
+
+![Prometheus](docs/images/prometheus.png)
+
+### Operations Monitoring
+
+![Operations Dashboard](docs/images/grafana-operations.png)
 ## Quick Start
 
 Infrastructure, then API, pipeline, dashboard:
