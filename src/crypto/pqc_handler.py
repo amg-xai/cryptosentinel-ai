@@ -32,7 +32,12 @@ import json
 import time
 from dataclasses import dataclass, field
 
-import oqs
+try:
+    import oqs
+    _OQS_AVAILABLE = True
+except Exception:  # liboqs not installed (e.g., slimmed deploy image)
+    oqs = None
+    _OQS_AVAILABLE = False
 
 from config.logging_config import get_logger
 from src.monitoring.metrics import PQC_SIGNING_LATENCY
@@ -93,10 +98,17 @@ class PQCAlertSigner:
     """
 
     def __init__(self):
+        if not _OQS_AVAILABLE:
+            # Slimmed deploy without liboqs: degrade gracefully. Signing is
+            # disabled; everything else (scoring, graph, API) works normally.
+            self._sig = None
+            self._public_key = b""
+            self._is_initialized = False
+            logger.warning("pqc_signer_unavailable_liboqs_missing")
+            return
         self._sig = oqs.Signature(DILITHIUM_ALG)
         self._public_key: bytes = self._sig.generate_keypair()
         self._is_initialized = True
-
         logger.info(
             "pqc_signer_initialized",
             algorithm=DILITHIUM_ALG,
@@ -113,8 +125,11 @@ class PQCAlertSigner:
         Sign an alert payload with Dilithium3.
         The payload is hashed with SHA-256 before signing.
         """
+        if not self._is_initialized:
+            raise RuntimeError(
+                "PQC signing unavailable (liboqs not installed in this build)"
+            )
         start = time.perf_counter()
-
         # Canonical JSON serialization — deterministic key ordering
         payload_bytes = json.dumps(alert, sort_keys=True, separators=(",", ":")).encode(
             "utf-8"

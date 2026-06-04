@@ -1,0 +1,41 @@
+# Slimmed deployment image: API + models, no Kafka/Vault, binds to $PORT.
+# Models baked in (5.9MB). PQC made optional so startup isn't blocked.
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --no-create-home --shell /bin/false --uid 1001 sentinel
+WORKDIR /app
+
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir torch==2.12.0 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+# Core deps only — NO confluent-kafka, NO liboqs (not needed for slimmed demo)
+RUN pip install --no-cache-dir \
+    fastapi==0.115.12 "uvicorn[standard]" pydantic-settings loguru \
+    prometheus-client prometheus-fastapi-instrumentator \
+    requests networkx python-louvain numpy scikit-learn joblib \
+    "python-jose[cryptography]" "passlib[bcrypt]" python-multipart \
+    web3 redis xgboost plotly polars python-dotenv \
+    sqlalchemy psycopg2-binary
+
+COPY --chown=sentinel:sentinel src/ ./src/
+COPY --chown=sentinel:sentinel config/ ./config/
+COPY --chown=sentinel:sentinel .streamlit/ ./.streamlit/
+# THE CRITICAL FIX: bake the models into the image
+COPY --chown=sentinel:sentinel data/models/ ./data/models/
+
+RUN mkdir -p data/processed data/visualizations && \
+    chown -R sentinel:sentinel /app
+
+USER sentinel
+ENV PYTHONPATH="/app"
+ENV PYTHONUNBUFFERED=1
+ENV DEMO_MODE=1
+
+EXPOSE 8000
+# Bind to the platform-injected $PORT (defaults to 8000 locally)
+CMD ["sh", "-c", "uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
