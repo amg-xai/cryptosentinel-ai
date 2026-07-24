@@ -36,6 +36,7 @@ COPY --chown=sentinel:sentinel config/ ./config/
 COPY --chown=sentinel:sentinel .streamlit/ ./.streamlit/
 # THE CRITICAL FIX: bake the models into the image
 COPY --chown=sentinel:sentinel data/models/ ./data/models/
+COPY --chown=sentinel:sentinel data/known_bad_addresses.json ./data/known_bad_addresses.json
 
 RUN mkdir -p data/processed data/visualizations && \
     chown -R sentinel:sentinel /app

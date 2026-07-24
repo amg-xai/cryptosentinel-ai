@@ -4,6 +4,9 @@ from fastapi import APIRouter, Depends
 
 from config.logging_config import get_logger
 from src.api.dependencies import get_alert_manager, get_risk_scorer, get_threat_graph
+from src.db.session import is_available as db_available
+from src.db.alert_repository import save_alert
+from src.response.watchlist import is_known_bad
 from src.api.model_registry import registry
 from src.api.schemas import (
     ModelScoresResponse,
@@ -39,6 +42,7 @@ async def analyze_wallet(
         autoencoder=-1.0,
         isolation_forest=-1.0,
         graph_centrality=graph_centrality,
+        known_bad_address=is_known_bad(address),
     )
     value_eth = graph_stats.get("total_value_eth", 0.0) if graph_stats else 0.0
     assessment = risk_scorer.score(
@@ -49,6 +53,8 @@ async def analyze_wallet(
     )
     if assessment.is_threat:
         alert_manager.add_or_update(assessment)
+        if db_available():
+            save_alert(assessment.to_dict())
 
     return WalletAnalysisResponse(
         address=address,
@@ -95,6 +101,7 @@ async def analyze_transaction(
         autoencoder=tabular_scores.get("autoencoder", -1.0),
         isolation_forest=tabular_scores.get("isolation_forest", -1.0),
         graph_centrality=0.0,
+        known_bad_address=is_known_bad(request.from_addr),
     )
     assessment = risk_scorer.score(
         address=request.from_addr,
@@ -104,6 +111,8 @@ async def analyze_transaction(
     )
     if assessment.is_threat:
         alert_manager.add_or_update(assessment)
+        if db_available():
+            save_alert(assessment.to_dict())
 
     return TransactionScanResponse(
         tx_hash=request.tx_hash,
